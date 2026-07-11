@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:22:04.5506690Z",
+    "geradoEmUTC": "2026-07-11T22:09:51.8897979Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193405245180978",
+    "versionTicks": "639194045918344363",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -273,6 +273,14 @@
       "docVersao": "viou u",
       "origem": "merger",
       "texto": "07/07/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: bom dia! vejam, por favor, o que acham das minhas sugestões. no questionamento\n2, como vcs informaram aqui\nno... ‌ ‌ ‌ ‌."
+    },
+    {
+      "bloqueado": false,
+      "data": "08/07/2026",
+      "docTipo": "TR",
+      "docVersao": "V - RE",
+      "origem": "merger",
+      "texto": "08/07/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Prezados?\n\n\nObrigado pelo envio das propostas comerciais com a planilha de formação de\npreços.\n\n\nPercebemos que as plani."
     }
   ],
   "timeline": [
@@ -605,8 +613,18 @@
       "docVersao": "viou u",
       "dt": "2026-07-07T10:00:24",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "Re: DATAPREV - REITERAÇÃO PESQUISA DE MERCADO: SUBSCRIÇÃO PARA FERRAMENTAS DA BR",
+      "autor": "",
+      "data": "2026-07-08",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "V - RE",
+      "dt": "2026-07-08T16:12:38",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:22:04.5884509Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T22:09:51.9138825Z"
 }
