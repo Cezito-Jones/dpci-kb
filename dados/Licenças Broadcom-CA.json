@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:15:59.4615682Z",
+    "geradoEmUTC": "2026-07-11T04:16:57.0442821Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193401594253563",
+    "versionTicks": "639193402170120967",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -89,6 +89,46 @@
       "docVersao": "",
       "origem": "merger",
       "texto": "02/07/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Alcione\n\n \n\nSeguem as respostas no corpo do e-mail.\n\n \n\nAtenciosamente,\n\nsombra superior esquerda [cid:image001.png@01DD."
+    },
+    {
+      "bloqueado": false,
+      "data": "02/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "02/07/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Como falado no Teams, essas ponderações vieram junto aos questionamentos da HCL.\nPrecisamos de ajuda de vocês para respo."
+    },
+    {
+      "bloqueado": false,
+      "data": "02/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "02/07/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Boa tarde a todos, segue RITM\nRITM0143569\n\n\n\nsombra superior esquerda\n[https://portal3.dataprev.gov.br/sites/default/fil."
+    },
+    {
+      "bloqueado": false,
+      "data": "02/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "02/07/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Prezados,\n\n\nEnviamos para vossa análise a solicitação de avaliação de Similaridade.\nRecebemos da equipe de Compras esse ."
+    },
+    {
+      "bloqueado": false,
+      "data": "02/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "02/07/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Boa tarde, prezados.\n \nEm pesquisa ao banco de preços, identificamos procedimentos licitatórios com\nindícios de similari."
+    },
+    {
+      "bloqueado": false,
+      "data": "30/06/2026",
+      "docTipo": "TR",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "30/06/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Prezada @Alcione Maria Monteiro de Andrade Lima\n[alcione.monteiro@dataprev.gov.br], boa tarde.\n\n\nSegue resposta aos ques."
     }
   ],
   "timeline": [
@@ -191,8 +231,58 @@
       "docVersao": "",
       "dt": "2026-07-02T16:40:55",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "[Questionamento - Pesquisa de Mercado ]  SUBSCRIÇÃO PARA FERRAMENTAS DA BROADCOM",
+      "autor": "",
+      "data": "2026-07-02",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-02T15:43:18",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RE: [Similaridade - Pesquisa de Banco de Preços ]  SUBSCRIÇÃO PARA FERRAMENTAS D",
+      "autor": "",
+      "data": "2026-07-02",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-02T14:56:36",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "[Similaridade - Pesquisa de Banco de Preços ]  SUBSCRIÇÃO PARA FERRAMENTAS DA BR",
+      "autor": "",
+      "data": "2026-07-02",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-02T11:55:43",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "SIMILARIDADE - AQUISIÇÃO E SUPORTE LICENÇAS DA CA-BROADCOM SEI 44129.002819/2026",
+      "autor": "",
+      "data": "2026-07-02",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-02T10:27:37",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RE: DIGR- [Questionamento - Pesquisa de Mercado ]  SUBSCRIÇÃO PARA FERRAMENTAS D",
+      "autor": "",
+      "data": "2026-06-30",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "",
+      "dt": "2026-06-30T18:07:50",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:15:59.4855585Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:16:57.0696068Z"
 }
