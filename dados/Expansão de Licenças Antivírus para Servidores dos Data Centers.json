@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:25:16.5720853Z",
+    "geradoEmUTC": "2026-07-11T04:25:23.7956927Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193407165361358",
+    "versionTicks": "639193407237652483",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -105,6 +105,22 @@
       "docVersao": "vidual",
       "origem": "merger",
       "texto": "08/07/2026 – DPCI registrou evento relevante referente a Expansão de Licenças Antivírus para Servidores dos Data Centers: EStou a caminho da minha fisioterapia . Comecei também o Memo de resposta ao\naponte do antivírus, termino na minha volta."
+    },
+    {
+      "bloqueado": false,
+      "data": "08/07/2026",
+      "docTipo": "ET",
+      "docVersao": "vidual",
+      "origem": "merger",
+      "texto": "08/07/2026 – DPCI registrou evento relevante referente a Expansão de Licenças Antivírus para Servidores dos Data Centers: Olha...vc pode seguir assim: - x86 - memo de resposta do Antivírus. O Antivírus\nvai ter um novo ET com ajustes dos apont."
+    },
+    {
+      "bloqueado": false,
+      "data": "09/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "vidual",
+      "origem": "merger",
+      "texto": "09/07/2026 – DPCI registrou evento relevante referente a Expansão de Licenças Antivírus para Servidores dos Data Centers: isso que importa....comigo tá tudo bem tb....que bom. Chegou a ver as respostas\naos apontamentos de compras do processo ."
     }
   ],
   "timeline": [
@@ -227,8 +243,28 @@
       "docVersao": "vidual",
       "dt": "2026-07-08T17:54:14",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "Chat individual",
+      "autor": "Cezar de Souza Matos",
+      "data": "2026-07-08",
+      "dir": "ENV",
+      "docTipo": "ET",
+      "docVersao": "vidual",
+      "dt": "2026-07-08T17:56:09",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "Chat individual",
+      "autor": "Cezar de Souza Matos",
+      "data": "2026-07-09",
+      "dir": "ENV",
+      "docTipo": "Outro",
+      "docVersao": "vidual",
+      "dt": "2026-07-09T10:46:20",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:25:16.6023267Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:25:23.8183186Z"
 }
