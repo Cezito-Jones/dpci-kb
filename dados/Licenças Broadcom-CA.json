@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T22:13:16.1814613Z",
+    "geradoEmUTC": "2026-07-11T22:13:47.3535924Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639194047961441643",
+    "versionTicks": "639194048273235629",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -626,5 +626,5 @@
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T22:13:16.2096086Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T22:13:47.3853589Z"
 }
