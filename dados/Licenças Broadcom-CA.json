@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:14:09.3786528Z",
+    "geradoEmUTC": "2026-07-11T04:14:55.1337979Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193400492578414",
+    "versionTicks": "639193400951006899",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -41,6 +41,22 @@
       "docVersao": "VA IT ",
       "origem": "merger",
       "texto": "06/07/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Cezar, bom dia!\n\n \n\nObrigado pelo envio da proposta, entendemos que foi só para conhecimento porque\nela contém apenas a ."
+    },
+    {
+      "bloqueado": false,
+      "data": "06/07/2026",
+      "docTipo": "TR",
+      "docVersao": "V - PE",
+      "origem": "merger",
+      "texto": "06/07/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Caros,\n\n\n   por favor, desconsiderar este e-mail.\n\n\n\nAtenciosamente,\n\nsombra superior esquerda [data:image/png;base64,\ni."
+    },
+    {
+      "bloqueado": false,
+      "data": "06/07/2026",
+      "docTipo": "TR",
+      "docVersao": "V - PE",
+      "origem": "merger",
+      "texto": "06/07/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Caros, bom dia.\n\n\n\n  Segue resposta ao questionamento:\n\n\n\n\n\"Para efeito de planejamento de carga de trabalho e alocação ."
     }
   ],
   "timeline": [
@@ -83,8 +99,28 @@
       "docVersao": "VA IT ",
       "dt": "2026-07-06T12:20:04",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "Re: DATAPREV - PESQUISA DE MERCADO: SUBSCRIÇÃO PARA FERRAMENTAS DA BROADCOM JUN/",
+      "autor": "",
+      "data": "2026-07-06",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "V - PE",
+      "dt": "2026-07-06T11:53:18",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "Re: DATAPREV - PESQUISA DE MERCADO: SUBSCRIÇÃO PARA FERRAMENTAS DA BROADCOM JUN/",
+      "autor": "",
+      "data": "2026-07-06",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "V - PE",
+      "dt": "2026-07-06T10:37:57",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:14:09.5222217Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:14:55.1600072Z"
 }
