@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:21:25.4427171Z",
+    "geradoEmUTC": "2026-07-11T04:21:39.2049301Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193404854130278",
+    "versionTicks": "639193404991583353",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -49,6 +49,14 @@
       "docVersao": "",
       "origem": "merger",
       "texto": "08/06/2026 – DPCI registrou evento relevante referente a Nova solução de balanceamento multisite: Bom dia a todos,\n\n \n\nCom relação a revalidação da Análise de Similaridade Técnica segue abaixo:\n\n \n\nInformamos que estão."
+    },
+    {
+      "bloqueado": false,
+      "data": "08/06/2026",
+      "docTipo": "ET",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "08/06/2026 – DPCI registrou evento relevante referente a Nova solução de balanceamento multisite: Bom dia @Edmilson Ary Mendes Piraciaba [edmilson.piraciaba@dataprev.gov.br] e\n@Paulo Rezende Quintanilha [paulo.quintani."
     }
   ],
   "timeline": [
@@ -101,8 +109,18 @@
       "docVersao": "",
       "dt": "2026-06-08T10:02:00",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "ENC: ANÁLISE DE SIMILARIDADE - SOLUÇÃO DE BALANCEAMENTO MULTISITE (RITM0134779)",
+      "autor": "",
+      "data": "2026-06-08",
+      "dir": "ENV",
+      "docTipo": "ET",
+      "docVersao": "",
+      "dt": "2026-06-08T09:17:00",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:21:25.4671607Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:21:39.3813087Z"
 }
