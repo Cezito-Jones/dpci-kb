@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:21:17.3395067Z",
+    "geradoEmUTC": "2026-07-11T04:22:04.5506690Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193404773090608",
+    "versionTicks": "639193405245180978",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -265,6 +265,14 @@
       "docVersao": "v1.1",
       "origem": "merger",
       "texto": "08/06/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Boa noite a todos,\n\n \n\nNós revisamos o Termo de Referência da contratação de suporte às licenças\nBroadcom com base na es."
+    },
+    {
+      "bloqueado": false,
+      "data": "07/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "viou u",
+      "origem": "merger",
+      "texto": "07/07/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: bom dia! vejam, por favor, o que acham das minhas sugestões. no questionamento\n2, como vcs informaram aqui\nno... ‌ ‌ ‌ ‌."
     }
   ],
   "timeline": [
@@ -587,8 +595,18 @@
       "docVersao": "v1.1",
       "dt": "2026-06-08T19:10:00",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "Natalia Barbosa Ramos enviou uma mensagem",
+      "autor": "",
+      "data": "2026-07-07",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "viou u",
+      "dt": "2026-07-07T10:00:24",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:21:17.3664137Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:22:04.5884509Z"
 }
