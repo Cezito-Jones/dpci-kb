@@ -1,0 +1,36 @@
+{
+  "_syncGitHub": {
+    "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
+    "baseUtilizada": "Novo",
+    "geradoEmUTC": "2026-07-11T04:14:40.0080512Z",
+    "origem": "Power Automate - 4ª Fase Merger DPCI v7",
+    "versionTicks": "639193400799537917",
+    "publicadoPeloGitHubActions": true
+  },
+  "atestado": {},
+  "processoIdentificado": "Licenças Red Hat Linux e Runtimes",
+  "siscontic": [
+    {
+      "bloqueado": false,
+      "data": "06/07/2026",
+      "docTipo": "ETP",
+      "docVersao": "v0.1 p",
+      "origem": "merger",
+      "texto": "06/07/2026 – DPCI registrou evento relevante referente a Licenças Red Hat Linux e Runtimes: Bom dia, equipe DPCI.\n\n \n\n     Segue para análise da DPCI a v0.1 do Estudo Técnico de prorogação das\nsubscrições Red Hat."
+    }
+  ],
+  "timeline": [
+    {
+      "assunto": "[SUBSCRIÇÕES RED HAT] ETP v0.1 para análise DPCI",
+      "autor": "",
+      "data": "2026-07-06",
+      "dir": "REC",
+      "docTipo": "ETP",
+      "docVersao": "v0.1 p",
+      "dt": "2026-07-06T11:20:13",
+      "nomeArquivo": ""
+    }
+  ],
+  "ultimaAtualizacao": "2026-07-11",
+  "ultimaAtualizacaoUTC": "2026-07-11T04:14:40.0845132Z"
+}
