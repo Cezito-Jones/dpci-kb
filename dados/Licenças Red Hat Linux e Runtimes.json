@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:22:13.3405218Z",
+    "geradoEmUTC": "2026-07-11T04:23:11.2817612Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193405333080536",
+    "versionTicks": "639193405912460153",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -57,6 +57,14 @@
       "docVersao": "v0.1",
       "origem": "merger",
       "texto": "07/07/2026 – DPCI registrou evento relevante referente a Licenças Red Hat Linux e Runtimes: Prezado Emerson Moreira,\nCumprimentando-o cordialmente, o presente tem a finalidade de encaminhar a\nanálise do Estudo Té."
+    },
+    {
+      "bloqueado": false,
+      "data": "07/07/2026",
+      "docTipo": "ETP",
+      "docVersao": "v0.1 (",
+      "origem": "merger",
+      "texto": "07/07/2026 – DPCI registrou evento relevante referente a Licenças Red Hat Linux e Runtimes: Prezado! Alexander,\nBom dia!\nEm análise ao Estudo Técnico Preliminar referente à prorrogação das subscrições\nRed Hat, ve."
     }
   ],
   "timeline": [
@@ -119,8 +127,18 @@
       "docVersao": "v0.1",
       "dt": "2026-07-07T12:11:15",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "RE: ERRATA: [Análise Estudo Técnico - DIPL] Subscrições Red Hat - ETv0.1 (Com an",
+      "autor": "",
+      "data": "2026-07-07",
+      "dir": "REC",
+      "docTipo": "ETP",
+      "docVersao": "v0.1 (",
+      "dt": "2026-07-07T12:50:25",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:22:13.3646328Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:23:11.3083319Z"
 }
