@@ -1,10 +1,10 @@
 {
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
-    "baseUtilizada": "Novo",
-    "geradoEmUTC": "2026-07-11T04:19:46.0653371Z",
+    "baseUtilizada": "OneDrive",
+    "geradoEmUTC": "2026-07-11T04:24:47.9586072Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193403860384838",
+    "versionTicks": "639193406879139518",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -17,6 +17,22 @@
       "docVersao": "v0.3_c",
       "origem": "merger",
       "texto": "01/07/2026 – DPCI registrou evento relevante referente a Expansão da Solução Centralizada de Logs: {0} Ícone [cid:3d4d7602-0561-4d6f-b318-409c531ed825]\n[https://dataprevrj.sharepoint.com/sites/COGR/Documentos%20Comparti."
+    },
+    {
+      "bloqueado": false,
+      "data": "08/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "vid do",
+      "origem": "merger",
+      "texto": "08/07/2026 – DPCI registrou evento relevante referente a Expansão da Solução Centralizada de Logs: {0} Ícone [cid:1c629e60-dbe0-4f32-a5a3-dc729466c871]\n[https://dataprevrj.sharepoint.com/sites/COGR/Documentos%20Comparti."
+    },
+    {
+      "bloqueado": false,
+      "data": "08/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "vas da",
+      "origem": "merger",
+      "texto": "08/07/2026 – DPCI registrou evento relevante referente a Expansão da Solução Centralizada de Logs: Alterações significativas da v0.4 (em relação à versão 0.3)\n1) Inclusão de novo registro no histórico de revisões\nA v0.4."
     }
   ],
   "timeline": [
@@ -29,8 +45,28 @@
       "docVersao": "v0.3_c",
       "dt": "2026-07-01T15:42:07",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "David dos Santos Venancio respondeu a um comentário em \"DIPL_ETA_010_2026_Expans",
+      "autor": "",
+      "data": "2026-07-08",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "vid do",
+      "dt": "2026-07-08T12:17:04",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "Alterações significativas da v0.4 (em relação à versão 0.3)",
+      "autor": "",
+      "data": "2026-07-08",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "vas da",
+      "dt": "2026-07-08T15:41:12",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:19:46.0941478Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:24:47.9817273Z"
 }
