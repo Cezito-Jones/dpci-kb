@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:16:11.7969941Z",
+    "geradoEmUTC": "2026-07-11T04:16:32.7188060Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193401717699119",
+    "versionTicks": "639193401926905869",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -41,6 +41,22 @@
       "docVersao": "",
       "origem": "merger",
       "texto": "02/07/2026 – DPCI registrou evento relevante referente a Orientação Técnica Especializada IBM: Caro Erivelton, boa tarde.\n\n \n\n              Segue resposta ao questionamento da VSData:\n\n[cid:image003.png@01DD0A31.510."
+    },
+    {
+      "bloqueado": false,
+      "data": "02/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "02/07/2026 – DPCI registrou evento relevante referente a Orientação Técnica Especializada IBM: Fernanda, boa tarde!\n\n \n\nSegue nossa resposta para o questionamento abaixo da VSData.\n\n \n\nConsiderando que a prestação d."
+    },
+    {
+      "bloqueado": false,
+      "data": "01/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "01/07/2026 – DPCI registrou evento relevante referente a Orientação Técnica Especializada IBM: Caros Jailton e equipe, boa tarde.\n\n \n\n             Encaminhamos, para a sua análise, questionamento do fornecedor\nVSDat."
     }
   ],
   "timeline": [
@@ -83,8 +99,28 @@
       "docVersao": "",
       "dt": "2026-07-02T14:44:50",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "RES: PE 91076-2026 - Orientação Técnica Especializada IBM ELM - Solicitação de e",
+      "autor": "",
+      "data": "2026-07-02",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-02T14:26:21",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "ENC: PE 91076-2026 - Orientação Técnica Especializada IBM ELM - Solicitação de e",
+      "autor": "",
+      "data": "2026-07-01",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-01T16:13:08",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:16:11.8210584Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:16:32.7437957Z"
 }
