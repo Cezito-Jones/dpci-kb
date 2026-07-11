@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T22:18:35.7556437Z",
+    "geradoEmUTC": "2026-07-11T22:20:21.9744904Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639194051157219494",
+    "versionTicks": "639194052219383291",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -281,6 +281,22 @@
       "docVersao": "V - RE",
       "origem": "merger",
       "texto": "08/07/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Prezados?\n\n\nObrigado pelo envio das propostas comerciais com a planilha de formação de\npreços.\n\n\nPercebemos que as plani."
+    },
+    {
+      "bloqueado": false,
+      "data": "10/07/2026",
+      "docTipo": "TR",
+      "docVersao": "V - PE",
+      "origem": "merger",
+      "texto": "10/07/2026 – DPCI registrou pendência referente a Licenças Broadcom/CA: Prezados, boa tarde!\n\n\nSegue proposta da HCL Tech juntamente com um questionamento a respeito da\ngarantia.\n\n\n\n\n\n\nAtencio."
+    },
+    {
+      "bloqueado": false,
+      "data": "10/07/2026",
+      "docTipo": "TR",
+      "docVersao": "V - PE",
+      "origem": "merger",
+      "texto": "10/07/2026 – DPCI registrou pendência referente a Licenças Broadcom/CA: Boa tarde Alcione,\n\n \n\nPeço que por favor, analise o questionamento apresentado pela empresa HCL Tech\nque parece ser o m."
     }
   ],
   "timeline": [
@@ -623,8 +639,28 @@
       "docVersao": "V - RE",
       "dt": "2026-07-08T16:12:38",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "ENC: DATAPREV - PESQUISA DE MERCADO: SUBSCRIÇÃO PARA FERRAMENTAS DA BROADCOM JUN",
+      "autor": "",
+      "data": "2026-07-10",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "V - PE",
+      "dt": "2026-07-10T15:54:43",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "ENC: DATAPREV - PESQUISA DE MERCADO: SUBSCRIÇÃO PARA FERRAMENTAS DA BROADCOM JUN",
+      "autor": "",
+      "data": "2026-07-10",
+      "dir": "ENV",
+      "docTipo": "TR",
+      "docVersao": "V - PE",
+      "dt": "2026-07-10T17:13:49",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T22:18:35.8161845Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T22:20:22.0008504Z"
 }
