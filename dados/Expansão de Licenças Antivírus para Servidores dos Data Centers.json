@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T22:19:53.4965915Z",
+    "geradoEmUTC": "2026-07-11T22:20:03.5405944Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639194051934554356",
+    "versionTicks": "639194052033455178",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -339,8 +339,28 @@
       "docVersao": "vidual",
       "dt": "2026-07-10T09:56:55",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "Chat individual",
+      "autor": "Cezar de Souza Matos",
+      "data": "2026-07-10",
+      "dir": "ENV",
+      "docTipo": "ET",
+      "docVersao": "vidual",
+      "dt": "2026-07-10T09:57:06",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "Chat individual",
+      "autor": "Cezar de Souza Matos",
+      "data": "2026-07-10",
+      "dir": "ENV",
+      "docTipo": "ET",
+      "docVersao": "vidual",
+      "dt": "2026-07-10T10:01:45",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T22:19:53.5296798Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T22:20:03.5734277Z"
 }
