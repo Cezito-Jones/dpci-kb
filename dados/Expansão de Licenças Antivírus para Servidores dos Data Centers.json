@@ -1,0 +1,36 @@
+{
+  "_syncGitHub": {
+    "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
+    "baseUtilizada": "Novo",
+    "geradoEmUTC": "2026-07-11T04:15:34.6485877Z",
+    "origem": "Power Automate - 4ª Fase Merger DPCI v7",
+    "versionTicks": "639193401346171244",
+    "publicadoPeloGitHubActions": true
+  },
+  "atestado": {},
+  "processoIdentificado": "Expansão de Licenças Antivírus para Servidores dos Data Centers",
+  "siscontic": [
+    {
+      "bloqueado": false,
+      "data": "03/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "VÍRUS ",
+      "origem": "merger",
+      "texto": "03/07/2026 – DPCI registrou evento relevante referente a Expansão de Licenças Antivírus para Servidores dos Data Centers: Prezado(a) Ponto Focal,\n\nFoi incluída a etapa \"TR\" na demanda abaixo:\n\nPregão\nProcesso: 44129.010559/2025-33\nObjeto: T25."
+    }
+  ],
+  "timeline": [
+    {
+      "assunto": "[PGI-Compras] 44129.010559/2025-33 - T25.A13 - EXPANSÃO DE LICENÇAS ANTIVÍRUS PA",
+      "autor": "",
+      "data": "2026-07-03",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "VÍRUS ",
+      "dt": "2026-07-03T16:59:43",
+      "nomeArquivo": ""
+    }
+  ],
+  "ultimaAtualizacao": "2026-07-11",
+  "ultimaAtualizacaoUTC": "2026-07-11T04:15:34.6806133Z"
+}
