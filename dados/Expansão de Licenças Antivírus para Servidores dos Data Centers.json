@@ -1,10 +1,10 @@
 {
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
-    "baseUtilizada": "Novo",
-    "geradoEmUTC": "2026-07-11T04:15:34.6485877Z",
+    "baseUtilizada": "OneDrive",
+    "geradoEmUTC": "2026-07-11T04:18:53.6477805Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193401346171244",
+    "versionTicks": "639193403335992902",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -17,6 +17,14 @@
       "docVersao": "VÍRUS ",
       "origem": "merger",
       "texto": "03/07/2026 – DPCI registrou evento relevante referente a Expansão de Licenças Antivírus para Servidores dos Data Centers: Prezado(a) Ponto Focal,\n\nFoi incluída a etapa \"TR\" na demanda abaixo:\n\nPregão\nProcesso: 44129.010559/2025-33\nObjeto: T25."
+    },
+    {
+      "bloqueado": false,
+      "data": "03/07/2026",
+      "docTipo": "ET",
+      "docVersao": "vírus",
+      "origem": "merger",
+      "texto": "03/07/2026 – DPCI registrou evento relevante referente a Expansão de Licenças Antivírus para Servidores dos Data Centers: @Raynne Pereira da Silva Sodre [raynne.sodre@dataprev.gov.br],\n\nPor favor, registre no siscontic esse envio e que  agent."
     }
   ],
   "timeline": [
@@ -29,8 +37,18 @@
       "docVersao": "VÍRUS ",
       "dt": "2026-07-03T16:59:43",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "ENC: [Apontes de Compras] - Expansão Licenças Antivírus",
+      "autor": "",
+      "data": "2026-07-03",
+      "dir": "ENV",
+      "docTipo": "ET",
+      "docVersao": "vírus",
+      "dt": "2026-07-03T17:54:57",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:15:34.6806133Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:18:53.9997419Z"
 }
