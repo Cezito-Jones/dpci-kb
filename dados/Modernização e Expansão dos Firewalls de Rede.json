@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:21:08.3941985Z",
+    "geradoEmUTC": "2026-07-11T04:24:10.4664726Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193404683594906",
+    "versionTicks": "639193406504339888",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -105,6 +105,38 @@
       "docVersao": "VA PRO",
       "origem": "merger",
       "texto": "09/06/2026 – DPCI registrou evento relevante referente a Modernização e Expansão dos Firewalls de Rede: Prezado Wallace,\n\n \n\nA Licitante NTSEC, conforme carta anexada, solicitou dilação do prazo para\nconclusão das comprovaçõ."
+    },
+    {
+      "bloqueado": false,
+      "data": "07/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "07/07/2026 – DPCI registrou evento relevante referente a Modernização e Expansão dos Firewalls de Rede: Correção: O número do processo é 44129.009517/2025-50.\n\n \n\n \n\nBom dia!\n\n \n\n \n\nsombra superior esquerda [cid:image001.png."
+    },
+    {
+      "bloqueado": false,
+      "data": "07/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "07/07/2026 – DPCI registrou evento relevante referente a Modernização e Expansão dos Firewalls de Rede: Prezados, \nSolicito confirmar se trata realmente do número solicitado.\n\n\nAtte\n\n\n\n\n\nsombra superior esquerda\n[https://por."
+    },
+    {
+      "bloqueado": false,
+      "data": "07/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "07/07/2026 – DPCI registrou evento relevante referente a Modernização e Expansão dos Firewalls de Rede: Boa tarde,  Wallace,\n\nEstamos aguardando a finalização das assinaturas da documentação da POC.\n\n \n\nAssim, sugerimos que ."
+    },
+    {
+      "bloqueado": false,
+      "data": "09/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "09/07/2026 – DPCI registrou evento relevante referente a Modernização e Expansão dos Firewalls de Rede: Prezado(a) Ponto Focal,\n\nFoi incluída a etapa \"RECURSO\" na demanda abaixo:\n\nPregão\nProcesso: 44129.009517/2025-50\nObjeto."
     }
   ],
   "timeline": [
@@ -227,8 +259,48 @@
       "docVersao": "VA PRO",
       "dt": "2026-06-09T14:25:47",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "RES: PE 91065/2025 | (POC Modernização Firewalls de Rede)",
+      "autor": "",
+      "data": "2026-07-07",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-07T10:38:40",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RE: PE 91065/2025 | (POC Modernização Firewalls de Rede)",
+      "autor": "",
+      "data": "2026-07-07",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-07T10:12:43",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RES: PE 91065/2025 | (POC Modernização Firewalls de Rede)",
+      "autor": "",
+      "data": "2026-07-07",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-07T13:37:57",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "[PGI-Compras] 44129.009517/2025-50 - T02.A12 - MODERNIZAÇÃO E EXPANSÃO DOS FIREW",
+      "autor": "",
+      "data": "2026-07-09",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-09T12:02:19",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:21:08.4225873Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:24:10.4926774Z"
 }
