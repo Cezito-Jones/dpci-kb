@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:24:00.8259425Z",
+    "geradoEmUTC": "2026-07-11T04:24:21.4151894Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193406407921566",
+    "versionTicks": "639193406613845471",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -97,6 +97,30 @@
       "docVersao": "",
       "origem": "merger",
       "texto": "09/07/2026 – DPCI registrou evento relevante referente a Nova solução de balanceamento multisite: Boa tarde a todos, Segue o link da pasta de Banco de preços com acesso liberado\npara a DIPL e a RITM para análise de Sim."
+    },
+    {
+      "bloqueado": false,
+      "data": "09/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "09/07/2026 – DPCI registrou evento relevante referente a Nova solução de balanceamento multisite: @Paulo Rezende Quintanilha [paulo.quintanilha@dataprev.gov.br]\nCompletando e lembrando, inclua os arquivos da pasta de c."
+    },
+    {
+      "bloqueado": false,
+      "data": "09/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "09/07/2026 – DPCI registrou evento relevante referente a Nova solução de balanceamento multisite: Prezado(a) Ponto Focal,\n\nFoi incluída a etapa \"DEMANDANTE\" na demanda abaixo:\n\nPregão\nProcesso: 44129.003895/2026-19\nObj."
+    },
+    {
+      "bloqueado": false,
+      "data": "09/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "09/07/2026 – DPCI registrou evento relevante referente a Nova solução de balanceamento multisite: Prezados(as), bom dia!\n\n \n\nEm virtude da etapa de pesquisa de preços, identificamos alguns procedimentos\nlicitatórios co."
     }
   ],
   "timeline": [
@@ -209,8 +233,38 @@
       "docVersao": "",
       "dt": "2026-07-09T14:20:36",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "RES: ANÁLISE DE SIMILARIDADE - SUPORTE BALANCEAMENTO MULTISITE F5",
+      "autor": "",
+      "data": "2026-07-09",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-09T13:32:06",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "[PGI-Compras] 44129.003895/2026-19 - T02.A10 - SUPORTE DA SOLUÇÃO DE BALANCEAMEN",
+      "autor": "",
+      "data": "2026-07-09",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-09T11:07:22",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "ANÁLISE DE SIMILARIDADE - SUPORTE BALANCEAMENTO MULTISITE F5",
+      "autor": "",
+      "data": "2026-07-09",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-09T10:41:24",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:24:00.8527334Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:24:21.4487832Z"
 }
