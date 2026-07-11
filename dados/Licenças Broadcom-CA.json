@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:18:08.0959892Z",
+    "geradoEmUTC": "2026-07-11T04:18:37.6627972Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193402880496287",
+    "versionTicks": "639193403176192301",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -201,6 +201,14 @@
       "docVersao": "V - PE",
       "origem": "merger",
       "texto": "30/06/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Bom dia, prezados!\n\n\nSeguem questionamentos da empresa HCLTech para análise.\n\n\nAtenciosamente,\n\n\n\nsombra superior esquer."
+    },
+    {
+      "bloqueado": false,
+      "data": "06/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "VA IT ",
+      "origem": "merger",
+      "texto": "06/07/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Boa tarde @Raynne Pereira da Silva Sodre [raynne.sodre@dataprev.gov.br],\n\n \n\nPode por favor, registrar a chegada e esse ."
     }
   ],
   "timeline": [
@@ -443,8 +451,18 @@
       "docVersao": "V - PE",
       "dt": "2026-06-30T09:33:36",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "ENC: [Análise de Proposta Comercial] - SUBSCRIÇÃO PARA FERRAMENTAS DA BROADCOM J",
+      "autor": "",
+      "data": "2026-07-06",
+      "dir": "ENV",
+      "docTipo": "Outro",
+      "docVersao": "VA IT ",
+      "dt": "2026-07-06T14:05:14",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:18:08.1212341Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:18:37.6880707Z"
 }
