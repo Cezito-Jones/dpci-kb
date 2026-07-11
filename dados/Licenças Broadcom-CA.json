@@ -1,0 +1,36 @@
+{
+  "_syncGitHub": {
+    "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
+    "baseUtilizada": "Novo",
+    "geradoEmUTC": "2026-07-11T04:13:45.4683127Z",
+    "origem": "Power Automate - 4ª Fase Merger DPCI v7",
+    "versionTicks": "639193400254343282",
+    "publicadoPeloGitHubActions": true
+  },
+  "atestado": {},
+  "processoIdentificado": "Licenças Broadcom/CA",
+  "siscontic": [
+    {
+      "bloqueado": false,
+      "data": "06/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "06/07/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Prezados, \n\n\n\n\nSegue a análise de similaridade respondida pela área técnica.\n\n\n\n\n[cid:24a9e4e7-e73c-46f3-956a-ef41fdd43a."
+    }
+  ],
+  "timeline": [
+    {
+      "assunto": "RE: SIMILARIDADE - AQUISIÇÃO E SUPORTE LICENÇAS DA CA-BROADCOM SEI 44129.002819/",
+      "autor": "",
+      "data": "2026-07-06",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-06T16:47:09",
+      "nomeArquivo": ""
+    }
+  ],
+  "ultimaAtualizacao": "2026-07-11",
+  "ultimaAtualizacaoUTC": "2026-07-11T04:13:45.5044673Z"
+}
