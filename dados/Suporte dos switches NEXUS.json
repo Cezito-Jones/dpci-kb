@@ -1,10 +1,10 @@
 {
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
-    "baseUtilizada": "Novo",
-    "geradoEmUTC": "2026-07-11T04:14:00.6503932Z",
+    "baseUtilizada": "OneDrive",
+    "geradoEmUTC": "2026-07-11T04:16:40.5556412Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193400404543737",
+    "versionTicks": "639193402005278738",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -17,6 +17,14 @@
       "docVersao": "",
       "origem": "merger",
       "texto": "06/07/2026 – DPCI registrou evento relevante referente a Suporte dos switches NEXUS: Prezado(a) Ponto Focal,\n\nFoi incluída a etapa \"TR\" na demanda abaixo:\n\nPregão\nProcesso: 44129.011012/2025-55\nObjeto: T02."
+    },
+    {
+      "bloqueado": false,
+      "data": "01/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "01/07/2026 – DPCI registrou evento relevante referente a Suporte dos switches NEXUS: \n\n________________________________________________________________________________\nReunião do Microsoft Teams\nIngressar:."
     }
   ],
   "timeline": [
@@ -29,8 +37,18 @@
       "docVersao": "",
       "dt": "2026-07-06T15:32:44",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "Pregão 91085/2026 - Nexus às 14h.",
+      "autor": "",
+      "data": "2026-07-01",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-01T09:55:01",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:14:00.6862204Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:16:40.5807420Z"
 }
