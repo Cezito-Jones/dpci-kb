@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:18:37.6627972Z",
+    "geradoEmUTC": "2026-07-11T04:18:49.9091135Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193403176192301",
+    "versionTicks": "639193403298773041",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -209,6 +209,30 @@
       "docVersao": "VA IT ",
       "origem": "merger",
       "texto": "06/07/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Boa tarde @Raynne Pereira da Silva Sodre [raynne.sodre@dataprev.gov.br],\n\n \n\nPode por favor, registrar a chegada e esse ."
+    },
+    {
+      "bloqueado": false,
+      "data": "06/07/2026",
+      "docTipo": "TR",
+      "docVersao": "V - PE",
+      "origem": "merger",
+      "texto": "06/07/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Fernanda,\n\nVocê tem crédito. Rs\n\n \n\n \n\nsombra superior esquerda [cid:image001.png@01DD0D49.C629BA20]\n\nsombra superior di."
+    },
+    {
+      "bloqueado": false,
+      "data": "06/07/2026",
+      "docTipo": "TR",
+      "docVersao": "V - PE",
+      "origem": "merger",
+      "texto": "06/07/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Para conhecimento\n\n \n\n \n\nsombra superior esquerda [cid:image001.png@01DD0D49.B3D64280]\n\nsombra superior direita [cid:ima."
+    },
+    {
+      "bloqueado": false,
+      "data": "06/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "VA IT ",
+      "origem": "merger",
+      "texto": "06/07/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA:  \n\nBom dia a todos,\n\nSegue para conhecimento, a proposta comercial da contratação de Subscrições para\nferramentas da Bro."
     }
   ],
   "timeline": [
@@ -461,8 +485,38 @@
       "docVersao": "VA IT ",
       "dt": "2026-07-06T14:05:14",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "RES: DATAPREV - PESQUISA DE MERCADO: SUBSCRIÇÃO PARA FERRAMENTAS DA BROADCOM JUN",
+      "autor": "",
+      "data": "2026-07-06",
+      "dir": "ENV",
+      "docTipo": "TR",
+      "docVersao": "V - PE",
+      "dt": "2026-07-06T13:17:22",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "ENC: DATAPREV - PESQUISA DE MERCADO: SUBSCRIÇÃO PARA FERRAMENTAS DA BROADCOM JUN",
+      "autor": "",
+      "data": "2026-07-06",
+      "dir": "ENV",
+      "docTipo": "TR",
+      "docVersao": "V - PE",
+      "dt": "2026-07-06T13:16:53",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "[Análise de Proposta Comercial] - SUBSCRIÇÃO PARA FERRAMENTAS DA BROADCOM JUN/20",
+      "autor": "",
+      "data": "2026-07-06",
+      "dir": "ENV",
+      "docTipo": "Outro",
+      "docVersao": "VA IT ",
+      "dt": "2026-07-06T10:31:10",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:18:37.6880707Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:18:49.9335444Z"
 }
