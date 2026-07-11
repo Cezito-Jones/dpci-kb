@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T22:19:12.3513120Z",
+    "geradoEmUTC": "2026-07-11T22:19:41.5069001Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639194051522963030",
+    "versionTicks": "639194051814763606",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -121,6 +121,22 @@
       "docVersao": "vidual",
       "origem": "merger",
       "texto": "09/07/2026 – DPCI registrou evento relevante referente a Expansão de Licenças Antivírus para Servidores dos Data Centers: isso que importa....comigo tá tudo bem tb....que bom. Chegou a ver as respostas\naos apontamentos de compras do processo ."
+    },
+    {
+      "bloqueado": false,
+      "data": "10/07/2026",
+      "docTipo": "ET",
+      "docVersao": "vidual",
+      "origem": "merger",
+      "texto": "10/07/2026 – DPCI (Alcione) devolveu análise de ET vidual com comentários referente a Expansão de Licenças Antivírus para Servidores dos Data Centers."
+    },
+    {
+      "bloqueado": false,
+      "data": "10/07/2026",
+      "docTipo": "ET",
+      "docVersao": "vidual",
+      "origem": "merger",
+      "texto": "10/07/2026 – DPCI (Cezar) devolveu análise de ET vidual com comentários referente a Expansão de Licenças Antivírus para Servidores dos Data Centers."
     }
   ],
   "timeline": [
@@ -263,8 +279,38 @@
       "docVersao": "vidual",
       "dt": "2026-07-09T10:46:20",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "Chat individual",
+      "autor": "Alcione Maria Monteiro de Andrade Lima",
+      "data": "2026-07-10",
+      "dir": "ENV",
+      "docTipo": "ET",
+      "docVersao": "vidual",
+      "dt": "2026-07-10T09:46:42",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "Chat individual",
+      "autor": "Alcione Maria Monteiro de Andrade Lima",
+      "data": "2026-07-10",
+      "dir": "ENV",
+      "docTipo": "ET",
+      "docVersao": "vidual",
+      "dt": "2026-07-10T09:47:01",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "Chat individual",
+      "autor": "Cezar de Souza Matos",
+      "data": "2026-07-10",
+      "dir": "ENV",
+      "docTipo": "ET",
+      "docVersao": "vidual",
+      "dt": "2026-07-10T09:47:32",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T22:19:12.3809303Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T22:19:41.5304603Z"
 }
