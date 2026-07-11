@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:24:21.4151894Z",
+    "geradoEmUTC": "2026-07-11T22:14:51.4096122Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193406613845471",
+    "versionTicks": "639194048913746122",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -121,6 +121,14 @@
       "docVersao": "",
       "origem": "merger",
       "texto": "09/07/2026 – DPCI registrou evento relevante referente a Nova solução de balanceamento multisite: Prezados(as), bom dia!\n\n \n\nEm virtude da etapa de pesquisa de preços, identificamos alguns procedimentos\nlicitatórios co."
+    },
+    {
+      "bloqueado": false,
+      "data": "09/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "09/07/2026 – DPCI registrou evento relevante referente a Nova solução de balanceamento multisite: Boa tarde, Quinta,\n\n \n\nPor favor, faça esse encaminhamento para a DIPL dessas similaridades.\n\n \n\n@Raynne Pereira da Silv."
     }
   ],
   "timeline": [
@@ -263,8 +271,18 @@
       "docVersao": "",
       "dt": "2026-07-09T10:41:24",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "ENC: ANÁLISE DE SIMILARIDADE - SUPORTE BALANCEAMENTO MULTISITE F5",
+      "autor": "",
+      "data": "2026-07-09",
+      "dir": "ENV",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-09T13:17:08",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:24:21.4487832Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T22:14:51.4348463Z"
 }
