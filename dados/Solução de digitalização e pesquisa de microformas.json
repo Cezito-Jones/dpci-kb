@@ -1,10 +1,10 @@
 {
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
-    "baseUtilizada": "Novo",
-    "geradoEmUTC": "2026-07-11T04:22:35.4944770Z",
+    "baseUtilizada": "OneDrive",
+    "geradoEmUTC": "2026-07-11T04:22:39.3449705Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193405554673593",
+    "versionTicks": "639193405593144524",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -17,6 +17,14 @@
       "docVersao": "v2 - T",
       "origem": "merger",
       "texto": "08/07/2026 – DPCI registrou evento relevante referente a Solução de digitalização e pesquisa de microformas: @Paulo Rezende Quintanilha [paulo.quintanilha@dataprev.gov.br],\n\n \n\nSegue para conhecimento e tratamento e registros.\n\nQ."
+    },
+    {
+      "bloqueado": false,
+      "data": "08/07/2026",
+      "docTipo": "TR",
+      "docVersao": "v2 - T",
+      "origem": "merger",
+      "texto": "08/07/2026 – DPCI registrou evento relevante referente a Solução de digitalização e pesquisa de microformas: Prezado Cezar, bom dia.\n\n\nSeguem em anexo o TR revisado e a v2(2.8) do ETA que trata a contratação de\nServiço de Digital."
     }
   ],
   "timeline": [
@@ -29,8 +37,18 @@
       "docVersao": "v2 - T",
       "dt": "2026-07-08T10:32:34",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "ETA v2 - TR revisado - Digitalização de Microformas",
+      "autor": "",
+      "data": "2026-07-08",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "v2 - T",
+      "dt": "2026-07-08T09:50:48",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:22:35.5237182Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:22:39.3714508Z"
 }
