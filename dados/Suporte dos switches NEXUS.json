@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:19:56.8189238Z",
+    "geradoEmUTC": "2026-07-11T04:24:55.6969312Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193403967904809",
+    "versionTicks": "639193406956666831",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -105,6 +105,22 @@
       "docVersao": "",
       "origem": "merger",
       "texto": "26/06/2026 – DPCI registrou evento relevante referente a Suporte dos switches NEXUS: Oi Raynne,\nBom dia,\n\nConforme conversamos, segue para registro no siscontic e atualização na agenda.\nTambém peço que arq."
+    },
+    {
+      "bloqueado": false,
+      "data": "24/06/2026",
+      "docTipo": "MR",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "24/06/2026 – DPCI registrou evento relevante referente a Suporte dos switches NEXUS: Maurício, Boa tarde,\n\nConsiderando essa sua resposta\n“Sugestão: Sobre o item \"5. Tratamento de dados pessoais\", o texto ."
+    },
+    {
+      "bloqueado": false,
+      "data": "08/07/2026",
+      "docTipo": "TR",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "08/07/2026 – DPCI registrou evento relevante referente a Suporte dos switches NEXUS: @Alcione Maria Monteiro de Andrade Lima [alcione.monteiro@dataprev.gov.br],\n\n \n\nPor favor, elabore memorando para devolu."
     }
   ],
   "timeline": [
@@ -227,8 +243,28 @@
       "docVersao": "",
       "dt": "2026-06-26T11:14:36",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "RES:  Pedido de Esclarecimento - Edital nº 91085/2026 - RITM0140847",
+      "autor": "",
+      "data": "2026-06-24",
+      "dir": "ENV",
+      "docTipo": "MR",
+      "docVersao": "",
+      "dt": "2026-06-24T13:06:02",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "ENC: Suspensão do pregão - 91085/2026",
+      "autor": "",
+      "data": "2026-07-08",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "",
+      "dt": "2026-07-08T15:29:43",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:19:56.8411980Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:24:55.7222583Z"
 }
