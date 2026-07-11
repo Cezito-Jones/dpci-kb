@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:25:04.3193227Z",
+    "geradoEmUTC": "2026-07-11T04:25:16.5720853Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193407042748744",
+    "versionTicks": "639193407165361358",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -97,6 +97,14 @@
       "docVersao": "vírus ",
       "origem": "merger",
       "texto": "09/07/2026 – DPCI registrou evento relevante referente a Expansão de Licenças Antivírus para Servidores dos Data Centers: Boa tarde, Maurício,\n\n \n\nNós analisamos o ajuste realizado no item 6.1 para atendimento aos apontes da\nárea de compras e."
+    },
+    {
+      "bloqueado": false,
+      "data": "08/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "vidual",
+      "origem": "merger",
+      "texto": "08/07/2026 – DPCI registrou evento relevante referente a Expansão de Licenças Antivírus para Servidores dos Data Centers: EStou a caminho da minha fisioterapia . Comecei também o Memo de resposta ao\naponte do antivírus, termino na minha volta."
     }
   ],
   "timeline": [
@@ -209,8 +217,18 @@
       "docVersao": "vírus ",
       "dt": "2026-07-09T18:49:00",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "Chat individual",
+      "autor": "Alcione Maria Monteiro de Andrade Lima",
+      "data": "2026-07-08",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "vidual",
+      "dt": "2026-07-08T17:54:14",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:25:04.3431744Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:25:16.6023267Z"
 }
