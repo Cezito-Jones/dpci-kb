@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:22:24.8446151Z",
+    "geradoEmUTC": "2026-07-11T04:23:36.9455371Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193405448090007",
+    "versionTicks": "639193406169068459",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -65,6 +65,22 @@
       "docVersao": "vírus ",
       "origem": "merger",
       "texto": "08/07/2026 – DPCI registrou evento relevante referente a Expansão de Licenças Antivírus para Servidores dos Data Centers: Bom dia Cezar!\n\n\nSegue a resposta:\n\n\nSobre o aponte 2, esta equipe técnica de planejamento de contratação entende não\nha."
+    },
+    {
+      "bloqueado": false,
+      "data": "09/07/2026",
+      "docTipo": "ET",
+      "docVersao": "vírus ",
+      "origem": "merger",
+      "texto": "09/07/2026 – DPCI registrou evento relevante referente a Expansão de Licenças Antivírus para Servidores dos Data Centers: Encontro-me ausente no momento e com conexão limitada.  Minha previsão de\nretorno é dia 20/7.  Caso haja alguma necessid."
+    },
+    {
+      "bloqueado": false,
+      "data": "09/07/2026",
+      "docTipo": "ET",
+      "docVersao": "vírus ",
+      "origem": "merger",
+      "texto": "09/07/2026 – DPCI registrou evento relevante referente a Expansão de Licenças Antivírus para Servidores dos Data Centers: Prezados(as), boa tarde.\n\n\nSegue o link para a versão 2 do Estudo Técnico de Expansão de Licenças Antivírus\npara Servido."
     }
   ],
   "timeline": [
@@ -137,8 +153,28 @@
       "docVersao": "vírus ",
       "dt": "2026-07-08T12:14:11",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "Resposta automática: [Estudo técnico] Expansão de Licenças Antivírus para Servid",
+      "autor": "",
+      "data": "2026-07-09",
+      "dir": "REC",
+      "docTipo": "ET",
+      "docVersao": "vírus ",
+      "dt": "2026-07-09T18:49:11",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "[Estudo técnico] Expansão de Licenças Antivírus para Servidores dos Data Centers",
+      "autor": "",
+      "data": "2026-07-09",
+      "dir": "REC",
+      "docTipo": "ET",
+      "docVersao": "vírus ",
+      "dt": "2026-07-09T17:03:22",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:22:24.8685444Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:23:36.9816694Z"
 }
