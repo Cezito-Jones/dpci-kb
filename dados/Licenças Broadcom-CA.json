@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:14:55.1337979Z",
+    "geradoEmUTC": "2026-07-11T04:15:15.6676735Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193400951006899",
+    "versionTicks": "639193401156370765",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -57,6 +57,14 @@
       "docVersao": "V - PE",
       "origem": "merger",
       "texto": "06/07/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Caros, bom dia.\n\n\n\n  Segue resposta ao questionamento:\n\n\n\n\n\"Para efeito de planejamento de carga de trabalho e alocação ."
+    },
+    {
+      "bloqueado": false,
+      "data": "06/07/2026",
+      "docTipo": "TR",
+      "docVersao": "V - RE",
+      "origem": "merger",
+      "texto": "06/07/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Prezados, bom dia.\n\n\nSegue a proposta da empresa ELEEVA IT para conhecimento. \n\n\nAtenciosamente,\n\n\n\nsombra superior esqu."
     }
   ],
   "timeline": [
@@ -119,8 +127,18 @@
       "docVersao": "V - PE",
       "dt": "2026-07-06T10:37:57",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "ENC: DATAPREV - REITERAÇÃO PESQUISA DE MERCADO: SUBSCRIÇÃO PARA FERRAMENTAS DA B",
+      "autor": "",
+      "data": "2026-07-06",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "V - RE",
+      "dt": "2026-07-06T08:19:23",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:14:55.1600072Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:15:15.7472693Z"
 }
