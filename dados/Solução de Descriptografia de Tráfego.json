@@ -1,10 +1,10 @@
 {
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
-    "baseUtilizada": "Novo",
-    "geradoEmUTC": "2026-07-11T04:14:51.1322136Z",
+    "baseUtilizada": "OneDrive",
+    "geradoEmUTC": "2026-07-11T04:15:55.9190076Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193400911015068",
+    "versionTicks": "639193401558903758",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -17,6 +17,14 @@
       "docVersao": "",
       "origem": "merger",
       "texto": "06/07/2026 – DPCI registrou evento relevante referente a Solução de Descriptografia de Tráfego: Prezados, bom dia.\n\n\nA respeito do Mapa de Riscos (SEI_0248811) e considerando que as alterações\nsolicitadas foram atend."
+    },
+    {
+      "bloqueado": false,
+      "data": "02/07/2026",
+      "docTipo": "MR",
+      "docVersao": "versão",
+      "origem": "merger",
+      "texto": "02/07/2026 – DPCI registrou evento relevante referente a Solução de Descriptografia de Tráfego: Prezados, boa tarde.\n \nEncaminhamos anexo a revisão da DIPL da última versão do TR recebido no e-mail\nabaixo. Ressaltamo."
     }
   ],
   "timeline": [
@@ -29,8 +37,18 @@
       "docVersao": "",
       "dt": "2026-07-06T11:11:12",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "RE:  [Termo de Referência] Solução de Descriptografia Centralizada de Tráfego da",
+      "autor": "",
+      "data": "2026-07-02",
+      "dir": "REC",
+      "docTipo": "MR",
+      "docVersao": "versão",
+      "dt": "2026-07-02T16:49:28",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:14:51.1633078Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:15:55.9403654Z"
 }
