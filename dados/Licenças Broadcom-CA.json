@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:13:49.9469105Z",
+    "geradoEmUTC": "2026-07-11T04:14:09.3786528Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193400299140235",
+    "versionTicks": "639193400492578414",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -25,6 +25,22 @@
       "docVersao": "",
       "origem": "merger",
       "texto": "06/07/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Alcione, boa tarde!\n\n \n\nSegue análise de similaridade solicitada.\n\n \n\n[cid:image007.png@01DD0D59.B3BBE970]\n\n \n\nAtenciosa."
+    },
+    {
+      "bloqueado": false,
+      "data": "06/07/2026",
+      "docTipo": "TR",
+      "docVersao": "V - RE",
+      "origem": "merger",
+      "texto": "06/07/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Prezados, boa tarde!\n\n\nSegue encaminhada a proposta da NTT DATA para conhecimento.\n\n\nAtenciosamente,\n\n\n\nsombra superior ."
+    },
+    {
+      "bloqueado": false,
+      "data": "06/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "VA IT ",
+      "origem": "merger",
+      "texto": "06/07/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Cezar, bom dia!\n\n \n\nObrigado pelo envio da proposta, entendemos que foi só para conhecimento porque\nela contém apenas a ."
     }
   ],
   "timeline": [
@@ -47,8 +63,28 @@
       "docVersao": "",
       "dt": "2026-07-06T15:36:44",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "ENC: DATAPREV - REITERAÇÃO PESQUISA DE MERCADO: SUBSCRIÇÃO PARA FERRAMENTAS DA B",
+      "autor": "",
+      "data": "2026-07-06",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "V - RE",
+      "dt": "2026-07-06T14:34:27",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RES: [Análise de Proposta Comercial] - SUBSCRIÇÃO PARA FERRAMENTAS DA BROADCOM J",
+      "autor": "",
+      "data": "2026-07-06",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "VA IT ",
+      "dt": "2026-07-06T12:20:04",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:13:49.9781387Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:14:09.5222217Z"
 }
