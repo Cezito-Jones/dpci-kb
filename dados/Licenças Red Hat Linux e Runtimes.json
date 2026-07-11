@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:23:11.2817612Z",
+    "geradoEmUTC": "2026-07-11T04:25:27.8810267Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193405912460153",
+    "versionTicks": "639193407278521757",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -65,6 +65,14 @@
       "docVersao": "v0.1 (",
       "origem": "merger",
       "texto": "07/07/2026 – DPCI registrou evento relevante referente a Licenças Red Hat Linux e Runtimes: Prezado! Alexander,\nBom dia!\nEm análise ao Estudo Técnico Preliminar referente à prorrogação das subscrições\nRed Hat, ve."
+    },
+    {
+      "bloqueado": false,
+      "data": "09/07/2026",
+      "docTipo": "TR",
+      "docVersao": "vidual",
+      "origem": "merger",
+      "texto": "09/07/2026 – DPCI registrou evento relevante referente a Licenças Red Hat Linux e Runtimes: Boa tarde, Cézar. Atualização dos assuntos atuais devidamente atualizados: TR -\nSolução Gerenciada de Transmissão de Arq."
     }
   ],
   "timeline": [
@@ -137,8 +145,18 @@
       "docVersao": "v0.1 (",
       "dt": "2026-07-07T12:50:25",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "Chat individual",
+      "autor": "Alexander Barros da Silva",
+      "data": "2026-07-09",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "vidual",
+      "dt": "2026-07-09T15:17:15",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:23:11.3083319Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:25:27.9050809Z"
 }
