@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:18:19.2829799Z",
+    "geradoEmUTC": "2026-07-11T04:19:56.8189238Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193402992509294",
+    "versionTicks": "639193403967904809",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -81,6 +81,30 @@
       "docVersao": "V Proc",
       "origem": "merger",
       "texto": "29/06/2026 – DPCI registrou evento relevante referente a Suporte dos switches NEXUS: Bom dia!\n\n\nSolicito por gentileza, a manifestação da área técnica para item 2.1, conforme\nemail abaixo da Coordenação Ju."
+    },
+    {
+      "bloqueado": false,
+      "data": "29/06/2026",
+      "docTipo": "TR",
+      "docVersao": "V Proc",
+      "origem": "merger",
+      "texto": "29/06/2026 – DPCI registrou evento relevante referente a Suporte dos switches NEXUS: @Alcione Maria Monteiro de Andrade Lima [alcione.monteiro@dataprev.gov.br]\n@Cezar de Souza Matos [cezar.matos@dataprev.g."
+    },
+    {
+      "bloqueado": false,
+      "data": "29/06/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "29/06/2026 – DPCI registrou evento relevante referente a Suporte dos switches NEXUS:  ."
+    },
+    {
+      "bloqueado": false,
+      "data": "26/06/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "26/06/2026 – DPCI registrou evento relevante referente a Suporte dos switches NEXUS: Oi Raynne,\nBom dia,\n\nConforme conversamos, segue para registro no siscontic e atualização na agenda.\nTambém peço que arq."
     }
   ],
   "timeline": [
@@ -173,8 +197,38 @@
       "docVersao": "V Proc",
       "dt": "2026-06-29T08:38:42",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "ENC: PREGÃO ELETRÔNICO N° 91.085 / 2026  ( Pedido de Esclarecimento )  -  DATAPR",
+      "autor": "",
+      "data": "2026-06-29",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "V Proc",
+      "dt": "2026-06-29T08:15:43",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "Aceita: Pregão 91085/2026 - Nexus às 10h.",
+      "autor": "",
+      "data": "2026-06-29",
+      "dir": "ENV",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-06-29T09:16:35",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "ENC: Solicitação de adiamento do pregão 91085/2026 - Suporte Switches Nexus",
+      "autor": "",
+      "data": "2026-06-26",
+      "dir": "ENV",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-06-26T11:14:36",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:18:19.3062224Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:19:56.8411980Z"
 }
