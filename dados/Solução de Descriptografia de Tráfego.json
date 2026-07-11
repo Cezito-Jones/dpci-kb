@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T22:17:19.4865881Z",
+    "geradoEmUTC": "2026-07-11T22:20:12.1987089Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639194050394557616",
+    "versionTicks": "639194052121638576",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -113,6 +113,14 @@
       "docVersao": "versão",
       "origem": "merger",
       "texto": "09/07/2026 – DPCI registrou evento relevante referente a Solução de Descriptografia de Tráfego: Prezados, boa tarde.\n\n\nSegue anexo a análise da equipe de Redes e Segurança da DIPL no documento TR\nv0.3 enviado. Ressal."
+    },
+    {
+      "bloqueado": false,
+      "data": "10/07/2026",
+      "docTipo": "TR",
+      "docVersao": "versão",
+      "origem": "merger",
+      "texto": "10/07/2026 – DPCI (Edmilson) encaminhou TR versão referente a Solução de Descriptografia de Tráfego para análise e validação."
     }
   ],
   "timeline": [
@@ -245,8 +253,18 @@
       "docVersao": "versão",
       "dt": "2026-07-09T11:38:42",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "Termo de Referência - Solução de Descriptografia Centralizada de Tráfego da Rede",
+      "autor": "",
+      "data": "2026-07-10",
+      "dir": "ENV",
+      "docTipo": "TR",
+      "docVersao": "versão",
+      "dt": "2026-07-10T20:11:57",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T22:17:19.5130555Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T22:20:12.2288813Z"
 }
