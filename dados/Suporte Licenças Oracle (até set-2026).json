@@ -1,10 +1,10 @@
 {
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
-    "baseUtilizada": "Novo",
-    "geradoEmUTC": "2026-07-11T04:13:35.0476220Z",
+    "baseUtilizada": "OneDrive",
+    "geradoEmUTC": "2026-07-11T04:18:28.7889865Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193400150126039",
+    "versionTicks": "639193403087605580",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -17,6 +17,22 @@
       "docVersao": "v0.1",
       "origem": "merger",
       "texto": "06/07/2026 – DPCI registrou evento relevante referente a Suporte Licenças Oracle (até set/2026): Boa tarde DIGR.\n\n \n\nEncaminhamos para conhecimento e análise, Estudo Técnico referente ao processo\nde Prorrogação dos Se."
+    },
+    {
+      "bloqueado": false,
+      "data": "03/07/2026",
+      "docTipo": "ETP",
+      "docVersao": "v01",
+      "origem": "merger",
+      "texto": "03/07/2026 – DPCI registrou evento relevante referente a Suporte Licenças Oracle (até set/2026): Obrigada, Rafael.\n\nVamos analisar e damos retorno para vocês na semana que vem.\n\nEncaminho para o @Cezar de Souza Matos ."
+    },
+    {
+      "bloqueado": false,
+      "data": "06/07/2026",
+      "docTipo": "ETP",
+      "docVersao": "v0.1",
+      "origem": "merger",
+      "texto": "06/07/2026 – DPCI registrou evento relevante referente a Suporte Licenças Oracle (até set/2026): Boa tarde DGCI,\n\nAgora sim....rs.\n\nMeus amigos, segue em anexo o Estudo Técnico da prorrogação do contrato Oracle\nCSS pa."
     }
   ],
   "timeline": [
@@ -29,8 +45,28 @@
       "docVersao": "v0.1",
       "dt": "2026-07-06T17:12:12",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "ENC: ETP Prorrogação Oracle CSS v01",
+      "autor": "",
+      "data": "2026-07-03",
+      "dir": "REC",
+      "docTipo": "ETP",
+      "docVersao": "v01",
+      "dt": "2026-07-03T16:56:37",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "ENC: ETP Prorrogação Oracle CSS v0.1",
+      "autor": "",
+      "data": "2026-07-06",
+      "dir": "ENV",
+      "docTipo": "ETP",
+      "docVersao": "v0.1",
+      "dt": "2026-07-06T17:38:58",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:13:35.0859176Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:18:28.8159927Z"
 }
