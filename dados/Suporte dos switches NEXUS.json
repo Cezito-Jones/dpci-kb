@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:17:06.1022089Z",
+    "geradoEmUTC": "2026-07-11T04:18:19.2829799Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193402260740819",
+    "versionTicks": "639193402992509294",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -65,6 +65,22 @@
       "docVersao": "",
       "origem": "merger",
       "texto": "30/06/2026 – DPCI registrou evento relevante referente a Suporte dos switches NEXUS: Prezados, segue a resposta ao primeiro item do questionamento da PARKPLACE -.\nCom essa resposta finalizamos todas as per."
+    },
+    {
+      "bloqueado": false,
+      "data": "29/06/2026",
+      "docTipo": "ET",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "29/06/2026 – DPCI registrou evento relevante referente a Suporte dos switches NEXUS: Prezados,\n\n\n\n\nSegue resposta ao item 2.1 do Fornecedor PARKPLACE , os demais questionamentos\nserão respondidos posterior."
+    },
+    {
+      "bloqueado": false,
+      "data": "29/06/2026",
+      "docTipo": "TR",
+      "docVersao": "V Proc",
+      "origem": "merger",
+      "texto": "29/06/2026 – DPCI registrou evento relevante referente a Suporte dos switches NEXUS: Bom dia!\n\n\nSolicito por gentileza, a manifestação da área técnica para item 2.1, conforme\nemail abaixo da Coordenação Ju."
     }
   ],
   "timeline": [
@@ -137,8 +153,28 @@
       "docVersao": "",
       "dt": "2026-06-30T15:13:44",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "RE: PREGÃO ELETRÔNICO N° 91.085 / 2026  ( Pedido de Esclarecimento )  -  RESPOST",
+      "autor": "",
+      "data": "2026-06-29",
+      "dir": "REC",
+      "docTipo": "ET",
+      "docVersao": "",
+      "dt": "2026-06-29T12:27:01",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "ENC: PREGÃO ELETRÔNICO N° 91.085 / 2026  ( Pedido de Esclarecimento )  -  DATAPR",
+      "autor": "",
+      "data": "2026-06-29",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "V Proc",
+      "dt": "2026-06-29T08:38:42",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:17:06.1255391Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:18:19.3062224Z"
 }
