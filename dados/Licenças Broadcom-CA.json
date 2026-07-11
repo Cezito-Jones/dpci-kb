@@ -1,10 +1,10 @@
 {
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
-    "baseUtilizada": "Novo",
-    "geradoEmUTC": "2026-07-11T04:13:45.4683127Z",
+    "baseUtilizada": "OneDrive",
+    "geradoEmUTC": "2026-07-11T04:13:49.9469105Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193400254343282",
+    "versionTicks": "639193400299140235",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -17,6 +17,14 @@
       "docVersao": "",
       "origem": "merger",
       "texto": "06/07/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Prezados, \n\n\n\n\nSegue a análise de similaridade respondida pela área técnica.\n\n\n\n\n[cid:24a9e4e7-e73c-46f3-956a-ef41fdd43a."
+    },
+    {
+      "bloqueado": false,
+      "data": "06/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "06/07/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Alcione, boa tarde!\n\n \n\nSegue análise de similaridade solicitada.\n\n \n\n[cid:image007.png@01DD0D59.B3BBE970]\n\n \n\nAtenciosa."
     }
   ],
   "timeline": [
@@ -29,8 +37,18 @@
       "docVersao": "",
       "dt": "2026-07-06T16:47:09",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "RES: [Similaridade - Pesquisa de Banco de Preços ]  SUBSCRIÇÃO PARA FERRAMENTAS ",
+      "autor": "",
+      "data": "2026-07-06",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-06T15:36:44",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:13:45.5044673Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:13:49.9781387Z"
 }
