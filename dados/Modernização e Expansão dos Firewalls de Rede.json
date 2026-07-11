@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:14:30.3513729Z",
+    "geradoEmUTC": "2026-07-11T04:16:23.5288042Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193400703146788",
+    "versionTicks": "639193401835016951",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -25,6 +25,14 @@
       "docVersao": "",
       "origem": "merger",
       "texto": "06/07/2026 – DPCI registrou evento relevante referente a Modernização e Expansão dos Firewalls de Rede: Boa tarde,  Wallace,\n\nA etapa de emissão do Relatório de POC está em fase de finalização.\n\n \n\nAssim, sugerimos que a rea."
+    },
+    {
+      "bloqueado": false,
+      "data": "02/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "02/07/2026 – DPCI registrou evento relevante referente a Modernização e Expansão dos Firewalls de Rede: Bom dia  Wallace,\n\nPermanece em andamento a fase de emissão do Relatório de Prova de Conceito.\n\n \n\nAssim, sugerimos que ."
     }
   ],
   "timeline": [
@@ -47,8 +55,18 @@
       "docVersao": "",
       "dt": "2026-07-06T11:34:49",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "RES: PE 91065/2025 | (POC Modernização Firewalls de Rede)",
+      "autor": "",
+      "data": "2026-07-02",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-02T11:04:00",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:14:30.4155925Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:16:23.6626165Z"
 }
