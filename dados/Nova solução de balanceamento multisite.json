@@ -1,0 +1,54 @@
+{
+  "_syncGitHub": {
+    "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
+    "baseUtilizada": "OneDrive",
+    "geradoEmUTC": "2026-07-11T04:20:40.1491791Z",
+    "origem": "Power Automate - 4ª Fase Merger DPCI v7",
+    "versionTicks": "639193404401196912",
+    "publicadoPeloGitHubActions": true
+  },
+  "atestado": {},
+  "processoIdentificado": "Nova solução de balanceamento multisite",
+  "siscontic": [
+    {
+      "bloqueado": false,
+      "data": "18/06/2026",
+      "docTipo": "ET",
+      "docVersao": "Versão",
+      "origem": "merger",
+      "texto": "18/06/2026 – DPCI registrou evento relevante referente a Nova solução de balanceamento multisite: Boa noite, Maurício,\n\n \n\nRealizamos os ajustes na especificação técnica do TRv0.6 – Contratação de\nsuporte técnico aos b."
+    },
+    {
+      "bloqueado": false,
+      "data": "18/06/2026",
+      "docTipo": "ET",
+      "docVersao": "Versão",
+      "origem": "merger",
+      "texto": "18/06/2026 – DPCI registrou evento relevante referente a Nova solução de balanceamento multisite: Maurício,\n\nNós também estamos aguardando a validação da gerência DEPS e DIPL do último TR\nenviado.\n\n \n\n \n\nsombra superio."
+    }
+  ],
+  "timeline": [
+    {
+      "assunto": "RES: [Estudo Técnico] Suporte da Solução de Balanceamento Multisite - Versão 1 -",
+      "autor": "",
+      "data": "2026-06-18",
+      "dir": "ENV",
+      "docTipo": "ET",
+      "docVersao": "Versão",
+      "dt": "2026-06-18T19:04:36",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RES: [Estudo Técnico] Suporte da Solução de Balanceamento Multisite - Versão 1 -",
+      "autor": "",
+      "data": "2026-06-18",
+      "dir": "ENV",
+      "docTipo": "ET",
+      "docVersao": "Versão",
+      "dt": "2026-06-18T17:24:49",
+      "nomeArquivo": ""
+    }
+  ],
+  "ultimaAtualizacao": "2026-07-11",
+  "ultimaAtualizacaoUTC": "2026-07-11T04:20:40.1714903Z"
+}
