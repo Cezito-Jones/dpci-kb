@@ -1,0 +1,148 @@
+name: Sincronizar JSON do Merger DPCI
+
+on:
+  repository_dispatch:
+    types:
+      - atualizar_processo_dpci
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dpci-kb-sincronizacao-main
+  cancel-in-progress: false
+
+jobs:
+  atualizar-json:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Obter repositório
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Validar evento e gravar JSON
+        id: gravar
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path, PurePosixPath
+
+          event_path = Path(os.environ["GITHUB_EVENT_PATH"])
+          event = json.loads(event_path.read_text(encoding="utf-8"))
+          payload = event.get("client_payload") or {}
+
+          caminho = payload.get("caminho")
+          conteudo = payload.get("conteudo")
+          versao_recebida = str(payload.get("versionTicks") or "0")
+
+          if not isinstance(caminho, str) or not caminho:
+              raise RuntimeError("client_payload.caminho não informado.")
+
+          caminho_posix = PurePosixPath(caminho)
+
+          if (
+              caminho_posix.is_absolute()
+              or ".." in caminho_posix.parts
+              or not caminho.startswith("dados/")
+              or caminho_posix.suffix.lower() != ".json"
+          ):
+              raise RuntimeError(f"Caminho não permitido: {caminho}")
+
+          if isinstance(conteudo, str):
+              conteudo = json.loads(conteudo)
+
+          if not isinstance(conteudo, (dict, list)):
+              raise RuntimeError("client_payload.conteudo deve ser objeto ou matriz JSON.")
+
+          try:
+              versao_recebida_num = int(versao_recebida)
+          except ValueError as exc:
+              raise RuntimeError("versionTicks inválido.") from exc
+
+          destino = Path(caminho)
+          destino.parent.mkdir(parents=True, exist_ok=True)
+
+          versao_existente_num = 0
+
+          if destino.exists():
+              try:
+                  existente = json.loads(destino.read_text(encoding="utf-8"))
+                  if isinstance(existente, dict):
+                      sync = existente.get("_syncGitHub") or {}
+                      versao_existente_num = int(sync.get("versionTicks") or 0)
+              except (json.JSONDecodeError, TypeError, ValueError):
+                  versao_existente_num = 0
+
+          if versao_existente_num > versao_recebida_num:
+              print(
+                  "Evento ignorado por ser anterior à versão já publicada: "
+                  f"{versao_recebida_num} < {versao_existente_num}"
+              )
+              with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
+                  output.write("alterado=false\n")
+              raise SystemExit(0)
+
+          if isinstance(conteudo, dict):
+              sync = conteudo.get("_syncGitHub")
+              if not isinstance(sync, dict):
+                  sync = {}
+              sync["versionTicks"] = versao_recebida
+              sync["publicadoPeloGitHubActions"] = True
+              conteudo["_syncGitHub"] = sync
+
+          temporario = destino.with_suffix(destino.suffix + ".tmp")
+          temporario.write_text(
+              json.dumps(conteudo, ensure_ascii=False, indent=2) + "\n",
+              encoding="utf-8",
+              newline="\n",
+          )
+          temporario.replace(destino)
+
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
+              output.write("alterado=true\n")
+              output.write(f"arquivo={caminho}\n")
+
+          print(f"Arquivo validado e preparado: {caminho}")
+          PY
+
+      - name: Registrar alteração
+        if: steps.gravar.outputs.alterado == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          ARQUIVO="${{ steps.gravar.outputs.arquivo }}"
+
+          git config user.name "power-automate-dpci"
+          git config user.email "power-automate-dpci@users.noreply.github.com"
+
+          git add -- "$ARQUIVO"
+
+          if git diff --cached --quiet; then
+            echo "Nenhuma alteração material identificada."
+            exit 0
+          fi
+
+          git commit -m "Atualiza ${ARQUIVO} via Merger DPCI"
+
+          for tentativa in 1 2 3 4 5; do
+            git pull --rebase origin main
+
+            if git push origin HEAD:main; then
+              echo "Publicação concluída."
+              exit 0
+            fi
+
+            echo "Nova tentativa de publicação: ${tentativa}/5"
+            sleep $((tentativa * 2))
+          done
+
+          echo "Não foi possível publicar após cinco tentativas."
+          exit 1
