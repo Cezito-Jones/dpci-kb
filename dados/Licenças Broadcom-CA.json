@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:17:31.2974812Z",
+    "geradoEmUTC": "2026-07-11T04:18:00.0310833Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193402512647692",
+    "versionTicks": "639193402799984077",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -161,6 +161,30 @@
       "docVersao": "",
       "origem": "merger",
       "texto": "30/06/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Prezados, encaminhamos para DIPL os questionamentos que recebemos durante a\npesquisa de mercado do fornecedor HCLTech, \n."
+    },
+    {
+      "bloqueado": false,
+      "data": "30/06/2026",
+      "docTipo": "TR",
+      "docVersao": "V - PE",
+      "origem": "merger",
+      "texto": "30/06/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Bom dia,\n\n \n\nObrigada, @Equipe de Planejamento de Compras [planejcompras@dataprev.gov.br],\nvamos analisar e responder.\n\n."
+    },
+    {
+      "bloqueado": false,
+      "data": "30/06/2026",
+      "docTipo": "TR",
+      "docVersao": "V - PE",
+      "origem": "merger",
+      "texto": "30/06/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Prezados, bom dia!\n\n\nSeguem novos questionamentos da empresa HCLTech.\n\n\nAtenciosamente,\n\n\n\nsombra superior esquerda\n[htt."
+    },
+    {
+      "bloqueado": false,
+      "data": "30/06/2026",
+      "docTipo": "TR",
+      "docVersao": "V - PE",
+      "origem": "merger",
+      "texto": "30/06/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: @Alcione Maria Monteiro de Andrade Lima [alcione.monteiro@dataprev.gov.br],\n\n \n\nPor favor, analise e confira esses quest."
     }
   ],
   "timeline": [
@@ -353,8 +377,38 @@
       "docVersao": "",
       "dt": "2026-06-30T11:37:55",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "RES: DATAPREV - PESQUISA DE MERCADO: SUBSCRIÇÃO PARA FERRAMENTAS DA BROADCOM JUN",
+      "autor": "",
+      "data": "2026-06-30",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "V - PE",
+      "dt": "2026-06-30T10:43:40",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "ENC: DATAPREV - PESQUISA DE MERCADO: SUBSCRIÇÃO PARA FERRAMENTAS DA BROADCOM JUN",
+      "autor": "",
+      "data": "2026-06-30",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "V - PE",
+      "dt": "2026-06-30T10:35:50",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "ENC: DATAPREV - PESQUISA DE MERCADO: SUBSCRIÇÃO PARA FERRAMENTAS DA BROADCOM JUN",
+      "autor": "",
+      "data": "2026-06-30",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "V - PE",
+      "dt": "2026-06-30T10:32:06",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:17:31.3304655Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:18:00.0562621Z"
 }
