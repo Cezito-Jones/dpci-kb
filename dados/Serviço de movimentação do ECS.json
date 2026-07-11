@@ -1,10 +1,10 @@
 {
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
-    "baseUtilizada": "Novo",
-    "geradoEmUTC": "2026-07-11T04:15:06.7825739Z",
+    "baseUtilizada": "OneDrive",
+    "geradoEmUTC": "2026-07-11T22:12:54.0887139Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193401067376866",
+    "versionTicks": "639194047740534895",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -17,6 +17,14 @@
       "docVersao": "VIÇO D",
       "origem": "merger",
       "texto": "06/07/2026 – DPCI registrou evento relevante referente a Serviço de movimentação do ECS: Prezado(a) Ponto Focal,\n\nFoi incluída a etapa \"TR\" na demanda abaixo:\n\nDispensa\nProcesso: 44129.006992/2025-74\nObjeto: G."
+    },
+    {
+      "bloqueado": false,
+      "data": "30/06/2026",
+      "docTipo": "Outro",
+      "docVersao": "VIÇO D",
+      "origem": "merger",
+      "texto": "30/06/2026 – DPCI registrou evento relevante referente a Serviço de movimentação do ECS: Prezado(a) Ponto Focal,\n\nFoi incluída a etapa \"DEMANDANTE\" na demanda abaixo:\n\nDispensa\nProcesso: 44129.006992/2025-74\nO."
     }
   ],
   "timeline": [
@@ -29,8 +37,18 @@
       "docVersao": "VIÇO D",
       "dt": "2026-07-06T09:45:27",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "[PGI-Compras] 44129.006992/2025-74 - G15.A01 - SERVIÇO DE MOVIMENTAÇÃO DO ECS",
+      "autor": "",
+      "data": "2026-06-30",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "VIÇO D",
+      "dt": "2026-06-30T10:54:55",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:15:06.8318960Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T22:12:54.1155911Z"
 }
