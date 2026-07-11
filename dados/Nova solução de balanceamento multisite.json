@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:22:58.0176368Z",
+    "geradoEmUTC": "2026-07-11T04:23:28.2776088Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193405779885685",
+    "versionTicks": "639193406082474906",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -65,6 +65,22 @@
       "docVersao": "vel",
       "origem": "merger",
       "texto": "07/07/2026 – DPCI registrou evento relevante referente a Nova solução de balanceamento multisite: Estou ausente até 10/07. Por favor, entre em contato com meu substituto, Cezar\nMatos (cezar.matos@dataprev.gov.br), ou c."
+    },
+    {
+      "bloqueado": false,
+      "data": "07/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "vel",
+      "origem": "merger",
+      "texto": "07/07/2026 – DPCI registrou evento relevante referente a Nova solução de balanceamento multisite: Prezados(as), boa tarde!\n\n\nSolicitamos o envio da a planilha de preços (anexo II) editável em arquivo no\nformato do Exce."
+    },
+    {
+      "bloqueado": false,
+      "data": "07/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "vel",
+      "origem": "merger",
+      "texto": "07/07/2026 – DPCI registrou evento relevante referente a Nova solução de balanceamento multisite: Boa tarde a todos,\n\n \n\nConforme solicitado, segue a planilha de formação de preços em formato editável\nreferente ao proc."
     }
   ],
   "timeline": [
@@ -137,8 +153,28 @@
       "docVersao": "vel",
       "dt": "2026-07-07T16:53:13",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "SUPORTE BALANCEAMENTO MULTISITE F5 - SEI! Nº 44129.003895/2026-19 - Solicitação ",
+      "autor": "",
+      "data": "2026-07-07",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "vel",
+      "dt": "2026-07-07T16:30:01",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RES: SUPORTE BALANCEAMENTO MULTISITE F5 - SEI! Nº 44129.003895/2026-19 - Solicit",
+      "autor": "",
+      "data": "2026-07-07",
+      "dir": "ENV",
+      "docTipo": "Outro",
+      "docVersao": "vel",
+      "dt": "2026-07-07T16:52:57",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:22:58.0418943Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:23:28.3067208Z"
 }
