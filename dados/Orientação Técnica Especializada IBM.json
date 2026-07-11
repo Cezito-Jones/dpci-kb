@@ -1,10 +1,10 @@
 {
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
-    "baseUtilizada": "Novo",
-    "geradoEmUTC": "2026-07-11T04:14:21.1358276Z",
+    "baseUtilizada": "OneDrive",
+    "geradoEmUTC": "2026-07-11T04:15:23.1705748Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193400611086186",
+    "versionTicks": "639193401231378296",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -17,6 +17,14 @@
       "docVersao": "",
       "origem": "merger",
       "texto": "06/07/2026 – DPCI registrou evento relevante referente a Orientação Técnica Especializada IBM: Caro Erivelton, bom dia.\n\n\n\n\n\n  Segue resposta ao questionamento:\n\n\n\n\n\"Para efeito de planejamento de carga de trabalho ."
+    },
+    {
+      "bloqueado": false,
+      "data": "03/07/2026",
+      "docTipo": "TR",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "03/07/2026 – DPCI registrou evento relevante referente a Orientação Técnica Especializada IBM: Fernanda, boa tarde!\n\n \n\nSegue resposta para o questionamento da VSData.\n\n \n\n\"Para efeito de planejamento de carga de tr."
     }
   ],
   "timeline": [
@@ -29,8 +37,18 @@
       "docVersao": "",
       "dt": "2026-07-06T11:57:07",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "RES: PE 91076-2026 - Orientação Técnica Especializada IBM ELM - 2ª Solicitação d",
+      "autor": "",
+      "data": "2026-07-03",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "",
+      "dt": "2026-07-03T19:28:32",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:14:21.1717045Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:15:23.2057844Z"
 }
