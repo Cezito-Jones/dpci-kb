@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:20:48.6707501Z",
+    "geradoEmUTC": "2026-07-11T04:21:25.4427171Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193404485131896",
+    "versionTicks": "639193404854130278",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -33,6 +33,22 @@
       "docVersao": "Versão",
       "origem": "merger",
       "texto": "18/06/2026 – DPCI registrou evento relevante referente a Nova solução de balanceamento multisite: Oi Maurício boa tarde, está com a Sônia para análise.\n\n \n\n \n\nsombra superior esquerda [cid:image001.png@01DCFF26.7635F50."
+    },
+    {
+      "bloqueado": false,
+      "data": "17/06/2026",
+      "docTipo": "ET",
+      "docVersao": "Versão",
+      "origem": "merger",
+      "texto": "17/06/2026 – DPCI registrou evento relevante referente a Nova solução de balanceamento multisite: Boa tarde, Fernanda,\n\n \n\nNós consideramos sua sugestão e agradecemos a análise do documento.\n\n \n\nEsclarecemos, porém, qu."
+    },
+    {
+      "bloqueado": false,
+      "data": "08/06/2026",
+      "docTipo": "ET",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "08/06/2026 – DPCI registrou evento relevante referente a Nova solução de balanceamento multisite: Bom dia a todos,\n\n \n\nCom relação a revalidação da Análise de Similaridade Técnica segue abaixo:\n\n \n\nInformamos que estão."
     }
   ],
   "timeline": [
@@ -65,8 +81,28 @@
       "docVersao": "Versão",
       "dt": "2026-06-18T13:29:17",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "RES: Suporte da Solução de Balanceamento Multisite - Versão 0.4",
+      "autor": "",
+      "data": "2026-06-17",
+      "dir": "ENV",
+      "docTipo": "ET",
+      "docVersao": "Versão",
+      "dt": "2026-06-17T16:18:50",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RES: ANÁLISE DE SIMILARIDADE - SOLUÇÃO DE BALANCEAMENTO MULTISITE",
+      "autor": "",
+      "data": "2026-06-08",
+      "dir": "ENV",
+      "docTipo": "ET",
+      "docVersao": "",
+      "dt": "2026-06-08T10:02:00",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:20:48.6957877Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:21:25.4671607Z"
 }
