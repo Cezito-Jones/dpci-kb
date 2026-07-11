@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:16:23.5288042Z",
+    "geradoEmUTC": "2026-07-11T04:17:25.1720811Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193401835016951",
+    "versionTicks": "639193402451427300",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -33,6 +33,14 @@
       "docVersao": "",
       "origem": "merger",
       "texto": "02/07/2026 – DPCI registrou evento relevante referente a Modernização e Expansão dos Firewalls de Rede: Bom dia  Wallace,\n\nPermanece em andamento a fase de emissão do Relatório de Prova de Conceito.\n\n \n\nAssim, sugerimos que ."
+    },
+    {
+      "bloqueado": false,
+      "data": "30/06/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "30/06/2026 – DPCI registrou evento relevante referente a Modernização e Expansão dos Firewalls de Rede: OI, bom dia. Conseguiu\nchegar? ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  ‌ ‌ ‌ ‌ ."
     }
   ],
   "timeline": [
@@ -65,8 +73,18 @@
       "docVersao": "",
       "dt": "2026-07-02T11:04:00",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "Você tem 1 mensagem, 1 menção",
+      "autor": "",
+      "data": "2026-06-30",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-06-30T11:39:07",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:16:23.6626165Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:17:25.2075561Z"
 }
