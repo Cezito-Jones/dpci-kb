@@ -1,0 +1,36 @@
+{
+  "_syncGitHub": {
+    "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
+    "baseUtilizada": "Novo",
+    "geradoEmUTC": "2026-07-11T04:14:51.1322136Z",
+    "origem": "Power Automate - 4ª Fase Merger DPCI v7",
+    "versionTicks": "639193400911015068",
+    "publicadoPeloGitHubActions": true
+  },
+  "atestado": {},
+  "processoIdentificado": "Solução de Descriptografia de Tráfego",
+  "siscontic": [
+    {
+      "bloqueado": false,
+      "data": "06/07/2026",
+      "docTipo": "MR",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "06/07/2026 – DPCI registrou evento relevante referente a Solução de Descriptografia de Tráfego: Prezados, bom dia.\n\n\nA respeito do Mapa de Riscos (SEI_0248811) e considerando que as alterações\nsolicitadas foram atend."
+    }
+  ],
+  "timeline": [
+    {
+      "assunto": "RE: Mapa de Gerenciamento de Riscos - Descriptografia de Tráfego de Rede",
+      "autor": "",
+      "data": "2026-07-06",
+      "dir": "REC",
+      "docTipo": "MR",
+      "docVersao": "",
+      "dt": "2026-07-06T11:11:12",
+      "nomeArquivo": ""
+    }
+  ],
+  "ultimaAtualizacao": "2026-07-11",
+  "ultimaAtualizacaoUTC": "2026-07-11T04:14:51.1633078Z"
+}
