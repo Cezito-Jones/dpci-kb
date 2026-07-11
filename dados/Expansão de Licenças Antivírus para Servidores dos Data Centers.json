@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:21:45.3879987Z",
+    "geradoEmUTC": "2026-07-11T04:22:24.8446151Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193405053589633",
+    "versionTicks": "639193405448090007",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -57,6 +57,14 @@
       "docVersao": "vírus ",
       "origem": "merger",
       "texto": "08/06/2026 – DPCI registrou evento relevante referente a Expansão de Licenças Antivírus para Servidores dos Data Centers: Bom dia a todos,\n\n \n\nEstamos encaminhando o Estudo Técnico v0.9 analisado e contendo nossos\ncomentários e sugestões para."
+    },
+    {
+      "bloqueado": false,
+      "data": "08/07/2026",
+      "docTipo": "ET",
+      "docVersao": "vírus ",
+      "origem": "merger",
+      "texto": "08/07/2026 – DPCI registrou evento relevante referente a Expansão de Licenças Antivírus para Servidores dos Data Centers: Bom dia Cezar!\n\n\nSegue a resposta:\n\n\nSobre o aponte 2, esta equipe técnica de planejamento de contratação entende não\nha."
     }
   ],
   "timeline": [
@@ -119,8 +127,18 @@
       "docVersao": "vírus ",
       "dt": "2026-06-08T09:13:00",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "RE: [Apontes de Compras] - Expansão Licenças Antivírus - RITM0144801",
+      "autor": "",
+      "data": "2026-07-08",
+      "dir": "REC",
+      "docTipo": "ET",
+      "docVersao": "vírus ",
+      "dt": "2026-07-08T12:14:11",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:21:45.4116768Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:22:24.8685444Z"
 }
