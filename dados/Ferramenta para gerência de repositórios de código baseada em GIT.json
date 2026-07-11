@@ -1,0 +1,36 @@
+{
+  "_syncGitHub": {
+    "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
+    "baseUtilizada": "Novo",
+    "geradoEmUTC": "2026-07-11T04:24:40.6707344Z",
+    "origem": "Power Automate - 4ª Fase Merger DPCI v7",
+    "versionTicks": "639193406806405740",
+    "publicadoPeloGitHubActions": true
+  },
+  "atestado": {},
+  "processoIdentificado": "Ferramenta para gerência de repositórios de código baseada em GIT",
+  "siscontic": [
+    {
+      "bloqueado": false,
+      "data": "08/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "08/07/2026 – DPCI registrou evento relevante referente a Ferramenta para gerência de repositórios de código baseada em GIT: Prezado(a) Ponto Focal,\n\nFoi incluída a etapa \"JURÍDICO\" na demanda abaixo:\n\nPregão\nProcesso: 44129.011853/2024-81\nObjet."
+    }
+  ],
+  "timeline": [
+    {
+      "assunto": "[PGI-Compras] 44129.011853/2024-81 - T02.A01 - FERRAMENTA PARA GERÊNCIA DE REPOS",
+      "autor": "",
+      "data": "2026-07-08",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-08T17:08:03",
+      "nomeArquivo": ""
+    }
+  ],
+  "ultimaAtualizacao": "2026-07-11",
+  "ultimaAtualizacaoUTC": "2026-07-11T04:24:40.7026791Z"
+}
