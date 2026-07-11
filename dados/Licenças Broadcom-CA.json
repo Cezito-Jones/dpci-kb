@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:18:00.0310833Z",
+    "geradoEmUTC": "2026-07-11T04:18:08.0959892Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193402799984077",
+    "versionTicks": "639193402880496287",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -185,6 +185,22 @@
       "docVersao": "V - PE",
       "origem": "merger",
       "texto": "30/06/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: @Alcione Maria Monteiro de Andrade Lima [alcione.monteiro@dataprev.gov.br],\n\n \n\nPor favor, analise e confira esses quest."
+    },
+    {
+      "bloqueado": false,
+      "data": "30/06/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "30/06/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Prezado(a) Ponto Focal,\n\nFoi incluída a etapa \"DEMANDANTE\" na demanda abaixo:\n\nPregão\nProcesso: 44129.002819/2026-88\nObj."
+    },
+    {
+      "bloqueado": false,
+      "data": "30/06/2026",
+      "docTipo": "TR",
+      "docVersao": "V - PE",
+      "origem": "merger",
+      "texto": "30/06/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Bom dia, prezados!\n\n\nSeguem questionamentos da empresa HCLTech para análise.\n\n\nAtenciosamente,\n\n\n\nsombra superior esquer."
     }
   ],
   "timeline": [
@@ -407,8 +423,28 @@
       "docVersao": "V - PE",
       "dt": "2026-06-30T10:32:06",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "[PGI-Compras] 44129.002819/2026-88 - T02.A08 - LICENÇAS BROADCOM/CA",
+      "autor": "",
+      "data": "2026-06-30",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-06-30T09:35:43",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "ENC: DATAPREV - PESQUISA DE MERCADO: SUBSCRIÇÃO PARA FERRAMENTAS DA BROADCOM JUN",
+      "autor": "",
+      "data": "2026-06-30",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "V - PE",
+      "dt": "2026-06-30T09:33:36",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:18:00.0562621Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:18:08.1212341Z"
 }
