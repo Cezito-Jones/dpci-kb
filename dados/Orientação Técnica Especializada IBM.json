@@ -1,0 +1,36 @@
+{
+  "_syncGitHub": {
+    "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
+    "baseUtilizada": "Novo",
+    "geradoEmUTC": "2026-07-11T04:14:21.1358276Z",
+    "origem": "Power Automate - 4ª Fase Merger DPCI v7",
+    "versionTicks": "639193400611086186",
+    "publicadoPeloGitHubActions": true
+  },
+  "atestado": {},
+  "processoIdentificado": "Orientação Técnica Especializada IBM",
+  "siscontic": [
+    {
+      "bloqueado": false,
+      "data": "06/07/2026",
+      "docTipo": "TR",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "06/07/2026 – DPCI registrou evento relevante referente a Orientação Técnica Especializada IBM: Caro Erivelton, bom dia.\n\n\n\n\n\n  Segue resposta ao questionamento:\n\n\n\n\n\"Para efeito de planejamento de carga de trabalho ."
+    }
+  ],
+  "timeline": [
+    {
+      "assunto": "Re: PE 91076-2026 - Orientação Técnica Especializada IBM ELM - 2ª Solicitação de",
+      "autor": "",
+      "data": "2026-07-06",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "",
+      "dt": "2026-07-06T11:57:07",
+      "nomeArquivo": ""
+    }
+  ],
+  "ultimaAtualizacao": "2026-07-11",
+  "ultimaAtualizacaoUTC": "2026-07-11T04:14:21.1717045Z"
+}
