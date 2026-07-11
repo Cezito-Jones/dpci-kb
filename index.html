@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DPCI · Painel de Processos</title>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+         background: #f1f5f9; color: #1e293b; min-height: 100vh; }
+  ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: #f1f5f9; }
+  ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+  #root { min-height: 100vh; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useMemo, useRef, useCallback, useEffect } = React;
+
+// ─── Config ────────────────────────────────────────────────────────────────
+const CEZAR_ID    = "a0b2ff1d-947c-497f-b71e-fe74dec641cf";
+const CEZAR_EMAIL = "cezar.matos@dataprev.gov.br";
+
+// Detectar se está rodando no GitHub Pages
+const IS_GITHUB = window.location.hostname.includes('github.io') ||
+                  window.location.search.includes('source=github');
+
+// URL base dos dados no GitHub (substituir com o repo real após criação)
+const GITHUB_RAW = "https://raw.githubusercontent.com/Cezito-Jones/dpci-kb/main/dados/";
+
+const PROC_DEF = {
+  "Licenças Broadcom/CA":                                            {cor:"#f97316",ic:"🔧"},
+  "Modernização e Expansão dos Firewalls de Rede":                   {cor:"#ef4444",ic:"🔥"},
+  "Suporte dos switches NEXUS":                                      {cor:"#0ea5e9",ic:"🔌"},
+  "Solução de Descriptografia de Tráfego":                          {cor:"#8b5cf6",ic:"🔐"},
+  "Nova solução de balanceamento multisite":                         {cor:"#06b6d4",ic:"⚖️"},
+  "Licenças Red Hat Linux e Runtimes":                              {cor:"#dc2626",ic:"🎩"},
+  "Expansão de Licenças Antivírus para Servidores dos Data Centers":{cor:"#16a34a",ic:"🛡️"},
+  "Orientação Técnica Especializada IBM":                           {cor:"#2563eb",ic:"💼"},
+  "Suporte Licenças Oracle (até set/2026)":                         {cor:"#7c3aed",ic:"🔵"},
+  "Expansão da Solução Centralizada de Logs":                       {cor:"#ca8a04",ic:"📊"},
+  "Solução de digitalização e pesquisa de microformas":             {cor:"#0f766e",ic:"📑"},
+  "Serviço de movimentação do ECS":                                 {cor:"#7e22ce",ic:"🔄"},
+};
+
+const CAT_CFG = {
+  ENVIO_DOCUMENTO:         {label:"📤 Envio de documento",   cor:"#16a34a"},
+  RECEBIMENTO_DOCUMENTO:   {label:"📥 Recebimento",          cor:"#0369a1"},
+  DEVOLUTIVA:              {label:"🔄 Devolutiva",           cor:"#7c3aed"},
+  QUESTIONAMENTO_RECEBIDO: {label:"❓ Questionamento receb.",cor:"#f59e0b"},
+  QUESTIONAMENTO_ENVIADO:  {label:"❓ Questionamento env.",  cor:"#f97316"},
+  PENDENCIA_IDENTIFICADA:  {label:"⚠️ Pendência",            cor:"#ef4444"},
+  ALINHAMENTO:             {label:"🤝 Alinhamento",          cor:"#06b6d4"},
+  ENCAMINHAMENTO:          {label:"📋 Encaminhamento",       cor:"#8b5cf6"},
+  INFORMACAO:              {label:"ℹ️ Informação",            cor:"#64748b"},
+};
+
+// ─── Parsing ────────────────────────────────────────────────────────────────
+function inferProc(txt, assunto, canal, procIdent) {
+  if (procIdent?.trim()) return procIdent;
+  const t = [txt,assunto,canal].join(" ").toLowerCase();
+  if (/broadcom|ca.technology/i.test(t))            return "Licenças Broadcom/CA";
+  if (/91065|poc.*firewall|modernização.*firewall/i.test(t)) return "Modernização e Expansão dos Firewalls de Rede";
+  if (/91085|nexus|switches nexus/i.test(t))        return "Suporte dos switches NEXUS";
+  if (/descriptografia/i.test(t))                   return "Solução de Descriptografia de Tráfego";
+  if (/balanceamento multisite/i.test(t))           return "Nova solução de balanceamento multisite";
+  if (/red hat|44104|rhel/i.test(t))                return "Licenças Red Hat Linux e Runtimes";
+  if (/antivírus|antivirus/i.test(t))               return "Expansão de Licenças Antivírus para Servidores dos Data Centers";
+  if (/orientação.*ibm|ibm.*orientação/i.test(t))   return "Orientação Técnica Especializada IBM";
+  if (/oracle css|suporte.*oracle/i.test(t))        return "Suporte Licenças Oracle (até set/2026)";
+  if (/elastic|logs centraliza/i.test(t))           return "Expansão da Solução Centralizada de Logs";
+  if (/microformas/i.test(t))                       return "Solução de digitalização e pesquisa de microformas";
+  if (/movimentação.*ecs/i.test(t))                 return "Serviço de movimentação do ECS";
+  return null;
+}
+
+function parseItem(e) {
+  const rem     = e.autorOuRemetente || e.remetente || "";
+  const isCezar = (e.autorId===CEZAR_ID)||(rem===CEZAR_EMAIL);
+  const dt      = (e.dataHoraBrasil||e.dataHoraOriginal||e.dia_hora||"").slice(0,16).replace("T"," ");
+  const txt     = (e.conteudoTextoLimpo||e.conteudo||"").slice(0,300);
+  const assunto = (e.assuntoOuCanal||e.assunto||e.chatOuCanal||"");
+  const autor   = isCezar?"Cezar":((e.autorMensagem||rem||"").split(/[\s@]/)[0]||"?");
+  const procId  = e.processoIdentificado||e.processo||"";
+  const proc    = inferProc(txt,assunto,e.chatOuCanal||"",procId);
+  const fonte   = (e.origem||e.tipoFonte||"").toLowerCase().includes("email")?"email":"teams";
+  const cat     = e.categoriaEventoSISCONTIC||null;
+  const prefixo = e.prefixoAutorSISCONTIC||null;
+  return {
+    dt, data:dt.slice(0,10), hora:dt.slice(11,16),
+    txt, assunto:assunto.slice(0,100), autor, isCezar, proc, fonte,
+    hasAnexo:!!(e.possuiAnexosTeams||e.possuiImagemOuAnexo||e.quantidadeAnexosTeams),
+    atestado:e.atestadoLaudoRecebido||"NAO",
+    mapaRisco:e.mapaRiscoStatus||null,
+    cat, prefixo,
+    docTipo:e.docTipo||null, docVersao:e.docVersao||null, nomeArquivo:e.nomeArquivo||null,
+  };
+}
+
+// ─── Componentes UI ─────────────────────────────────────────────────────────
+function Badge({txt,bg,cor,small}) {
+  return <span style={{
+    fontSize:small?9:10,fontWeight:600,padding:"1px 7px",borderRadius:20,
+    background:bg||"#f1f5f9",color:cor||"#475569",display:"inline-block"
+  }}>{txt}</span>;
+}
+
+function EvCard({e}) {
+  const [open,setOpen]=useState(false);
+  const pd  = PROC_DEF[e.proc]||{cor:"#94a3b8",ic:"📌"};
+  const cat = e.cat?CAT_CFG[e.cat]:null;
+  const semTxt = !e.txt||e.txt.trim().length<4;
+  return (
+    <div style={{display:"flex",gap:8,padding:"8px 12px",marginBottom:3,
+                 background:e.isCezar?"#eef2ff":"#fafafa",
+                 borderLeft:`3px solid ${e.isCezar?"#6366f1":pd.cor}`,
+                 borderRadius:"0 6px 6px 0"}}>
+      <div style={{minWidth:44,fontSize:10,color:"#64748b",fontWeight:600,paddingTop:2,flexShrink:0}}>
+        <div>{e.data.slice(5).replace("-","/")}</div>
+        <div>{e.hora}</div>
+      </div>
+      <div style={{flex:1,minWidth:0}}>
+        <div style={{display:"flex",gap:4,flexWrap:"wrap",marginBottom:3}}>
+          <Badge txt={e.isCezar?"📤 EU":"📥 DEL"}
+            bg={e.isCezar?"#6366f122":"#0ea5e922"}
+            cor={e.isCezar?"#4338ca":"#0369a1"}/>
+          {e.prefixo
+            ? <Badge txt={e.prefixo} bg={pd.cor+"15"} cor={pd.cor}/>
+            : <Badge txt={e.autor} bg="#f1f5f9" cor="#475569"/>}
+          {e.fonte==="email"&&<Badge txt="✉️" bg="#f0fdf4" cor="#16a34a" small/>}
+          {e.hasAnexo&&<Badge txt="📎" bg="#fdf4ff" cor="#7c3aed" small/>}
+          {e.mapaRisco&&<Badge txt={e.mapaRisco==="ENV"?"📤MR":"📥MR"}
+            bg={e.mapaRisco==="ENV"?"#f0fdf4":"#eff6ff"}
+            cor={e.mapaRisco==="ENV"?"#16a34a":"#1d4ed8"} small/>}
+          {e.atestado==="SIM"&&<Badge txt="📜Atestado" bg="#fdf4ff" cor="#7c3aed" small/>}
+          {cat&&<Badge txt={cat.label} bg={cat.cor+"18"} cor={cat.cor}/>}
+          {e.docTipo&&e.docTipo!=="Outro"&&
+            <Badge txt={`📄${e.docTipo}${e.docVersao?" "+e.docVersao:""}`}
+              bg="#fdf4ff" cor="#7c3aed" small/>}
+        </div>
+        {e.assunto&&<div style={{fontSize:10,color:"#94a3b8",marginBottom:2,
+          overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{e.assunto}</div>}
+        <div style={{fontSize:11,color:semTxt?"#94a3b8":"#1e293b",
+                     fontStyle:semTxt?"italic":"normal",lineHeight:1.4}}>
+          {semTxt?"[imagem ou anexo]":
+           open?<>{e.txt}<button onClick={()=>setOpen(false)}
+             style={{marginLeft:4,fontSize:9,color:"#6366f1",background:"none",border:"none",cursor:"pointer"}}>▲</button></>:
+           <>{e.txt.slice(0,110)}{e.txt.length>110&&<button onClick={()=>setOpen(true)}
+             style={{marginLeft:4,fontSize:9,color:"#6366f1",background:"none",border:"none",cursor:"pointer"}}>▼</button>}</>}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProcTab({proc,items}) {
+  const pd  = PROC_DEF[proc]||{cor:"#94a3b8",ic:"📌"};
+  const evs = items.filter(e=>e.proc===proc).sort((a,b)=>a.dt.localeCompare(b.dt));
+  const [filtro,setFiltro]=useState("todos");
+  const [busca,setBusca]=useState("");
+  const byDate = useMemo(()=>{
+    let r=evs;
+    if(filtro==="eu")       r=r.filter(e=>e.isCezar);
+    if(filtro==="del")      r=r.filter(e=>!e.isCezar);
+    if(filtro==="mapa")     r=r.filter(e=>e.mapaRisco);
+    if(filtro==="atestado") r=r.filter(e=>e.atestado==="SIM");
+    if(filtro==="docs")     r=r.filter(e=>e.docTipo&&e.docTipo!=="Outro");
+    if(busca.trim()){const b=busca.toLowerCase();r=r.filter(e=>e.txt.toLowerCase().includes(b)||e.assunto.toLowerCase().includes(b));}
+    const m={};
+    r.forEach(e=>{(m[e.data]=m[e.data]||[]).push(e);});
+    return Object.entries(m).sort(([a],[b])=>a.localeCompare(b));
+  },[evs,filtro,busca]);
+  const total=byDate.reduce((s,[,v])=>s+v.length,0);
+  const datas=[...new Set(evs.map(e=>e.data))].sort();
+  return (
+    <div>
+      <div style={{background:`linear-gradient(135deg,${pd.cor}22,${pd.cor}08)`,
+                   border:`1px solid ${pd.cor}44`,borderRadius:10,padding:"12px 16px",marginBottom:12}}>
+        <div style={{fontSize:14,fontWeight:700,color:pd.cor,marginBottom:8}}>{pd.ic} {proc}</div>
+        <div style={{display:"flex",gap:10,flexWrap:"wrap"}}>
+          {[["Total",evs.length],["Enviados",evs.filter(e=>e.isCezar).length],
+            ["Recebidos",evs.filter(e=>!e.isCezar).length],
+            ["Documentos",evs.filter(e=>e.docTipo&&e.docTipo!=="Outro").length],
+            ["Mapa de Risco",evs.filter(e=>e.mapaRisco).length],
+            ["Dias",datas.length]].map(([l,n])=>n>0&&(
+            <div key={l} style={{textAlign:"center",background:"#fff",borderRadius:8,
+                                  padding:"4px 12px",border:`1px solid ${pd.cor}33`}}>
+              <div style={{fontSize:16,fontWeight:700,color:pd.cor}}>{n}</div>
+              <div style={{fontSize:9,color:"#64748b"}}>{l}</div>
+            </div>
+          ))}
+        </div>
+        {datas.length>0&&<div style={{fontSize:10,color:"#94a3b8",marginTop:6}}>
+          {datas[0].split("-").reverse().join("/")} → {datas[datas.length-1].split("-").reverse().join("/")}
+        </div>}
+      </div>
+      <div style={{display:"flex",gap:6,flexWrap:"wrap",marginBottom:10}}>
+        {[["todos","Todos"],["eu","📤 Eu"],["del","📥 Del"],["docs","📄 Docs"],
+          ["mapa","📋 MR"],["atestado","📜 Atst"]].map(([v,l])=>(
+          <button key={v} onClick={()=>setFiltro(v)}
+            style={{padding:"4px 10px",fontSize:11,border:`1px solid ${filtro===v?pd.cor:"#e2e8f0"}`,
+                    borderRadius:20,background:filtro===v?pd.cor+"22":"#fff",
+                    color:filtro===v?pd.cor:"#64748b",cursor:"pointer"}}>{l}</button>
+        ))}
+        <input value={busca} onChange={e=>setBusca(e.target.value)} placeholder="Buscar..."
+          style={{padding:"4px 10px",borderRadius:20,border:"1px solid #e2e8f0",
+                  fontSize:11,flex:1,minWidth:100,background:"#fff"}}/>
+        <span style={{fontSize:10,color:"#94a3b8",alignSelf:"center"}}>{total} ev.</span>
+      </div>
+      {byDate.map(([data,evs])=>(
+        <div key={data}>
+          <div style={{display:"flex",alignItems:"center",gap:8,margin:"10px 0 4px"}}>
+            <div style={{height:1,flex:1,background:"#e2e8f0"}}/>
+            <span style={{fontSize:10,fontWeight:700,color:pd.cor,background:pd.cor+"18",
+                          border:`1px solid ${pd.cor}33`,borderRadius:20,padding:"2px 10px"}}>
+              {data.split("-").reverse().join("/")}
+            </span>
+            <div style={{height:1,flex:1,background:"#e2e8f0"}}/>
+          </div>
+          {evs.map((e,i)=><EvCard key={i} e={e}/>)}
+        </div>
+      ))}
+      {total===0&&<div style={{textAlign:"center",padding:"20px",color:"#94a3b8",fontSize:12}}>Nenhum evento com este filtro</div>}
+    </div>
+  );
+}
+
+function SisconticTab({items}) {
+  const [copiado,setCopiado]=useState(null);
+  const [filtroProc,setFiltroProc]=useState("Todos");
+  const [loading,setLoading]=useState(false);
+  const [gerados,setGerados]=useState([]);
+
+  // Gerar SISCONTIC a partir dos eventos enriquecidos
+  const gerarDoJSON = useCallback(async()=>{
+    if(!items?.length) return;
+    setLoading(true);
+    try {
+      const resp = await fetch("https://api.anthropic.com/v1/messages",{
+        method:"POST",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:4000,
+          messages:[{role:"user",content:
+            `Você é assistente de Cezar Matos (DPCI/Dataprev).
+Analise os eventos abaixo e gere registros para o SISCONTIC.
+Foco em: documentos enviados/recebidos, questionamentos, alinhamentos, pendências.
+Use o prefixoAutorSISCONTIC quando disponível.
+
+SOMENTE JSON sem markdown:
+{"registros":[{"data":"DD/MM/AAAA","proc":"processo","prefixo":"prefixoAutor","categoria":"CATEGORIA","texto":"Texto SISCONTIC impessoal linha única"}]}
+
+EVENTOS (últimos relevantes):
+${items.filter(e=>e.proc&&(e.cat||e.docTipo)).slice(0,50).map(e=>
+  `[${e.dt}] ${e.prefixo||e.autor} [${e.proc}] cat=${e.cat||"?"} doc=${e.docTipo||"-"} | ${e.txt.slice(0,100)}`
+).join("\n")}`
+          }]})});
+      const d=await resp.json();
+      const txt=d.content?.filter(b=>b.type==="text").map(b=>b.text).join("").replace(/```json|```/g,"").trim();
+      const parsed=JSON.parse(txt);
+      setGerados(parsed.registros||[]);
+    } catch(e){console.error(e);}
+    finally{setLoading(false);}
+  },[items]);
+
+  const copiar=(txt,k)=>{
+    navigator.clipboard.writeText(txt).then(()=>{setCopiado(k);setTimeout(()=>setCopiado(null),2000);});
+  };
+
+  const lista = gerados.length?gerados:[];
+  const procs = ["Todos",...new Set(lista.map(e=>e.proc).filter(Boolean))];
+  const filtrados = lista.filter(e=>filtroProc==="Todos"||e.proc===filtroProc);
+
+  return (
+    <div>
+      <div style={{background:"linear-gradient(135deg,#1e3a8a,#1e40af)",borderRadius:12,
+                   padding:"14px 18px",marginBottom:14,color:"#fff"}}>
+        <div style={{fontSize:14,fontWeight:700,marginBottom:3}}>📝 Registros para o SISCONTIC</div>
+        <div style={{fontSize:12,opacity:.85}}>Clique em "Gerar do JSON" para criar registros a partir dos eventos carregados.</div>
+      </div>
+      <div style={{display:"flex",gap:8,flexWrap:"wrap",marginBottom:14,alignItems:"center"}}>
+        <select value={filtroProc} onChange={e=>setFiltroProc(e.target.value)}
+          style={{padding:"6px 10px",borderRadius:8,border:"1px solid #e2e8f0",fontSize:12,background:"#fff"}}>
+          {procs.map(p=><option key={p}>{p}</option>)}
+        </select>
+        <span style={{fontSize:11,color:"#94a3b8"}}>{filtrados.length} registros</span>
+        <div style={{flex:1}}/>
+        <button onClick={gerarDoJSON} disabled={loading||!items?.length}
+          style={{padding:"6px 14px",background:loading?"#e2e8f0":"linear-gradient(135deg,#7c3aed,#6366f1)",
+                  color:loading?"#94a3b8":"#fff",border:"none",borderRadius:8,fontSize:12,
+                  fontWeight:600,cursor:loading?"not-allowed":"pointer"}}>
+          {loading?"⚙️ Gerando...":"✨ Gerar do JSON"}
+        </button>
+        {filtrados.length>0&&<button onClick={()=>copiar(filtrados.map(e=>`${e.data} – ${e.texto}`).join("\n\n"),-1)}
+          style={{padding:"6px 14px",background:copiado===-1?"#22c55e":"linear-gradient(135deg,#1e40af,#6366f1)",
+                  color:"#fff",border:"none",borderRadius:8,fontSize:12,fontWeight:600,cursor:"pointer"}}>
+          {copiado===-1?"✓ Copiado":"📋 Copiar tudo"}
+        </button>}
+      </div>
+      {filtrados.length===0&&!loading&&(
+        <div style={{textAlign:"center",padding:"40px",color:"#94a3b8",fontSize:13}}>
+          {items?.length?'Clique em "✨ Gerar do JSON" para criar os registros':'Carregue o JSON primeiro'}
+        </div>
+      )}
+      {filtrados.map((e,i)=>{
+        const pd=PROC_DEF[e.proc]||{cor:"#64748b",ic:"📌"};
+        const cat=e.categoria?CAT_CFG[e.categoria]:null;
+        const txt=`${e.data} – ${e.texto}`;
+        const fmt=txt.replace(/^(\d{2}\/\d{2}\/\d{4})/,"<strong>$1</strong>");
+        return (
+          <div key={i} style={{background:"#fff",border:"1px solid #e2e8f0",borderRadius:12,padding:"14px 18px",marginBottom:10}}>
+            <div style={{display:"flex",gap:10,alignItems:"flex-start"}}>
+              <div style={{minWidth:24,height:24,borderRadius:"50%",background:"#1e40af",
+                           color:"#fff",display:"flex",alignItems:"center",justifyContent:"center",
+                           fontSize:11,fontWeight:700,flexShrink:0}}>{i+1}</div>
+              <div style={{flex:1}}>
+                <div style={{display:"flex",gap:6,flexWrap:"wrap",marginBottom:8}}>
+                  <Badge txt={`📅 ${e.data}`} bg="#eff6ff" cor="#1e40af"/>
+                  {e.prefixo&&<Badge txt={e.prefixo} bg={pd.cor+"22"} cor={pd.cor}/>}
+                  {cat&&<Badge txt={cat.label} bg={cat.cor+"18"} cor={cat.cor}/>}
+                  {pd.cor&&<Badge txt={`${pd.ic} ${e.proc}`} bg={pd.cor+"15"} cor={pd.cor}/>}
+                </div>
+                <div style={{fontSize:13,color:"#1e293b",lineHeight:1.7,background:"#f8fafc",
+                             border:"1px solid #e2e8f0",borderRadius:8,padding:"10px 14px"}}
+                  dangerouslySetInnerHTML={{__html:fmt}}/>
+              </div>
+              <button onClick={()=>copiar(txt,i)}
+                style={{flexShrink:0,padding:"5px 10px",fontSize:11,fontWeight:600,
+                        background:copiado===i?"#22c55e":"#1e40af",color:"#fff",
+                        border:"none",borderRadius:8,cursor:"pointer",transition:"background .3s"}}>
+                {copiado===i?"✓":"📋"}
+              </button>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+// ─── Upload + load do GitHub ──────────────────────────────────────────────
+function useData() {
+  const [items,setItems] = useState(null);
+  const [loading,setLoading] = useState(false);
+  const [err,setErr] = useState(null);
+  const [fonte,setFonte] = useState(null);
+
+  const loadFile = useCallback(async(file)=>{
+    try {
+      const txt = await file.text();
+      const raw = JSON.parse(txt);
+      const parsed = (Array.isArray(raw)?raw:[])
+        .map(r=>typeof r==="string"?JSON.parse(r):r)
+        .map(parseItem).filter(e=>e.dt)
+        .sort((a,b)=>a.dt.localeCompare(b.dt));
+      setItems(parsed);
+      setFonte(`📂 ${file.name} (${parsed.length} eventos)`);
+      setErr(null);
+    } catch(e){ setErr("Erro ao ler: "+e.message); }
+  },[]);
+
+  const loadUltimoCiclo = useCallback(async()=>{
+    try {
+      const r = await fetch(GITHUB_RAW+"_ultimo_ciclo.json?t="+Date.now());
+      if(r.ok){ const d = await r.json(); return d; }
+    } catch(e){ console.log("ciclo não disponível"); }
+    return null;
+  },[]);
+
+  const loadGitHub = useCallback(async()=>{
+    setLoading(true);
+    try {
+      const url = GITHUB_RAW+"2026-2027_EventosNormalizadosEnriquecidos.json?t="+Date.now();
+      const res = await fetch(url);
+      if(!res.ok) throw new Error(`HTTP ${res.status}`);
+      const raw = await res.json();
+      const parsed = (Array.isArray(raw)?raw:[])
+        .map(r=>typeof r==="string"?JSON.parse(r):r)
+        .map(parseItem).filter(e=>e.dt)
+        .sort((a,b)=>a.dt.localeCompare(b.dt));
+      setItems(parsed);
+      setFonte(`☁️ GitHub (${parsed.length} eventos)`);
+      setErr(null);
+    } catch(e){ setErr("Erro ao carregar do GitHub: "+e.message); }
+    finally { setLoading(false); }
+  },[]);
+
+  useEffect(()=>{ if(IS_GITHUB) loadGitHub(); },[]);
+
+  return {items,loading,err,fonte,loadFile,loadGitHub,setItems};
+}
+
+// ─── App ──────────────────────────────────────────────────────────────────
+function App() {
+  const {items,loading,err,fonte,loadFile,loadGitHub,setItems} = useData();
+  const [aba,setAba]=useState("processos");
+  const [procAtivo,setProcAtivo]=useState(null);
+  const [drag,setDrag]=useState(false);
+  const inputRef=useRef();
+
+  const stats = useMemo(()=>{
+    if(!items) return null;
+    const datas=[...new Set(items.map(e=>e.data).filter(Boolean))].sort();
+    const procs=[...new Set(items.map(e=>e.proc).filter(Boolean))];
+    return {total:items.length,comProc:items.filter(e=>e.proc).length,
+            procs,periodo:datas.length?`${datas[0].split("-").reverse().join("/")} a ${datas[datas.length-1].split("-").reverse().join("/")}`:null};
+  },[items]);
+
+  const procs = stats?.procs||[];
+  useEffect(()=>{ if(procs.length&&!procAtivo) setProcAtivo(procs[0]); },[procs]);
+
+  if(!items&&!loading) return (
+    <div style={{fontFamily:"'Segoe UI',system-ui,sans-serif",background:"#f1f5f9",
+                 minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center"}}>
+      <div style={{maxWidth:480,padding:24,width:"100%"}}>
+        <div style={{textAlign:"center",marginBottom:24}}>
+          <div style={{fontSize:52,marginBottom:8}}>🧠</div>
+          <div style={{fontSize:22,fontWeight:700,color:"#1e293b"}}>DPCI · Painel de Processos</div>
+          <div style={{fontSize:13,color:"#64748b",marginTop:4}}>Dataprev · Cezar de Souza Matos</div>
+        </div>
+        {IS_GITHUB?(
+          <div style={{textAlign:"center",color:"#64748b",padding:32}}>
+            <div style={{fontSize:24,marginBottom:8}}>⏳</div>
+            <div>Carregando dados do GitHub...</div>
+          </div>
+        ):(
+          <>
+            <div style={{background:"#fff",borderRadius:14,padding:20,
+                         boxShadow:"0 2px 12px #0000000a",marginBottom:12}}>
+              <div style={{fontSize:11,fontWeight:700,color:"#64748b",marginBottom:8,
+                           textTransform:"uppercase",letterSpacing:.5}}>
+                Carregar JSON enriquecido
+              </div>
+              <div onClick={()=>inputRef.current.click()}
+                onDragOver={e=>{e.preventDefault();setDrag(true)}}
+                onDragLeave={()=>setDrag(false)}
+                onDrop={e=>{e.preventDefault();setDrag(false);loadFile(e.dataTransfer.files[0])}}
+                style={{border:`2px dashed ${drag?"#6366f1":"#cbd5e1"}`,borderRadius:10,
+                        padding:"24px 16px",cursor:"pointer",textAlign:"center",
+                        background:drag?"#eef2ff":"#fafafa",transition:"all .2s"}}>
+                <div style={{fontSize:32,marginBottom:6}}>📋</div>
+                <div style={{fontSize:13,fontWeight:600,color:"#1e293b",marginBottom:2}}>
+                  Arraste o JSON aqui
+                </div>
+                <div style={{fontSize:11,color:"#94a3b8"}}>
+                  2026-2027_EventosNormalizadosEnriquecidos.json
+                </div>
+                <input ref={inputRef} type="file" accept=".json" style={{display:"none"}}
+                       onChange={e=>loadFile(e.target.files[0])}/>
+              </div>
+            </div>
+            {err&&<div style={{padding:"10px 14px",background:"#fef2f2",border:"1px solid #fca5a5",
+                               borderRadius:8,fontSize:12,color:"#991b1b",marginBottom:10}}>⚠️ {err}</div>}
+          </>
+        )}
+      </div>
+    </div>
+  );
+
+  if(loading) return (
+    <div style={{minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",
+                 background:"#f1f5f9",flexDirection:"column",gap:12}}>
+      <div style={{fontSize:32}}>⏳</div>
+      <div style={{fontSize:14,color:"#64748b"}}>Carregando dados...</div>
+    </div>
+  );
+
+  const ABAS=[["processos","📁 Processos"],["siscontic","📝 SISCONTIC"],["tudo","📅 Tudo"]];
+
+  return (
+    <div style={{fontFamily:"'Segoe UI',system-ui,sans-serif",background:"#f1f5f9",minHeight:"100vh"}}>
+      {/* Header */}
+      <div style={{background:"linear-gradient(135deg,#1e293b,#312e81)",padding:"14px 20px",color:"#fff"}}>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",
+                     flexWrap:"wrap",gap:10,maxWidth:1000,margin:"0 auto"}}>
+          <div>
+            <div style={{fontSize:17,fontWeight:700}}>🧠 DPCI · Painel de Processos</div>
+            <div style={{fontSize:11,opacity:.7,marginTop:1}}>
+              {fonte||"Dataprev"}{stats?.periodo?` · ${stats.periodo}`:""}
+            </div>
+          </div>
+          <div style={{display:"flex",gap:6,flexWrap:"wrap",alignItems:"center"}}>
+            {[["eventos",stats?.total,"#a5f3fc"],
+              ["classificados",stats?.comProc,"#c4b5fd"],
+              ["processos",procs.length,"#6ee7b7"]].map(([l,n,c])=>(
+              <div key={l} style={{background:"#ffffff15",border:"1px solid #ffffff30",
+                                   borderRadius:8,padding:"4px 12px",textAlign:"center"}}>
+                <div style={{fontSize:16,fontWeight:700,color:c}}>{n}</div>
+                <div style={{fontSize:9,color:"#cbd5e1"}}>{l}</div>
+              </div>
+            ))}
+            {IS_GITHUB&&<button onClick={loadGitHub}
+              style={{padding:"4px 12px",fontSize:11,background:"#ffffff18",
+                      border:"1px solid #ffffff33",color:"#fff",borderRadius:8,cursor:"pointer"}}>
+              🔄 Atualizar
+            </button>}
+            {!IS_GITHUB&&<button onClick={()=>setItems(null)}
+              style={{padding:"4px 12px",fontSize:11,background:"#ffffff18",
+                      border:"1px solid #ffffff33",color:"#fff",borderRadius:8,cursor:"pointer"}}>
+              ↩ Novo
+            </button>}
+          </div>
+        </div>
+        {/* Abas */}
+        <div style={{display:"flex",gap:0,marginTop:12,borderBottom:"1px solid #ffffff22",
+                     maxWidth:1000,margin:"12px auto 0"}}>
+          {ABAS.map(([id,lbl])=>(
+            <button key={id} onClick={()=>setAba(id)} style={{
+              padding:"7px 16px",fontSize:12,border:"none",cursor:"pointer",
+              background:aba===id?"#ffffff22":"transparent",
+              color:aba===id?"#fff":"#94a3b8",
+              fontWeight:aba===id?700:400,
+              borderBottom:aba===id?"2px solid #818cf8":"2px solid transparent"}}>
+              {lbl}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div style={{padding:"16px 20px",maxWidth:1000,margin:"0 auto"}}>
+
+        {/* PROCESSOS */}
+        {aba==="processos"&&(
+          <div>
+            <div style={{display:"flex",gap:0,marginBottom:14,overflowX:"auto",background:"#fff",
+                         border:"1px solid #e2e8f0",borderRadius:10,overflow:"hidden"}}>
+              {procs.map((p,i,arr)=>{
+                const pd=PROC_DEF[p]||{cor:"#94a3b8",ic:"📌"};
+                const n=items.filter(e=>e.proc===p).length;
+                return (
+                  <button key={p} onClick={()=>setProcAtivo(p)} style={{
+                    flex:1,minWidth:60,padding:"10px 6px",border:"none",cursor:"pointer",
+                    borderBottom:procAtivo===p?`2px solid ${pd.cor}`:"2px solid transparent",
+                    background:procAtivo===p?pd.cor+"10":"transparent",
+                    color:procAtivo===p?pd.cor:"#64748b",
+                    fontWeight:procAtivo===p?700:400,fontSize:11,
+                    borderRight:i<arr.length-1?"1px solid #e2e8f0":"none"}}>
+                    <div style={{fontSize:16}}>{pd.ic}</div>
+                    <div style={{fontSize:9,marginTop:1}}>{n}</div>
+                  </button>
+                );
+              })}
+            </div>
+            {procAtivo&&<ProcTab proc={procAtivo} items={items}/>}
+          </div>
+        )}
+
+        {/* SISCONTIC */}
+        {aba==="siscontic"&&<SisconticTab items={items}/>}
+
+        {/* TUDO */}
+        {aba==="tudo"&&(()=>{
+          const byDate={};
+          [...items].sort((a,b)=>a.dt.localeCompare(b.dt))
+            .forEach(e=>{(byDate[e.data]=byDate[e.data]||[]).push(e);});
+          return (
+            <div>
+              <div style={{fontSize:11,color:"#94a3b8",marginBottom:10}}>
+                {items.length} eventos · {Object.keys(byDate).length} dias
+              </div>
+              {Object.entries(byDate).sort(([a],[b])=>a.localeCompare(b)).map(([data,evs])=>(
+                <div key={data}>
+                  <div style={{display:"flex",alignItems:"center",gap:8,margin:"12px 0 4px"}}>
+                    <div style={{height:1,flex:1,background:"#e2e8f0"}}/>
+                    <span style={{fontSize:10,fontWeight:700,color:"#6366f1",background:"#eef2ff",
+                                  border:"1px solid #c7d2fe",borderRadius:20,padding:"2px 10px"}}>
+                      {data.split("-").reverse().join("/")}
+                    </span>
+                    <div style={{height:1,flex:1,background:"#e2e8f0"}}/>
+                  </div>
+                  {evs.map((e,i)=><EvCard key={i} e={e}/>)}
+                </div>
+              ))}
+            </div>
+          );
+        })()}
+
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>
