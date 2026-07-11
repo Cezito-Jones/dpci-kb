@@ -1,0 +1,36 @@
+{
+  "_syncGitHub": {
+    "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
+    "baseUtilizada": "Novo",
+    "geradoEmUTC": "2026-07-11T04:13:23.9798439Z",
+    "origem": "Power Automate - 4ª Fase Merger DPCI v7",
+    "versionTicks": "639193400039514882",
+    "publicadoPeloGitHubActions": true
+  },
+  "atestado": {},
+  "processoIdentificado": "Modernização e Expansão dos Firewalls de Rede",
+  "siscontic": [
+    {
+      "bloqueado": false,
+      "data": "06/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "06/07/2026 – DPCI registrou evento relevante referente a Modernização e Expansão dos Firewalls de Rede: Boa tarde Wallace, solicitamos a devolução do processo 44129.010559/2025-33 no\nSEI, para inclusão da documentação ref. a."
+    }
+  ],
+  "timeline": [
+    {
+      "assunto": "RES: PE 91065/2025 | (POC Modernização Firewalls de Rede)",
+      "autor": "",
+      "data": "2026-07-06",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-06T17:45:46",
+      "nomeArquivo": ""
+    }
+  ],
+  "ultimaAtualizacao": "2026-07-11",
+  "ultimaAtualizacaoUTC": "2026-07-11T04:13:24.0104447Z"
+}
