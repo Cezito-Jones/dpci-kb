@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:15:15.6676735Z",
+    "geradoEmUTC": "2026-07-11T04:15:59.4615682Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193401156370765",
+    "versionTicks": "639193401594253563",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -65,6 +65,30 @@
       "docVersao": "V - RE",
       "origem": "merger",
       "texto": "06/07/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Prezados, bom dia.\n\n\nSegue a proposta da empresa ELEEVA IT para conhecimento. \n\n\nAtenciosamente,\n\n\n\nsombra superior esqu."
+    },
+    {
+      "bloqueado": false,
+      "data": "02/07/2026",
+      "docTipo": "TR",
+      "docVersao": "V - PE",
+      "origem": "merger",
+      "texto": "02/07/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Prezados, seguem as respostas das áreas técnicas.\n\n\nQuestionamento : \n\n\n\n1. Suporte técnico x serviços profissionais\n\nO ."
+    },
+    {
+      "bloqueado": false,
+      "data": "02/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "viou 3",
+      "origem": "merger",
+      "texto": "02/07/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: assinado DIGR >>> MAPA DE GERENCIAMENTO DE RISCOS – CONTRATAÇÃO TI 33 (SEI!\n0251492 ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  ‌ ‌ ‌ ‌ ‌."
+    },
+    {
+      "bloqueado": false,
+      "data": "02/07/2026",
+      "docTipo": "TR",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "02/07/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Alcione\n\n \n\nSeguem as respostas no corpo do e-mail.\n\n \n\nAtenciosamente,\n\nsombra superior esquerda [cid:image001.png@01DD."
     }
   ],
   "timeline": [
@@ -137,8 +161,38 @@
       "docVersao": "V - RE",
       "dt": "2026-07-06T08:19:23",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "*******RASCUNHO *****   RE: DATAPREV - PESQUISA DE MERCADO: SUBSCRIÇÃO PARA FERR",
+      "autor": "",
+      "data": "2026-07-02",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "V - PE",
+      "dt": "2026-07-02T20:28:21",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "Andre Raphael Costa de Moraes, Alcione Maria Monteiro de Andrade Lima, +1 enviou",
+      "autor": "",
+      "data": "2026-07-02",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "viou 3",
+      "dt": "2026-07-02T20:27:24",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RES: [Questionamento - Pesquisa de Mercado ]  SUBSCRIÇÃO PARA FERRAMENTAS DA BRO",
+      "autor": "",
+      "data": "2026-07-02",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "",
+      "dt": "2026-07-02T16:40:55",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:15:15.7472693Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:15:59.4855585Z"
 }
