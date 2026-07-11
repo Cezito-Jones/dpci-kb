@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:17:46.9455567Z",
+    "geradoEmUTC": "2026-07-11T04:22:51.0604023Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193402669152715",
+    "versionTicks": "639193405710338443",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -41,6 +41,38 @@
       "docVersao": "versão",
       "origem": "merger",
       "texto": "30/06/2026 – DPCI registrou evento relevante referente a Solução de Descriptografia de Tráfego: Prezados(as), bom dia.\n \nSeguem os links para a versão 0.11 do Estudo Técnico de Solução de\nDescriptografia Centralizada."
+    },
+    {
+      "bloqueado": false,
+      "data": "29/06/2026",
+      "docTipo": "MR",
+      "docVersao": "versão",
+      "origem": "merger",
+      "texto": "29/06/2026 – DPCI registrou evento relevante referente a Solução de Descriptografia de Tráfego: Boa tarde DIPL.\n\n \n\nSegue para análise, a versão 0.2 do Termo de Referência ref. ao processo Solução\nde Descriptografia ."
+    },
+    {
+      "bloqueado": false,
+      "data": "08/07/2026",
+      "docTipo": "ET",
+      "docVersao": "versão",
+      "origem": "merger",
+      "texto": "08/07/2026 – DPCI registrou evento relevante referente a Solução de Descriptografia de Tráfego: Olá Cezar, bom dia!\n\n\nEstava verificando e este processo iniciou em 2023. É uma nova versão da\nferramenta?\n\n\nGostaria de."
+    },
+    {
+      "bloqueado": false,
+      "data": "07/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "versão",
+      "origem": "merger",
+      "texto": "07/07/2026 – DPCI registrou evento relevante referente a Solução de Descriptografia de Tráfego: Olá! Estou de férias. Retorno em 24/07. Por favor, entre em contato com Danielle\nAssis durante este período.."
+    },
+    {
+      "bloqueado": false,
+      "data": "07/07/2026",
+      "docTipo": "ET",
+      "docVersao": "versão",
+      "origem": "merger",
+      "texto": "07/07/2026 – DPCI registrou evento relevante referente a Solução de Descriptografia de Tráfego: Boa tarde DIGT.\n\n \n\nSegue para análise, a versão 0.3 do Termo de Referência ref. ao processo Solução\nde Descriptografia ."
     }
   ],
   "timeline": [
@@ -83,8 +115,48 @@
       "docVersao": "versão",
       "dt": "2026-06-30T10:53:34",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "RES:  [Termo de Referência] Solução de Descriptografia Centralizada de Tráfego d",
+      "autor": "",
+      "data": "2026-06-29",
+      "dir": "REC",
+      "docTipo": "MR",
+      "docVersao": "versão",
+      "dt": "2026-06-29T13:46:14",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RE: [TR] Solução de Descriptografia Centralizada de Tráfego da Rede - versão 0.3",
+      "autor": "",
+      "data": "2026-07-08",
+      "dir": "REC",
+      "docTipo": "ET",
+      "docVersao": "versão",
+      "dt": "2026-07-08T08:14:57",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "Resposta automática: [TR] Solução de Descriptografia Centralizada de Tráfego da ",
+      "autor": "",
+      "data": "2026-07-07",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "versão",
+      "dt": "2026-07-07T18:24:51",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RES: [TR] Solução de Descriptografia Centralizada de Tráfego da Rede - versão 0.",
+      "autor": "",
+      "data": "2026-07-07",
+      "dir": "REC",
+      "docTipo": "ET",
+      "docVersao": "versão",
+      "dt": "2026-07-07T17:33:17",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:17:46.9799663Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:22:51.0856752Z"
 }
