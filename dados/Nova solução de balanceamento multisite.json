@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:23:54.9524108Z",
+    "geradoEmUTC": "2026-07-11T04:24:00.8259425Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193406349148900",
+    "versionTicks": "639193406407921566",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -89,6 +89,14 @@
       "docVersao": "",
       "origem": "merger",
       "texto": "09/07/2026 – DPCI registrou evento relevante referente a Nova solução de balanceamento multisite: Boa tarde.\n\n Encaminhamos o link para análise dos procedimentos licitatórios com indícios de\nsimilaridade ao objeto em r."
+    },
+    {
+      "bloqueado": false,
+      "data": "09/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "09/07/2026 – DPCI registrou evento relevante referente a Nova solução de balanceamento multisite: Boa tarde a todos, Segue o link da pasta de Banco de preços com acesso liberado\npara a DIPL e a RITM para análise de Sim."
     }
   ],
   "timeline": [
@@ -191,8 +199,18 @@
       "docVersao": "",
       "dt": "2026-07-09T14:29:36",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "RE: ANÁLISE DE SIMILARIDADE - SUPORTE BALANCEAMENTO MULTISITE F5",
+      "autor": "",
+      "data": "2026-07-09",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-09T14:20:36",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:23:54.9773671Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:24:00.8527334Z"
 }
