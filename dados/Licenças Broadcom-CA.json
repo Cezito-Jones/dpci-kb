@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:20:59.3909987Z",
+    "geradoEmUTC": "2026-07-11T04:21:17.3395067Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193404593583649",
+    "versionTicks": "639193404773090608",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -249,6 +249,22 @@
       "docVersao": "v2 - D",
       "origem": "merger",
       "texto": "10/06/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Boa tarde a todos,\n\nRealizamos a análise do Estudo Técnico referente à contratação de subscrições\nBroadcom e, ao lermos ."
+    },
+    {
+      "bloqueado": false,
+      "data": "08/06/2026",
+      "docTipo": "TR",
+      "docVersao": "v1.1",
+      "origem": "merger",
+      "texto": "08/06/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Adicionando o anexo correto.\n\n \n\n \n\nsombra superior esquerda [cid:image001.png@01DCF77A.F045F6A0]\n\nsombra superior direi."
+    },
+    {
+      "bloqueado": false,
+      "data": "08/06/2026",
+      "docTipo": "TR",
+      "docVersao": "v1.1",
+      "origem": "merger",
+      "texto": "08/06/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Boa noite a todos,\n\n \n\nNós revisamos o Termo de Referência da contratação de suporte às licenças\nBroadcom com base na es."
     }
   ],
   "timeline": [
@@ -551,8 +567,28 @@
       "docVersao": "v2 - D",
       "dt": "2026-06-10T14:57:06",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "RES: [Análise Termo de referência] Suporte Licenças da CA (Broadcom) TRv1.1",
+      "autor": "",
+      "data": "2026-06-08",
+      "dir": "ENV",
+      "docTipo": "TR",
+      "docVersao": "v1.1",
+      "dt": "2026-06-08T19:13:00",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "[Análise Termo de referência] Suporte Licenças da CA (Broadcom) TRv1.1",
+      "autor": "",
+      "data": "2026-06-08",
+      "dir": "ENV",
+      "docTipo": "TR",
+      "docVersao": "v1.1",
+      "dt": "2026-06-08T19:10:00",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:20:59.4179282Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:21:17.3664137Z"
 }
