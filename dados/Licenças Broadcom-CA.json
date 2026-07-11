@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:16:57.0442821Z",
+    "geradoEmUTC": "2026-07-11T04:17:15.0113475Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193402170120967",
+    "versionTicks": "639193402349792265",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -129,6 +129,22 @@
       "docVersao": "",
       "origem": "merger",
       "texto": "30/06/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Prezada @Alcione Maria Monteiro de Andrade Lima\n[alcione.monteiro@dataprev.gov.br], boa tarde.\n\n\nSegue resposta aos ques."
+    },
+    {
+      "bloqueado": false,
+      "data": "30/06/2026",
+      "docTipo": "TR",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "30/06/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: \n\nBoa tarde a todos, segue RITM\nRITM0142738\n\nsombra superior esquerda\n[https://portal3.dataprev.gov.br/sites/default/fil."
+    },
+    {
+      "bloqueado": false,
+      "data": "30/06/2026",
+      "docTipo": "TR",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "30/06/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Prezados, encaminhamos para DIGR os questionamentos que recebemos durante a\npesquisa de mercado do fornecedor HCLTech, s."
     }
   ],
   "timeline": [
@@ -281,8 +297,28 @@
       "docVersao": "",
       "dt": "2026-06-30T18:07:50",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "RE: [Questionamento - Pesquisa de Mercado ]  SUBSCRIÇÃO PARA FERRAMENTAS DA BROA",
+      "autor": "",
+      "data": "2026-06-30",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "",
+      "dt": "2026-06-30T14:29:29",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "DIGR- [Questionamento - Pesquisa de Mercado ]  SUBSCRIÇÃO PARA FERRAMENTAS DA BR",
+      "autor": "",
+      "data": "2026-06-30",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "",
+      "dt": "2026-06-30T12:36:25",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:16:57.0696068Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:17:15.0380685Z"
 }
