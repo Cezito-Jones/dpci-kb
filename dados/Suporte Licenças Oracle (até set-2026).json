@@ -1,0 +1,36 @@
+{
+  "_syncGitHub": {
+    "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
+    "baseUtilizada": "Novo",
+    "geradoEmUTC": "2026-07-11T04:13:35.0476220Z",
+    "origem": "Power Automate - 4ª Fase Merger DPCI v7",
+    "versionTicks": "639193400150126039",
+    "publicadoPeloGitHubActions": true
+  },
+  "atestado": {},
+  "processoIdentificado": "Suporte Licenças Oracle (até set/2026)",
+  "siscontic": [
+    {
+      "bloqueado": false,
+      "data": "06/07/2026",
+      "docTipo": "ETP",
+      "docVersao": "v0.1",
+      "origem": "merger",
+      "texto": "06/07/2026 – DPCI registrou evento relevante referente a Suporte Licenças Oracle (até set/2026): Boa tarde DIGR.\n\n \n\nEncaminhamos para conhecimento e análise, Estudo Técnico referente ao processo\nde Prorrogação dos Se."
+    }
+  ],
+  "timeline": [
+    {
+      "assunto": "ETP Prorrogação Oracle CSS v0.1",
+      "autor": "",
+      "data": "2026-07-06",
+      "dir": "REC",
+      "docTipo": "ETP",
+      "docVersao": "v0.1",
+      "dt": "2026-07-06T17:12:12",
+      "nomeArquivo": ""
+    }
+  ],
+  "ultimaAtualizacao": "2026-07-11",
+  "ultimaAtualizacaoUTC": "2026-07-11T04:13:35.0859176Z"
+}
