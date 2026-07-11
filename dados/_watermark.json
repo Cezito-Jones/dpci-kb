@@ -1,12 +1,12 @@
 {
-  "modoReprocessamentoCompleto": false,
+  "modoReprocessamentoCompleto": true,
   "observacao": "Publicado pela 4ª Fase – Merger DPCI v7 Manual",
-  "totalEventosProcessados": 138,
-  "totalEventosProcessadosAcumulado": 138,
+  "totalEventosProcessados": 153,
+  "totalEventosProcessadosAcumulado": 153,
   "ultimoCiclo": "2026-2027",
-  "ultimoProcessamento": "2026-07-11T04:13:06.6948756Z",
+  "ultimoProcessamento": "2026-07-11T22:09:14.7481562Z",
   "_syncGitHub": {
-    "versionTicks": "639193407453741825",
+    "versionTicks": "639194052500253103",
     "publicadoPeloGitHubActions": true
   }
 }
