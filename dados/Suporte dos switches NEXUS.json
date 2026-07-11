@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:16:49.0170095Z",
+    "geradoEmUTC": "2026-07-11T04:17:06.1022089Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193402089846383",
+    "versionTicks": "639193402260740819",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -41,6 +41,30 @@
       "docVersao": "",
       "origem": "merger",
       "texto": "30/06/2026 – DPCI registrou evento relevante referente a Suporte dos switches NEXUS: + @Tiago Ferreira Martins [tiago.martins@dataprev.gov.br]\n\n\n\n\n\n---------------------------------------------------------."
+    },
+    {
+      "bloqueado": false,
+      "data": "30/06/2026",
+      "docTipo": "TR",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "30/06/2026 – DPCI registrou evento relevante referente a Suporte dos switches NEXUS: Natália, segue o complemento da resposta, conforme último alinhamento:\n\n\nVisando à adequada análise técnica dos switches."
+    },
+    {
+      "bloqueado": false,
+      "data": "30/06/2026",
+      "docTipo": "TR",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "30/06/2026 – DPCI registrou evento relevante referente a Suporte dos switches NEXUS: Prezada Guaciara,\n\n \n\nSegue questionamento da Parkplace e resposta técnica:\n\n \n\n“Visando à adequada análise técnica dos ."
+    },
+    {
+      "bloqueado": false,
+      "data": "30/06/2026",
+      "docTipo": "TR",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "30/06/2026 – DPCI registrou evento relevante referente a Suporte dos switches NEXUS: Prezados, segue a resposta ao primeiro item do questionamento da PARKPLACE -.\nCom essa resposta finalizamos todas as per."
     }
   ],
   "timeline": [
@@ -83,8 +107,38 @@
       "docVersao": "",
       "dt": "2026-06-30T18:22:02",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "RE: PREGÃO ELETRÔNICO N° 91.085 / 2026  ( Pedido de Esclarecimento) - Solicitaçã",
+      "autor": "",
+      "data": "2026-06-30",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "",
+      "dt": "2026-06-30T18:19:58",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RES: PREGÃO ELETRÔNICO N° 91.085 / 2026  ( Pedido de Esclarecimento )  -  DATAPR",
+      "autor": "",
+      "data": "2026-06-30",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "",
+      "dt": "2026-06-30T15:42:03",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RE: PREGÃO ELETRÔNICO N° 91.085 / 2026  ( Pedido de Esclarecimento )  -  DATAPRE",
+      "autor": "",
+      "data": "2026-06-30",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "",
+      "dt": "2026-06-30T15:13:44",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:16:49.0407343Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:17:06.1255391Z"
 }
