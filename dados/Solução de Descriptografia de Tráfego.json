@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:23:15.7026161Z",
+    "geradoEmUTC": "2026-07-11T22:10:17.9405165Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193405956701553",
+    "versionTicks": "639194046178732181",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -89,6 +89,30 @@
       "docVersao": "versão",
       "origem": "merger",
       "texto": "08/07/2026 – DPCI registrou evento relevante referente a Solução de Descriptografia de Tráfego: Bom dia @Edmilson Priraciaba [edmilson.piraciaba@dataprev.gov.br],\n\nPor gentileza, poderia esclarecer a equipe de treina."
+    },
+    {
+      "bloqueado": false,
+      "data": "07/07/2026",
+      "docTipo": "ET",
+      "docVersao": "versão",
+      "origem": "merger",
+      "texto": "07/07/2026 – DPCI registrou evento relevante referente a Solução de Descriptografia de Tráfego: +@Natalia Barbosa Ramos [natalia.bramos@dataprev.gov.br]\n+@Fernanda Affonso Ramos [fernanda.affonso@dataprev.gov.br]\n+@E."
+    },
+    {
+      "bloqueado": false,
+      "data": "07/07/2026",
+      "docTipo": "ET",
+      "docVersao": "versão",
+      "origem": "merger",
+      "texto": "07/07/2026 – DPCI registrou evento relevante referente a Solução de Descriptografia de Tráfego: Boa tarde,  DIGT.\n\n \n\nSegue para análise, a versão 0.3 do Termo de Referência ref. ao processo Solução\nde Descriptografi."
+    },
+    {
+      "bloqueado": false,
+      "data": "09/07/2026",
+      "docTipo": "MR",
+      "docVersao": "versão",
+      "origem": "merger",
+      "texto": "09/07/2026 – DPCI registrou evento relevante referente a Solução de Descriptografia de Tráfego: Prezados, boa tarde.\n\n\nSegue anexo a análise da equipe de Redes e Segurança da DIPL no documento TR\nv0.3 enviado. Ressal."
     }
   ],
   "timeline": [
@@ -191,8 +215,38 @@
       "docVersao": "versão",
       "dt": "2026-07-08T09:59:11",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "ENC: [TR] Solução de Descriptografia Centralizada de Tráfego da Rede - versão 0.",
+      "autor": "",
+      "data": "2026-07-07",
+      "dir": "ENV",
+      "docTipo": "ET",
+      "docVersao": "versão",
+      "dt": "2026-07-07T18:34:45",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "ENC: [TR] Solução de Descriptografia Centralizada de Tráfego da Rede - versão 0.",
+      "autor": "",
+      "data": "2026-07-07",
+      "dir": "ENV",
+      "docTipo": "ET",
+      "docVersao": "versão",
+      "dt": "2026-07-07T18:24:36",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RE:  [Termo de Referência] Solução de Descriptografia Centralizada de Tráfego da",
+      "autor": "",
+      "data": "2026-07-09",
+      "dir": "REC",
+      "docTipo": "MR",
+      "docVersao": "versão",
+      "dt": "2026-07-09T11:38:42",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:23:15.7269168Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T22:10:17.9651616Z"
 }
