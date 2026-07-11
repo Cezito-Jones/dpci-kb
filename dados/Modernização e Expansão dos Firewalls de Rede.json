@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:20:19.6239834Z",
+    "geradoEmUTC": "2026-07-11T04:21:08.3941985Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193404195953289",
+    "versionTicks": "639193404683594906",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -81,6 +81,30 @@
       "docVersao": "VA PRO",
       "origem": "merger",
       "texto": "24/06/2026 – DPCI registrou evento relevante referente a Modernização e Expansão dos Firewalls de Rede: Bom dia, Wallace.\n\n \n\nConforme conversado pelo Teams, com o objetivo de esclarecer a questão\nrelacionada à reabertura do."
+    },
+    {
+      "bloqueado": false,
+      "data": "18/06/2026",
+      "docTipo": "Outro",
+      "docVersao": "VA PRO",
+      "origem": "merger",
+      "texto": "18/06/2026 – DPCI registrou evento relevante referente a Modernização e Expansão dos Firewalls de Rede: Prezado Wallace,\n\n \n\nA Licitante NTSEC, conforme sequência abaixo, solicitou que as próximas sessões\ndos dias  (18/06 e ."
+    },
+    {
+      "bloqueado": false,
+      "data": "09/06/2026",
+      "docTipo": "TR",
+      "docVersao": "VA PRO",
+      "origem": "merger",
+      "texto": "09/06/2026 – DPCI registrou evento relevante referente a Modernização e Expansão dos Firewalls de Rede: @Natalia Barbosa Ramos [natalia.bramos@dataprev.gov.br]\n\n \n\n \n\nsombra superior esquerda [cid:image001.png@01DCF82E.785C6."
+    },
+    {
+      "bloqueado": false,
+      "data": "09/06/2026",
+      "docTipo": "TR",
+      "docVersao": "VA PRO",
+      "origem": "merger",
+      "texto": "09/06/2026 – DPCI registrou evento relevante referente a Modernização e Expansão dos Firewalls de Rede: Prezado Wallace,\n\n \n\nA Licitante NTSEC, conforme carta anexada, solicitou dilação do prazo para\nconclusão das comprovaçõ."
     }
   ],
   "timeline": [
@@ -173,8 +197,38 @@
       "docVersao": "VA PRO",
       "dt": "2026-06-24T10:40:58",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "ENC: NOVA PRORROGAÇÃO DE PRAZO - PoC - Fase de Execução - Processo nº 44129.0095",
+      "autor": "",
+      "data": "2026-06-18",
+      "dir": "ENV",
+      "docTipo": "Outro",
+      "docVersao": "VA PRO",
+      "dt": "2026-06-18T14:04:43",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RES: NOVA PRORROGAÇÃO DE PRAZO - PoC - Fase de Execução - Processo nº 44129.0095",
+      "autor": "",
+      "data": "2026-06-09",
+      "dir": "ENV",
+      "docTipo": "TR",
+      "docVersao": "VA PRO",
+      "dt": "2026-06-09T16:38:58",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "ENC: NOVA PRORROGAÇÃO DE PRAZO - PoC - Fase de Execução - Processo nº 44129.0095",
+      "autor": "",
+      "data": "2026-06-09",
+      "dir": "ENV",
+      "docTipo": "TR",
+      "docVersao": "VA PRO",
+      "dt": "2026-06-09T14:25:47",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:20:19.6449987Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:21:08.4225873Z"
 }
