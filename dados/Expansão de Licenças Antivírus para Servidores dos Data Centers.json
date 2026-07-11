@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:20:25.4263525Z",
+    "geradoEmUTC": "2026-07-11T04:21:45.3879987Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193404253966187",
+    "versionTicks": "639193405053589633",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -41,6 +41,22 @@
       "docVersao": "vírus ",
       "origem": "merger",
       "texto": "19/06/2026 – DPCI registrou evento relevante referente a Expansão de Licenças Antivírus para Servidores dos Data Centers: Boa tarde a todos,\n\n \n\nEncaminhamos, para análise e validação, o Termo de Referência v0.12 referente ao\nprocesso de aqui."
+    },
+    {
+      "bloqueado": false,
+      "data": "08/06/2026",
+      "docTipo": "MR",
+      "docVersao": "vírus ",
+      "origem": "merger",
+      "texto": "08/06/2026 – DPCI registrou evento relevante referente a Expansão de Licenças Antivírus para Servidores dos Data Centers: Boa tarde a todos,\n\nRealizamos a atualização do mapa de risco do planejamento e gestão técnica para\nMRv0.5 devido ao rec."
+    },
+    {
+      "bloqueado": false,
+      "data": "08/06/2026",
+      "docTipo": "ET",
+      "docVersao": "vírus ",
+      "origem": "merger",
+      "texto": "08/06/2026 – DPCI registrou evento relevante referente a Expansão de Licenças Antivírus para Servidores dos Data Centers: Bom dia a todos,\n\n \n\nEstamos encaminhando o Estudo Técnico v0.9 analisado e contendo nossos\ncomentários e sugestões para."
     }
   ],
   "timeline": [
@@ -83,8 +99,28 @@
       "docVersao": "vírus ",
       "dt": "2026-06-19T12:40:56",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "RES: [Análise do Termo de Referência] – Aquisição de licenças de antivírus para ",
+      "autor": "",
+      "data": "2026-06-08",
+      "dir": "ENV",
+      "docTipo": "MR",
+      "docVersao": "vírus ",
+      "dt": "2026-06-08T18:03:00",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "[Análise do Estudo Técnico] – Aquisição de licenças de antivírus para servidores",
+      "autor": "",
+      "data": "2026-06-08",
+      "dir": "ENV",
+      "docTipo": "ET",
+      "docVersao": "vírus ",
+      "dt": "2026-06-08T09:13:00",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:20:25.4526288Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:21:45.4116768Z"
 }
