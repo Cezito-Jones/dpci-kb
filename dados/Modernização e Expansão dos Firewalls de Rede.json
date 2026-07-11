@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:24:10.4664726Z",
+    "geradoEmUTC": "2026-07-11T04:24:31.1691412Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193406504339888",
+    "versionTicks": "639193406711369028",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -137,6 +137,14 @@
       "docVersao": "",
       "origem": "merger",
       "texto": "09/07/2026 – DPCI registrou evento relevante referente a Modernização e Expansão dos Firewalls de Rede: Prezado(a) Ponto Focal,\n\nFoi incluída a etapa \"RECURSO\" na demanda abaixo:\n\nPregão\nProcesso: 44129.009517/2025-50\nObjeto."
+    },
+    {
+      "bloqueado": false,
+      "data": "08/07/2026",
+      "docTipo": "TR",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "08/07/2026 – DPCI registrou evento relevante referente a Modernização e Expansão dos Firewalls de Rede: Prezado Wallace,\n\n \n\nComo conversado, os valores apresentados pela Licitante estão validados\nconsiderando a planilha de ."
     }
   ],
   "timeline": [
@@ -299,8 +307,18 @@
       "docVersao": "",
       "dt": "2026-07-09T12:02:19",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "RES: PE 91065/2025 | (POC Modernização Firewalls de Rede)",
+      "autor": "",
+      "data": "2026-07-08",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "",
+      "dt": "2026-07-08T17:13:16",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:24:10.4926774Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:24:31.1953041Z"
 }
