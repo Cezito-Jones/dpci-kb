@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:18:49.9091135Z",
+    "geradoEmUTC": "2026-07-11T04:20:59.3909987Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193403298773041",
+    "versionTicks": "639193404593583649",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -233,6 +233,22 @@
       "docVersao": "VA IT ",
       "origem": "merger",
       "texto": "06/07/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA:  \n\nBom dia a todos,\n\nSegue para conhecimento, a proposta comercial da contratação de Subscrições para\nferramentas da Bro."
+    },
+    {
+      "bloqueado": false,
+      "data": "12/06/2026",
+      "docTipo": "TR",
+      "docVersao": "v1.1",
+      "origem": "merger",
+      "texto": "12/06/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Boa noite a todos,\n\n \n\nNós realizamos um último ajuste no Termo de Referência após análise da DEGI\nconforme abaixo. Pedi."
+    },
+    {
+      "bloqueado": false,
+      "data": "10/06/2026",
+      "docTipo": "ET",
+      "docVersao": "v2 - D",
+      "origem": "merger",
+      "texto": "10/06/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Boa tarde a todos,\n\nRealizamos a análise do Estudo Técnico referente à contratação de subscrições\nBroadcom e, ao lermos ."
     }
   ],
   "timeline": [
@@ -515,8 +531,28 @@
       "docVersao": "VA IT ",
       "dt": "2026-07-06T10:31:10",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "RES: [Análise Termo de referência] Suporte Licenças da CA (Broadcom) TRv1.1",
+      "autor": "",
+      "data": "2026-06-12",
+      "dir": "ENV",
+      "docTipo": "TR",
+      "docVersao": "v1.1",
+      "dt": "2026-06-12T19:05:00",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RES: [Estudo Técnico] Suporte Licenças da CA (Broadcom) v2 - DPCI",
+      "autor": "",
+      "data": "2026-06-10",
+      "dir": "ENV",
+      "docTipo": "ET",
+      "docVersao": "v2 - D",
+      "dt": "2026-06-10T14:57:06",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:18:49.9335444Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:20:59.4179282Z"
 }
