@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:20:12.1799097Z",
+    "geradoEmUTC": "2026-07-11T04:20:19.6239834Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193404121522023",
+    "versionTicks": "639193404195953289",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -73,6 +73,14 @@
       "docVersao": "VA PRO",
       "origem": "merger",
       "texto": "25/06/2026 – DPCI registrou evento relevante referente a Modernização e Expansão dos Firewalls de Rede: Boa tarde,  Wallace,\n\nSugerimos que a reabertura do chat do pregão seja realizada amanhã, dia\n26/06/2026, às 15h, para a."
+    },
+    {
+      "bloqueado": false,
+      "data": "24/06/2026",
+      "docTipo": "Outro",
+      "docVersao": "VA PRO",
+      "origem": "merger",
+      "texto": "24/06/2026 – DPCI registrou evento relevante referente a Modernização e Expansão dos Firewalls de Rede: Bom dia, Wallace.\n\n \n\nConforme conversado pelo Teams, com o objetivo de esclarecer a questão\nrelacionada à reabertura do."
     }
   ],
   "timeline": [
@@ -155,8 +163,18 @@
       "docVersao": "VA PRO",
       "dt": "2026-06-25T14:53:53",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "RES: NOVA PRORROGAÇÃO DE PRAZO - PoC - Fase de Execução - Processo nº 44129.0095",
+      "autor": "",
+      "data": "2026-06-24",
+      "dir": "ENV",
+      "docTipo": "Outro",
+      "docVersao": "VA PRO",
+      "dt": "2026-06-24T10:40:58",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:20:12.2021818Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:20:19.6449987Z"
 }
