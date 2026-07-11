@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T22:18:47.8517791Z",
+    "geradoEmUTC": "2026-07-11T22:19:29.4999903Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639194051278174391",
+    "versionTicks": "639194051694516362",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -121,6 +121,14 @@
       "docVersao": "",
       "origem": "merger",
       "texto": "08/07/2026 – DPCI registrou evento relevante referente a Suporte dos switches NEXUS: @Alcione Maria Monteiro de Andrade Lima [alcione.monteiro@dataprev.gov.br],\n\n \n\nPor favor, elabore memorando para devolu."
+    },
+    {
+      "bloqueado": false,
+      "data": "10/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "10/07/2026 – DPCI (Cezar) questionou DPCI (Elizabete) referente a Suporte dos switches NEXUS: \n\n________________________________________________________________________________\nReunião do Microsoft Teams\nIngressar:."
     }
   ],
   "timeline": [
@@ -263,8 +271,18 @@
       "docVersao": "",
       "dt": "2026-07-08T15:29:43",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "Pregão 91085/2026 - Nexus às 10h.",
+      "autor": "",
+      "data": "2026-07-10",
+      "dir": "ENV",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-10T09:43:19",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T22:18:47.8796963Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T22:19:29.5452536Z"
 }
