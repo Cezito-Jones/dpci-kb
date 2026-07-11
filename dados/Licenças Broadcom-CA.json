@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T22:20:21.9744904Z",
+    "geradoEmUTC": "2026-07-11T22:20:26.2210621Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639194052219383291",
+    "versionTicks": "639194052261916644",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -297,6 +297,14 @@
       "docVersao": "V - PE",
       "origem": "merger",
       "texto": "10/07/2026 – DPCI registrou pendência referente a Licenças Broadcom/CA: Boa tarde Alcione,\n\n \n\nPeço que por favor, analise o questionamento apresentado pela empresa HCL Tech\nque parece ser o m."
+    },
+    {
+      "bloqueado": false,
+      "data": "10/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "10/07/2026 – DPCI registrou evento relevante referente a Licenças Broadcom/CA: Boa tarde a todos,\n\n \n\nSobre o processo de contratação das SUBSCRIÇÃO PARA FERRAMENTAS DA BROADCOM, em\ntempo da etapa de."
     }
   ],
   "timeline": [
@@ -659,8 +667,18 @@
       "docVersao": "V - PE",
       "dt": "2026-07-10T17:13:49",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "[Análise de Proposta Comercial - Em tempo de pesquisa de preços] SUBSCRIÇÃO PARA",
+      "autor": "",
+      "data": "2026-07-10",
+      "dir": "ENV",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-10T17:11:01",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T22:20:22.0008504Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T22:20:26.2522226Z"
 }
