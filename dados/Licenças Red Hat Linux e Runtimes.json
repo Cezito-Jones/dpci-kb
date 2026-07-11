@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:21:59.2594981Z",
+    "geradoEmUTC": "2026-07-11T04:22:13.3405218Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193405192219545",
+    "versionTicks": "639193405333080536",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -41,6 +41,22 @@
       "docVersao": "v0.1 p",
       "origem": "merger",
       "texto": "07/07/2026 – DPCI registrou evento relevante referente a Licenças Red Hat Linux e Runtimes: Adicionando @David dos Santos Venancio [david.venancio@dataprev.gov.br] e\n@Alexander Barros da Silva [alexander.silva@da."
+    },
+    {
+      "bloqueado": false,
+      "data": "07/07/2026",
+      "docTipo": "ET",
+      "docVersao": "v0.1 (",
+      "origem": "merger",
+      "texto": "07/07/2026 – DPCI registrou evento relevante referente a Licenças Red Hat Linux e Runtimes: Prezado Emerson Moreira,\nRetificando a mensagem anterior, solicitamos desconsiderar o envio precedente\ndevido à ausência."
+    },
+    {
+      "bloqueado": false,
+      "data": "07/07/2026",
+      "docTipo": "ET",
+      "docVersao": "v0.1",
+      "origem": "merger",
+      "texto": "07/07/2026 – DPCI registrou evento relevante referente a Licenças Red Hat Linux e Runtimes: Prezado Emerson Moreira,\nCumprimentando-o cordialmente, o presente tem a finalidade de encaminhar a\nanálise do Estudo Té."
     }
   ],
   "timeline": [
@@ -83,8 +99,28 @@
       "docVersao": "v0.1 p",
       "dt": "2026-07-07T10:08:04",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "ERRATA: [Análise Estudo Técnico - DIPL] Subscrições Red Hat - ETv0.1 (Com anexo)",
+      "autor": "",
+      "data": "2026-07-07",
+      "dir": "REC",
+      "docTipo": "ET",
+      "docVersao": "v0.1 (",
+      "dt": "2026-07-07T12:28:21",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "[Análise Estudo Técnico - DIPL] Subscrições Red Hat - ETv0.1",
+      "autor": "",
+      "data": "2026-07-07",
+      "dir": "REC",
+      "docTipo": "ET",
+      "docVersao": "v0.1",
+      "dt": "2026-07-07T12:11:15",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:21:59.2929389Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T04:22:13.3646328Z"
 }
