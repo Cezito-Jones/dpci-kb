@@ -1,10 +1,10 @@
 {
   "observacao": "Atualizado pelo Merger DPCI v5 com sincronização GitHub",
   "totalEventosProcessados": 0,
-  "ultimoCiclo": "2026-07-11 00:09",
-  "ultimoProcessamento": "2026-07-11T03:09:59.8102777Z",
+  "ultimoCiclo": "2026-07-11 00:40",
+  "ultimoProcessamento": "2026-07-11T03:40:00.3001452Z",
   "_syncGitHub": {
-    "versionTicks": "639193362091667864",
+    "versionTicks": "639193380154526008",
     "publicadoPeloGitHubActions": true
   }
 }
