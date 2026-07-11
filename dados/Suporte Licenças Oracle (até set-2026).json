@@ -2,9 +2,9 @@
   "_syncGitHub": {
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
-    "geradoEmUTC": "2026-07-11T04:18:28.7889865Z",
+    "geradoEmUTC": "2026-07-11T22:09:31.5083003Z",
     "origem": "Power Automate - 4ª Fase Merger DPCI v7",
-    "versionTicks": "639193403087605580",
+    "versionTicks": "639194045714672581",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -33,6 +33,38 @@
       "docVersao": "v0.1",
       "origem": "merger",
       "texto": "06/07/2026 – DPCI registrou evento relevante referente a Suporte Licenças Oracle (até set/2026): Boa tarde DGCI,\n\nAgora sim....rs.\n\nMeus amigos, segue em anexo o Estudo Técnico da prorrogação do contrato Oracle\nCSS pa."
+    },
+    {
+      "bloqueado": false,
+      "data": "09/07/2026",
+      "docTipo": "ET",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "09/07/2026 – DPCI registrou evento relevante referente a Suporte Licenças Oracle (até set/2026): @Edmilson Ary Mendes Piraciaba [edmilson.piraciaba@dataprev.gov.br],\n\n \n\nSegue formalização quanto a atual não continuid."
+    },
+    {
+      "bloqueado": false,
+      "data": "09/07/2026",
+      "docTipo": "ET",
+      "docVersao": "v2 - T",
+      "origem": "merger",
+      "texto": "09/07/2026 – DPCI registrou evento relevante referente a Suporte Licenças Oracle (até set/2026): Prezado Cezar, boa tarde.\n\n\nInformamos que o demandante comunicou a decisão de não prosseguir com o processo\nde prorroga."
+    },
+    {
+      "bloqueado": false,
+      "data": "08/07/2026",
+      "docTipo": "ETP",
+      "docVersao": "v0.1",
+      "origem": "merger",
+      "texto": "08/07/2026 – DPCI registrou evento relevante referente a Suporte Licenças Oracle (até set/2026): Boa tarde @Cezar de Souza Matos [cezar.matos@dataprev.gov.br]!\n\n\nFeito análise, temos apenas uma observação quanto a últ."
+    },
+    {
+      "bloqueado": false,
+      "data": "09/07/2026",
+      "docTipo": "ET",
+      "docVersao": "v2 - T",
+      "origem": "merger",
+      "texto": "09/07/2026 – DPCI registrou evento relevante referente a Suporte Licenças Oracle (até set/2026): Muito obrigado pelo retorno, Rafael.\n\n \n\n \n\nsombra superior esquerda [cid:image001.png@01DD0FC7.87DED860]\n\nsombra superi."
     }
   ],
   "timeline": [
@@ -65,8 +97,48 @@
       "docVersao": "v0.1",
       "dt": "2026-07-06T17:38:58",
       "nomeArquivo": ""
+    },
+    {
+      "assunto": "Prorrogação CSS",
+      "autor": "",
+      "data": "2026-07-09",
+      "dir": "REC",
+      "docTipo": "ET",
+      "docVersao": "",
+      "dt": "2026-07-09T16:50:59",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RE: ETA v2 - TR revisado - Digitalização de Microformas",
+      "autor": "",
+      "data": "2026-07-09",
+      "dir": "REC",
+      "docTipo": "ET",
+      "docVersao": "v2 - T",
+      "dt": "2026-07-09T15:24:27",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RE: ETP Prorrogação Oracle CSS v0.1",
+      "autor": "",
+      "data": "2026-07-08",
+      "dir": "REC",
+      "docTipo": "ETP",
+      "docVersao": "v0.1",
+      "dt": "2026-07-08T17:47:59",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RES: ETA v2 - TR revisado - Digitalização de Microformas",
+      "autor": "",
+      "data": "2026-07-09",
+      "dir": "ENV",
+      "docTipo": "ET",
+      "docVersao": "v2 - T",
+      "dt": "2026-07-09T17:22:34",
+      "nomeArquivo": ""
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-11T04:18:28.8159927Z"
+  "ultimaAtualizacaoUTC": "2026-07-11T22:09:31.5363350Z"
 }
