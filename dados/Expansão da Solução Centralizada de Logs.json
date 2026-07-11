@@ -1,0 +1,36 @@
+{
+  "_syncGitHub": {
+    "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
+    "baseUtilizada": "Novo",
+    "geradoEmUTC": "2026-07-11T04:19:46.0653371Z",
+    "origem": "Power Automate - 4ª Fase Merger DPCI v7",
+    "versionTicks": "639193403860384838",
+    "publicadoPeloGitHubActions": true
+  },
+  "atestado": {},
+  "processoIdentificado": "Expansão da Solução Centralizada de Logs",
+  "siscontic": [
+    {
+      "bloqueado": false,
+      "data": "01/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "v0.3_c",
+      "origem": "merger",
+      "texto": "01/07/2026 – DPCI registrou evento relevante referente a Expansão da Solução Centralizada de Logs: {0} Ícone [cid:3d4d7602-0561-4d6f-b318-409c531ed825]\n[https://dataprevrj.sharepoint.com/sites/COGR/Documentos%20Comparti."
+    }
+  ],
+  "timeline": [
+    {
+      "assunto": "Cezar de Souza Matos deixou um comentário em \"DIPL_ETA_010_2026_Expansao_da_Solu",
+      "autor": "",
+      "data": "2026-07-01",
+      "dir": "ENV",
+      "docTipo": "Outro",
+      "docVersao": "v0.3_c",
+      "dt": "2026-07-01T15:42:07",
+      "nomeArquivo": ""
+    }
+  ],
+  "ultimaAtualizacao": "2026-07-11",
+  "ultimaAtualizacaoUTC": "2026-07-11T04:19:46.0941478Z"
+}
