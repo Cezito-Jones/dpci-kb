@@ -1,4 +1,4 @@
-name: Sincronizar JSON do Merger DPCI
+name: Sincronizar JSON do Merger DPCI v2.2
 
 on:
   repository_dispatch:
@@ -266,8 +266,12 @@ jobs:
                   "chaveEvento",
                   "idProcessoInterno",
               ):
-                  if not evento.get(campo) and payload.get(campo):
-                      evento[campo] = payload.get(campo)
+                  valor_identidade = (
+                      payload.get(campo)
+                      or identidade.get(campo)
+                  )
+                  if not evento.get(campo) and valor_identidade:
+                      evento[campo] = valor_identidade
 
               aliases_recebidos = set(aliases_evento(evento))
 
@@ -387,7 +391,10 @@ jobs:
 
           def processar_processo_incremental(payload, versao):
               caminho = validar_caminho(payload.get("caminho"))
-              caminho_legado = payload.get("caminhoLegado")
+              caminho_legado = (
+                  payload.get("caminhoLegado")
+                  or delta.get("caminhoLegado")
+              )
 
               if caminho_legado:
                   caminho_legado = validar_caminho(
@@ -437,7 +444,10 @@ jobs:
                   for indice, registro in enumerate(timeline_existente)
               ]
 
-              evento_timeline = payload.get("eventoTimeline")
+              evento_timeline = (
+                  payload.get("eventoTimeline")
+                  or delta.get("eventoTimeline")
+              )
               if evento_timeline:
                   evento_timeline = normalizar_registro(
                       evento_timeline,
@@ -447,9 +457,17 @@ jobs:
                   for campo in ("chaveEventoV2", "chaveEvento"):
                       if (
                           not evento_timeline.get(campo)
-                          and payload.get(campo)
+                          and (
+                              payload.get(campo)
+                              or delta.get(campo)
+                              or identidade.get(campo)
+                          )
                       ):
-                          evento_timeline[campo] = payload.get(campo)
+                          evento_timeline[campo] = (
+                              payload.get(campo)
+                              or delta.get(campo)
+                              or identidade.get(campo)
+                          )
 
                   aliases = aliases_evento(evento_timeline)
                   if not aliases:
@@ -475,7 +493,8 @@ jobs:
 
               siscontic = upsert_siscontic(
                   siscontic_existente,
-                  payload.get("registroSISCONTIC"),
+                  payload.get("registroSISCONTIC")
+                  or delta.get("registroSISCONTIC"),
               )
 
               resultado = dict(base)
@@ -483,10 +502,12 @@ jobs:
               resultado["timeline"] = timeline
               resultado["siscontic"] = siscontic
 
-              if payload.get("idProcessoInterno"):
-                  resultado["idProcessoInterno"] = payload[
-                      "idProcessoInterno"
-                  ]
+              id_processo_interno = (
+                  payload.get("idProcessoInterno")
+                  or identidade.get("idProcessoInterno")
+              )
+              if id_processo_interno:
+                  resultado["idProcessoInterno"] = id_processo_interno
 
               atualizar_sync(
                   resultado,
@@ -546,6 +567,17 @@ jobs:
           if not isinstance(payload, dict):
               raise RuntimeError("client_payload deve ser objeto JSON.")
 
+          controle = payload.get("controle") or {}
+          identidade = payload.get("identidade") or {}
+          delta = payload.get("delta") or {}
+
+          if not isinstance(controle, dict):
+              raise RuntimeError("client_payload.controle deve ser objeto JSON.")
+          if not isinstance(identidade, dict):
+              raise RuntimeError("client_payload.identidade deve ser objeto JSON.")
+          if not isinstance(delta, dict):
+              raise RuntimeError("client_payload.delta deve ser objeto JSON.")
+
           tipo_evento = str(
               evento_github.get("action")
               or payload.get("eventType")
@@ -556,8 +588,8 @@ jobs:
           ).strip()
           operacao = str(payload.get("operacao") or "").strip()
           versao = inteiro_nao_negativo(
-              payload.get("versionTicks"),
-              "client_payload.versionTicks",
+              payload.get("versionTicks") or controle.get("versionTicks"),
+              "client_payload.versionTicks ou controle.versionTicks",
           )
 
           if (
