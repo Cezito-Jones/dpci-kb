@@ -11,8 +11,8 @@ permissions:
 
 concurrency:
   group: dpci-kb-sincronizacao-main
+  queue: max
   cancel-in-progress: false
-
 jobs:
   atualizar-json:
     runs-on: ubuntu-latest
