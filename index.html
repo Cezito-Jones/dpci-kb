@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>DPCI · Painel de Processos</title>
+<title>DPCI · Painel de Processos v2.0</title>
 <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -25,7 +25,8 @@ const {useState,useMemo,useRef,useCallback,useEffect} = React;
 
 const REPO     = "Cezito-Jones/dpci-kb";
 const RAW      = `https://raw.githubusercontent.com/${REPO}/main/dados/`;
-const API      = `https://api.github.com/repos/${REPO}/contents/dados`;
+const API_ROOT = `https://api.github.com/repos/${REPO}/contents/dados`;
+const API_PROC = `https://api.github.com/repos/${REPO}/contents/dados/processos`;
 const EF       = "2026-2027_EventosNormalizadosEnriquecidos.json";
 const WF       = "_watermark.json";
 const PF       = "prioridades.json";
@@ -114,42 +115,38 @@ const fmtShort = iso => {
   return `${d}/${m}`;
 };
 
-// ─── Inferência de processo ──────────────────────────────────────────────────
-function inferProc(txt,ass,canal,pi){
-  if(pi?.trim()) return pi;
-  const t=[txt,ass,canal].join(" ").toLowerCase();
-  if(/broadcom|ca.technology/i.test(t))    return "Licenças Broadcom/CA";
-  if(/91065|poc.*firewall/i.test(t))       return "Modernização e Expansão dos Firewalls de Rede";
-  if(/91085|nexus/i.test(t))               return "Suporte dos switches NEXUS";
-  if(/descriptografia/i.test(t))           return "Solução de Descriptografia de Tráfego";
-  if(/balanceamento multisite/i.test(t))   return "Nova solução de balanceamento multisite";
-  if(/red hat|44104|rhel/i.test(t))        return "Licenças Red Hat Linux e Runtimes";
-  if(/antivírus|antivirus/i.test(t))       return "Expansão de Licenças Antivírus para Servidores dos Data Centers";
-  if(/orientação.*ibm/i.test(t))           return "Orientação Técnica Especializada IBM";
-  if(/oracle css|suporte.*oracle/i.test(t))return "Suporte Licenças Oracle (até set/2026)";
-  if(/elastic|logs centraliza/i.test(t))   return "Expansão da Solução Centralizada de Logs";
-  if(/microformas/i.test(t))               return "Solução de digitalização e pesquisa de microformas";
-  if(/movimentação.*ecs/i.test(t))         return "Serviço de movimentação do ECS";
-  return null;
+// ─── Identificação processual oficial ───────────────────────────────────────
+function processoOficial(e){
+  const valor=e.processoIdentificado||e.processo||"";
+  return typeof valor==="string"&&valor.trim()?valor.trim():null;
 }
 
 // ─── Parse item ──────────────────────────────────────────────────────────────
 function parseItem(e){
   const rem=e.autorOuRemetente||e.remetente||"";
-  const isCezar=(e.autorId===CI)||(rem===CE);
-  const dtRaw=e.dataHoraBrasil||e.dataHoraOriginal||"";
+  const direcao=(e.direcaoEvento||"").toUpperCase();
+  const isCezar=direcao==="ENVIADO"||(e.autorId===CI)||(rem===CE);
+  const dtRaw=e.dataHoraBrasil||e.dataHoraUTC||e.dataHoraOriginal||"";
   const dt=dtRaw.slice(0,16).replace("T"," ");
-  const txtB=e.conteudoTextoLimpo||e.conteudo||"";
+  const txtB=e.conteudoTextoLimpo||e.mensagemPrincipal||e.conteudo||"";
   const txt=clean(txtB).slice(0,500);
   const ass=e.assuntoOuCanal||e.assunto||e.chatOuCanal||"";
   const autor=isCezar?"Cezar":((e.autorMensagem||rem||"").split(/[\s@]/)[0]||"?");
-  const proc=inferProc(txt,ass,e.chatOuCanal||"",e.processoIdentificado||e.processo||"");
-  const orig=(e.origem||e.tipoFonte||"").toLowerCase();
-  const fonte=orig.includes("email")?"EMAIL":"TEAMS";
+  const proc=processoOficial(e);
+  const orig=(e.origemNormalizada||e.origem||e.tipoFonte||"").toLowerCase();
+  const fonte=orig.includes("email")?"EMAIL":orig.includes("teams")?"TEAMS":"OUTRO";
   const dv=validVer(e.docVersao);
   return{dt,data:dtRaw.slice(0,10),hora:dt.slice(11,16),
     txt,ass:ass.slice(0,120),autor,isCezar,proc,fonte,
-    hasAnexo:!!(e.possuiAnexosTeams||e.possuiImagemOuAnexo||e.quantidadeAnexosTeams),
+    idProcessoInterno:e.idProcessoInterno||null,
+    tipoVinculo:e.tipoVinculacaoProcessual||null,
+    confiancaVinculo:e.confiancaVinculacaoProcessual||null,
+    necessitaValidacao:!!e.necessitaValidacaoProcessual,
+    conflitoVinculo:!!e.conflitoVinculacaoProcessual,
+    eventoNaoProcessual:!!e.eventoNaoProcessual,
+    hasAnexo:!!(e.possuiAnexosTeams||e.possuiImagemOuAnexo||
+      Number(e.quantidadeAnexosTeams||0)>0||Number(e.quantidadeAnexosEmail||0)>0||
+      Number(e.quantidadeDocumentosAssociados||0)>0),
     atestado:e.atestadoLaudoRecebido||"NAO",
     mapaRisco:e.mapaRiscoStatus||null,
     cat:e.categoriaEventoSISCONTIC||null,
@@ -159,9 +156,23 @@ function parseItem(e){
     nomeArq:e.nomeArquivo||null,
   };
 }
+function chaveEventoPainel(e,i){
+  if(e?.chaveEventoV2)return`V2|${e.chaveEventoV2}`;
+  if(e?.chaveEvento)return`V1|${e.chaveEvento}`;
+  if(e?.messageId)return`MSG|${e.messageId}`;
+  const origem=e?.origemNormalizada||e?.origem||"";
+  const data=e?.dataHoraUTC||e?.dataHoraBrasil||e?.dataHoraOriginal||"";
+  const autor=e?.autorId||e?.autorOuRemetente||e?.autorMensagem||"";
+  if(origem&&data&&autor)return`FB|${origem}|${data}|${autor}`;
+  return`IDX|${i}`;
+}
 function processJSON(raw){
-  return(Array.isArray(raw)?raw:[])
-    .map(x=>typeof x==="string"?JSON.parse(x):x)
+  const mapa=new Map();
+  (Array.isArray(raw)?raw:[]).forEach((x,i)=>{
+    const e=typeof x==="string"?JSON.parse(x):x;
+    mapa.set(chaveEventoPainel(e,i),e);
+  });
+  return[...mapa.values()]
     .map(parseItem).filter(e=>e.dt)
     .sort((a,b)=>a.dt.localeCompare(b.dt));
 }
@@ -172,13 +183,28 @@ const ghGet = async p => {
   if(!r.ok) throw new Error(r.status);
   return r.json();
 };
-async function ghList(){
-  const r=await fetch(`${API}?t=${Date.now()}`);
-  if(!r.ok) throw new Error(r.status);
+async function ghListEndpoint(endpoint,excluirEspeciais=false){
+  const r=await fetch(`${endpoint}?t=${Date.now()}`);
+  if(!r.ok){
+    if(r.status===404) return [];
+    throw new Error(r.status);
+  }
   const files=await r.json();
   return (Array.isArray(files)?files:[])
-    .filter(f=>f.name!==WF&&f.name!==EF&&f.name!==PF&&f.name.endsWith(".json"))
+    .filter(f=>f.type==="file"&&f.name.endsWith(".json"))
+    .filter(f=>!excluirEspeciais||
+      (f.name!==WF&&f.name!==EF&&f.name!==PF))
     .map(f=>f.download_url);
+}
+async function ghList(){
+  const [canonicos,legados]=await Promise.all([
+    ghListEndpoint(API_PROC),
+    ghListEndpoint(API_ROOT,true),
+  ]);
+  return{
+    urls:[...legados,...canonicos],
+    origem:canonicos.length?"dados/processos + legado":"dados (legado)",
+  };
 }
 async function ghSave(pat,data){
   let sha=null;
@@ -253,6 +279,11 @@ function EvCard({e,highlight}){
             :<Chip txt={e.autor} bg="#374151" fg="#9ca3af"/>}
           {/* Categoria */}
           {cat&&<Chip txt={cat.l} bg={cat.c+"20"} fg={cat.c}/>}
+          {e.tipoVinculo&&<Chip txt={`🔗 ${e.tipoVinculo}`}
+            bg={e.tipoVinculo==="DIRETA"?"#14532d":"#3f3f46"}
+            fg={e.tipoVinculo==="DIRETA"?"#86efac":"#d4d4d8"} sm/>}
+          {e.necessitaValidacao&&<Chip txt="⚠️ Validar" bg="#451a03" fg="#fbbf24" sm/>}
+          {e.conflitoVinculo&&<Chip txt="⚠️ Conflito" bg="#450a0a" fg="#fca5a5" sm/>}
           {/* Documento + versão */}
           {e.docTipo&&<Chip txt={`📄 ${e.docTipo}${ver}`} bg="#312e81" fg="#c4b5fd"/>}
           {/* Mapa de risco + versão */}
@@ -353,7 +384,7 @@ function ProcTab({proc,items,onStatClick}){
           {teamsN===0&&<div style={{display:"flex",alignItems:"center",
             background:"#450a0a",border:"1px solid #7f1d1d",borderRadius:10,
             padding:"6px 12px",fontSize:11,color:"#fca5a5",gap:6}}>
-            ⚠️ 0 eventos Teams — verifique o Enriquecedor
+            ℹ️ Sem eventos Teams vinculados a esta contratação
           </div>}
           <div style={{marginLeft:"auto",textAlign:"right"}}>
             {datas.length>0&&<div style={{fontSize:10,color:"#6b7280"}}>
@@ -440,10 +471,10 @@ function SisconticTab({items}){
       <div style={{background:"linear-gradient(135deg,#1e3a8a,#312e81)",
         borderRadius:12,padding:"14px 18px",marginBottom:16}}>
         <div style={{fontSize:14,fontWeight:700,color:"#e0e7ff",marginBottom:3}}>
-          📝 SISCONTIC — por processo
+          📝 SISCONTIC — rascunhos por processo
         </div>
         <div style={{fontSize:11,color:"#93c5fd"}}>
-          Gerado automaticamente · datas em DD/MM/AAAA · agrupado por processo
+          Rascunhos automáticos · validar antes do registro · datas em DD/MM/AAAA
         </div>
       </div>
       <div style={{display:"flex",justifyContent:"flex-end",marginBottom:14}}>
@@ -519,14 +550,14 @@ const PS = {
 function PrioridadesTab(){
   const [data,setData]=useState(null);
   const [loading,setLoading]=useState(false);
-  const [pat,setPat]=useState(()=>localStorage.getItem("dpci_pat")||"");
-  const [showPat,setShowPat]=useState(!pat);
+  const [pat,setPat]=useState("");
+  const [showPat,setShowPat]=useState(true);
   const [form,setForm]=useState({proc:"",desc:"",resp:"DPCI",prazo:""});
   const [evid,setEvid]=useState({});
   const [saving,setSaving]=useState(false);
   const [msg,setMsg]=useState(null);
 
-  const savePAT=()=>{localStorage.setItem("dpci_pat",pat);setShowPat(false);};
+  const savePAT=()=>{if(pat.trim())setShowPat(false);};
 
   useEffect(()=>{
     setLoading(true);
@@ -700,32 +731,40 @@ function PrioridadesTab(){
 
 // ─── Lista lateral de processos ───────────────────────────────────────────────
 function ProcList({items,active,onChange}){
+  const processos=useMemo(()=>{
+    const encontrados=[...new Set(items.map(e=>e.proc).filter(Boolean))];
+    const fixos=AP.filter(p=>encontrados.includes(p));
+    const extras=encontrados.filter(p=>!AP.includes(p))
+      .sort((a,b)=>a.localeCompare(b,"pt-BR"));
+    return[...fixos,...extras];
+  },[items]);
   const counts=useMemo(()=>{
     const m={};
-    AP.forEach(p=>{ m[p]={total:0,email:0,teams:0}; });
+    processos.forEach(p=>{m[p]={total:0,email:0,teams:0};});
     items.forEach(e=>{
       if(e.proc&&m[e.proc]){
         m[e.proc].total++;
-        if(e.fonte==="EMAIL") m[e.proc].email++;
-        else m[e.proc].teams++;
+        if(e.fonte==="EMAIL")m[e.proc].email++;
+        if(e.fonte==="TEAMS")m[e.proc].teams++;
       }
     });
     return m;
-  },[items]);
+  },[items,processos]);
   return(
     <div style={{width:260,flexShrink:0,background:"#1f2937",
       borderRight:"1px solid #374151",overflowY:"auto",height:"calc(100vh - 105px)",
       position:"sticky",top:105}}>
-      {AP.map(p=>{
+      {processos.length===0&&<div style={{padding:18,fontSize:11,color:"#6b7280"}}>
+        Nenhuma contratação vinculada pelo Enriquecedor.
+      </div>}
+      {processos.map(p=>{
         const pp=pd(p);const c=counts[p];const active_=active===p;
-        const isEmpty=c.total===0;
         return(
           <div key={p} onClick={()=>onChange(p)} style={{
             padding:"10px 14px",cursor:"pointer",
             background:active_?pp.c+"20":"transparent",
             borderLeft:`3px solid ${active_?pp.c:"transparent"}`,
-            borderBottom:"1px solid #374151",
-            opacity:isEmpty?.45:1,transition:"all .15s"}}>
+            borderBottom:"1px solid #374151",transition:"all .15s"}}>
             <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:active_?4:0}}>
               <span style={{fontSize:16}}>{pp.i}</span>
               <div style={{flex:1,minWidth:0}}>
@@ -736,16 +775,14 @@ function ProcList({items,active,onChange}){
                 </div>
               </div>
               <span style={{fontSize:11,fontWeight:700,
-                color:isEmpty?"#4b5563":pp.c,minWidth:24,textAlign:"right"}}>
-                {c.total||"—"}
+                color:pp.c,minWidth:24,textAlign:"right"}}>
+                {c.total}
               </span>
             </div>
             {active_&&c.total>0&&(
               <div style={{display:"flex",gap:6,paddingLeft:24,marginTop:2}}>
                 <span style={{fontSize:9,color:"#4ade80"}}>✉️ {c.email}</span>
-                <span style={{fontSize:9,color:c.teams===0?"#ef4444":"#38bdf8"}}>
-                  💬 {c.teams}{c.teams===0?" ⚠️":""}
-                </span>
+                <span style={{fontSize:9,color:"#38bdf8"}}>💬 {c.teams}</span>
               </div>
             )}
           </div>
@@ -783,18 +820,21 @@ function App(){
       setStatusMsg("Carregando do GitHub...");
       try{const r=await ghGet(EF);set_(r,`☁️ GitHub`);return;}catch(e){}
       setStatusMsg("Listando processos...");
-      const urls=await ghList();
+      const lista=await ghList();
       const all=[];
-      for(const u of urls){
+      for(const u of lista.urls){
         try{
           const r=await fetch(u+"?t="+Date.now());if(!r.ok)continue;
           const d=await r.json();
+          const nome=d.processoIdentificado||d.processo||d.nomeProcesso||"";
+          const id=d.idProcessoInterno||"";
           (d.timeline||[]).forEach(ev=>all.push({...ev,
-            processoIdentificado:d.processo||ev.processoIdentificado||""}));
+            processoIdentificado:ev.processoIdentificado||nome,
+            idProcessoInterno:ev.idProcessoInterno||id}));
         }catch(e){}
       }
-      if(all.length) set_(all,`☁️ GitHub · ${urls.length} processos`);
-      else setErr("Nenhum dado ainda. Aguarde o Merger.");
+      if(all.length)set_(all,`☁️ GitHub · ${lista.urls.length} processos · ${lista.origem}`);
+      else setErr("Nenhum dado publicado ainda. Aguarde a execução do Merger.");
     }catch(e){setErr("Erro: "+e.message);}
     if(!silent) setLoading(false);
     setStatusMsg(null);
@@ -803,6 +843,11 @@ function App(){
 
   useEffect(()=>{ghGet(WF).then(w=>{if(w)setWatermark(w);}).catch(()=>{});},[]);
   useEffect(()=>{if(IS_GH){loadGH();const t=setInterval(()=>loadGH(true),R_MS);return()=>clearInterval(t);}},[]);
+  useEffect(()=>{
+    if(!items)return;
+    const vinculados=[...new Set(items.map(e=>e.proc).filter(Boolean))];
+    if(vinculados.length&&!vinculados.includes(proc))setProc(vinculados[0]);
+  },[items,proc]);
   useEffect(()=>{
     if(!nextR) return;
     const t=setInterval(()=>setCd(Math.max(0,Math.round((nextR-Date.now())/1000))),1000);
