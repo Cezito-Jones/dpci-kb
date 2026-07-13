@@ -1,0 +1,319 @@
+{
+  "_syncGitHub": {
+    "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
+    "baseUtilizada": "OneDrive",
+    "caminhoProcessoCanonico": "dados/processos/PROC-44129011012202555.json",
+    "geradoEmUTC": "2026-07-13T23:32:24.9050761Z",
+    "origem": "Power Automate - 4ª fase Merger DPCI v8.0.1",
+    "schemaContratoGitHub": "dpci.github.processo.v2",
+    "versaoMerger": "8.0.0",
+    "versionTicks": "639195823448631348",
+    "publicadoPeloGitHubActions": true
+  },
+  "atestado": {},
+  "processoIdentificado": "Suporte dos switches NEXUS",
+  "siscontic": [
+    {
+      "bloqueado": false,
+      "data": "06/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "06/07/2026 – DPCI registrou evento relevante referente a Suporte dos switches NEXUS: Prezado(a) Ponto Focal,\n\nFoi incluída a etapa \"TR\" na demanda abaixo:\n\nPregão\nProcesso: 44129.011012/2025-55\nObjeto: T02."
+    },
+    {
+      "bloqueado": false,
+      "data": "01/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "01/07/2026 – DPCI registrou evento relevante referente a Suporte dos switches NEXUS: \n\n________________________________________________________________________________\nReunião do Microsoft Teams\nIngressar:."
+    },
+    {
+      "bloqueado": false,
+      "data": "30/06/2026",
+      "docTipo": "TR",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "30/06/2026 – DPCI registrou evento relevante referente a Suporte dos switches NEXUS: Boa noite,\n\n \n\nFavor complementar a resposta anterior com as seguintes informações e link:\n\n\n\nCom vistas a assegurar a i."
+    },
+    {
+      "bloqueado": false,
+      "data": "30/06/2026",
+      "docTipo": "TR",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "30/06/2026 – DPCI registrou evento relevante referente a Suporte dos switches NEXUS: + @Tiago Ferreira Martins [tiago.martins@dataprev.gov.br]\n\n\n\n\n\n---------------------------------------------------------."
+    },
+    {
+      "bloqueado": false,
+      "data": "30/06/2026",
+      "docTipo": "TR",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "30/06/2026 – DPCI registrou evento relevante referente a Suporte dos switches NEXUS: Natália, segue o complemento da resposta, conforme último alinhamento:\n\n\nVisando à adequada análise técnica dos switches."
+    },
+    {
+      "bloqueado": false,
+      "data": "30/06/2026",
+      "docTipo": "TR",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "30/06/2026 – DPCI registrou evento relevante referente a Suporte dos switches NEXUS: Prezada Guaciara,\n\n \n\nSegue questionamento da Parkplace e resposta técnica:\n\n \n\n“Visando à adequada análise técnica dos ."
+    },
+    {
+      "bloqueado": false,
+      "data": "30/06/2026",
+      "docTipo": "TR",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "30/06/2026 – DPCI registrou evento relevante referente a Suporte dos switches NEXUS: Prezados, segue a resposta ao primeiro item do questionamento da PARKPLACE -.\nCom essa resposta finalizamos todas as per."
+    },
+    {
+      "bloqueado": false,
+      "data": "29/06/2026",
+      "docTipo": "ET",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "29/06/2026 – DPCI registrou evento relevante referente a Suporte dos switches NEXUS: Prezados,\n\n\n\n\nSegue resposta ao item 2.1 do Fornecedor PARKPLACE , os demais questionamentos\nserão respondidos posterior."
+    },
+    {
+      "bloqueado": false,
+      "data": "29/06/2026",
+      "docTipo": "TR",
+      "docVersao": "V Proc",
+      "origem": "merger",
+      "texto": "29/06/2026 – DPCI registrou evento relevante referente a Suporte dos switches NEXUS: Bom dia!\n\n\nSolicito por gentileza, a manifestação da área técnica para item 2.1, conforme\nemail abaixo da Coordenação Ju."
+    },
+    {
+      "bloqueado": false,
+      "data": "29/06/2026",
+      "docTipo": "TR",
+      "docVersao": "V Proc",
+      "origem": "merger",
+      "texto": "29/06/2026 – DPCI registrou evento relevante referente a Suporte dos switches NEXUS: @Alcione Maria Monteiro de Andrade Lima [alcione.monteiro@dataprev.gov.br]\n@Cezar de Souza Matos [cezar.matos@dataprev.g."
+    },
+    {
+      "bloqueado": false,
+      "data": "29/06/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "29/06/2026 – DPCI registrou evento relevante referente a Suporte dos switches NEXUS:  ."
+    },
+    {
+      "bloqueado": false,
+      "data": "26/06/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "26/06/2026 – DPCI registrou evento relevante referente a Suporte dos switches NEXUS: Oi Raynne,\nBom dia,\n\nConforme conversamos, segue para registro no siscontic e atualização na agenda.\nTambém peço que arq."
+    },
+    {
+      "bloqueado": false,
+      "data": "24/06/2026",
+      "docTipo": "MR",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "24/06/2026 – DPCI registrou evento relevante referente a Suporte dos switches NEXUS: Maurício, Boa tarde,\n\nConsiderando essa sua resposta\n“Sugestão: Sobre o item \"5. Tratamento de dados pessoais\", o texto ."
+    },
+    {
+      "bloqueado": false,
+      "data": "08/07/2026",
+      "docTipo": "TR",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "08/07/2026 – DPCI registrou evento relevante referente a Suporte dos switches NEXUS: @Alcione Maria Monteiro de Andrade Lima [alcione.monteiro@dataprev.gov.br],\n\n \n\nPor favor, elabore memorando para devolu."
+    },
+    {
+      "bloqueado": false,
+      "data": "10/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "10/07/2026 – DPCI (Cezar) questionou DPCI (Elizabete) referente a Suporte dos switches NEXUS: \n\n________________________________________________________________________________\nReunião do Microsoft Teams\nIngressar:."
+    },
+    {
+      "bloqueado": false,
+      "data": "13/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "13/07/2026 – DPCI registrou evento relevante referente a Suporte dos switches NEXUS: Prezada Guaciara,\n\n \n\nSolicitamos suspensão do Pregão 91085/2026 em razão de necessidade de\natualização na documentação,."
+    }
+  ],
+  "timeline": [
+    {
+      "assunto": "[PGI-Compras] 44129.011012/2025-55 - T02.A02 - SUPORTE DOS SWITCHES NEXUS",
+      "autor": "",
+      "data": "2026-07-06",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-06T15:32:44",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "Pregão 91085/2026 - Nexus às 14h.",
+      "autor": "",
+      "data": "2026-07-01",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-01T09:55:01",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RES: PREGÃO ELETRÔNICO N° 91.085 / 2026  ( Pedido de Esclarecimento )  -  DATAPR",
+      "autor": "",
+      "data": "2026-06-30",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "",
+      "dt": "2026-06-30T18:31:41",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RE: PREGÃO ELETRÔNICO N° 91.085 / 2026  ( Pedido de Esclarecimento) - Solicitaçã",
+      "autor": "",
+      "data": "2026-06-30",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "",
+      "dt": "2026-06-30T18:22:02",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RE: PREGÃO ELETRÔNICO N° 91.085 / 2026  ( Pedido de Esclarecimento) - Solicitaçã",
+      "autor": "",
+      "data": "2026-06-30",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "",
+      "dt": "2026-06-30T18:19:58",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RES: PREGÃO ELETRÔNICO N° 91.085 / 2026  ( Pedido de Esclarecimento )  -  DATAPR",
+      "autor": "",
+      "data": "2026-06-30",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "",
+      "dt": "2026-06-30T15:42:03",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RE: PREGÃO ELETRÔNICO N° 91.085 / 2026  ( Pedido de Esclarecimento )  -  DATAPRE",
+      "autor": "",
+      "data": "2026-06-30",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "",
+      "dt": "2026-06-30T15:13:44",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RE: PREGÃO ELETRÔNICO N° 91.085 / 2026  ( Pedido de Esclarecimento )  -  RESPOST",
+      "autor": "",
+      "data": "2026-06-29",
+      "dir": "REC",
+      "docTipo": "ET",
+      "docVersao": "",
+      "dt": "2026-06-29T12:27:01",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "ENC: PREGÃO ELETRÔNICO N° 91.085 / 2026  ( Pedido de Esclarecimento )  -  DATAPR",
+      "autor": "",
+      "data": "2026-06-29",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "V Proc",
+      "dt": "2026-06-29T08:38:42",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "ENC: PREGÃO ELETRÔNICO N° 91.085 / 2026  ( Pedido de Esclarecimento )  -  DATAPR",
+      "autor": "",
+      "data": "2026-06-29",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "V Proc",
+      "dt": "2026-06-29T08:15:43",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "Aceita: Pregão 91085/2026 - Nexus às 10h.",
+      "autor": "",
+      "data": "2026-06-29",
+      "dir": "ENV",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-06-29T09:16:35",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "ENC: Solicitação de adiamento do pregão 91085/2026 - Suporte Switches Nexus",
+      "autor": "",
+      "data": "2026-06-26",
+      "dir": "ENV",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-06-26T11:14:36",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RES:  Pedido de Esclarecimento - Edital nº 91085/2026 - RITM0140847",
+      "autor": "",
+      "data": "2026-06-24",
+      "dir": "ENV",
+      "docTipo": "MR",
+      "docVersao": "",
+      "dt": "2026-06-24T13:06:02",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "ENC: Suspensão do pregão - 91085/2026",
+      "autor": "",
+      "data": "2026-07-08",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "",
+      "dt": "2026-07-08T15:29:43",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "Pregão 91085/2026 - Nexus às 10h.",
+      "autor": "",
+      "data": "2026-07-10",
+      "dir": "ENV",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-10T09:43:19",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "Contratação Suporte Switches Nexus - Suspensão Pregão 91085/2026",
+      "autor": "",
+      "categoriaEventoSISCONTIC": "INFORMACAO",
+      "chaveEvento": "email|email|2026-07-13t17:19:46+00:00|natalia.bramos@dataprev.gov.br||contratação suporte switches nexus - suspensão pregão 91085/2026",
+      "chaveEventoV2": "email_recebido|aamkadqyn2uxntqylwjkmzatndqzns1imji5ltbmntrjnjq3nmqxyqbgaaaaaaawn_j44d3arj07opwq5r8abwadfhci4homqr6igx6bvsboaaaaaaemaadb8fou-ylpriw9pbxyjoj7aakxh_79aaa=",
+      "confiancaVinculacaoProcessual": "Alta",
+      "data": "2026-07-13",
+      "dir": "RECEBIDO",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-13T14:19:46",
+      "idProcessoInterno": "PROC-44129011012202555",
+      "necessitaValidacaoProcessual": false,
+      "nomeArquivo": "",
+      "tipoVinculacaoProcessual": "DIRETA"
+    }
+  ],
+  "ultimaAtualizacao": "2026-07-11",
+  "ultimaAtualizacaoUTC": "2026-07-13T23:32:26.6005911Z",
+  "idProcessoInterno": "PROC-44129011012202555",
+  "numeroPregao": "91085/2026",
+  "numeroProcesso": "44129.011012/2025-55"
+}
