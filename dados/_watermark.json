@@ -1,12 +1,19 @@
 {
-  "modoReprocessamentoCompleto": true,
-  "observacao": "Publicado pela 4ª Fase – Merger DPCI v7 Manual",
-  "totalEventosProcessados": 153,
-  "totalEventosProcessadosAcumulado": 153,
+  "haMaisEventosPendentes": false,
+  "modoReprocessamentoCompleto": false,
+  "observacao": "Publicado pela 4ª fase Merger DPCI v8.0.1 Manual",
+  "schemaWatermark": "2.0",
+  "totalEventosCandidatos": 10,
+  "totalEventosPendentes": 0,
+  "totalEventosProcessadosAcumulado": 163,
+  "totalEventosPublicados": 10,
+  "totalEventosSelecionadosNoLote": 10,
   "ultimoCiclo": "2026-2027",
-  "ultimoProcessamento": "2026-07-11T22:09:14.7481562Z",
+  "ultimoProcessamento": "2026-07-13T23:32:12.3657218Z",
+  "versaoMerger": "8.0.0",
   "_syncGitHub": {
-    "versionTicks": "639194052500253103",
+    "versionTicks": "639195825610604447",
+    "schemaContratoGitHub": "dpci.github.arquivo.v2",
     "publicadoPeloGitHubActions": true
   }
 }
