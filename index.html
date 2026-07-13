@@ -8,29 +8,33 @@
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-         background: #f1f5f9; color: #1e293b; min-height: 100vh; }
-  ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: #f1f5f9; }
-  ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
-  #root { min-height: 100vh; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#1e293b}
+::-webkit-scrollbar-thumb{background:#334155;border-radius:2px}
+#root{min-height:100vh}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.fade{animation:fadeIn .25s ease forwards}
+input,select,textarea{font-family:inherit}
 </style>
 </head>
-<body>
-<div id="root"></div>
+<body><div id="root"></div>
 <script type="text/babel">
-const { useState, useMemo, useRef, useCallback, useEffect } = React;
+const {useState,useMemo,useRef,useCallback,useEffect} = React;
 
 // ─── Config ────────────────────────────────────────────────────────────────
-const CEZAR_ID    = "a0b2ff1d-947c-497f-b71e-fe74dec641cf";
-const CEZAR_EMAIL = "cezar.matos@dataprev.gov.br";
-
-// Detectar se está rodando no GitHub Pages
-const IS_GITHUB = window.location.hostname.includes('github.io') ||
-                  window.location.search.includes('source=github');
-
-// URL base dos dados no GitHub (substituir com o repo real após criação)
-const GITHUB_RAW = "https://raw.githubusercontent.com/Cezito-Jones/dpci-kb/main/dados/";
+const REPO       = "Cezito-Jones/dpci-kb";
+const RAW        = `https://raw.githubusercontent.com/${REPO}/main/dados/`;
+const API_DADOS  = `https://api.github.com/repos/${REPO}/contents/dados`;
+const ENRICH_FILE= "2026-2027_EventosNormalizadosEnriquecidos.json";
+const WATER_FILE = "_watermark.json";
+const PRIO_FILE  = "prioridades.json";
+const CE         = "cezar.matos@dataprev.gov.br";
+const CI         = "a0b2ff1d-947c-497f-b71e-fe74dec641cf";
+const IS_GH      = window.location.hostname.includes('github.io');
+const REFRESH_MS = 5 * 60 * 1000; // auto-refresh 5 min
 
 const PROC_DEF = {
   "Licenças Broadcom/CA":                                            {cor:"#f97316",ic:"🔧"},
@@ -46,292 +50,629 @@ const PROC_DEF = {
   "Solução de digitalização e pesquisa de microformas":             {cor:"#0f766e",ic:"📑"},
   "Serviço de movimentação do ECS":                                 {cor:"#7e22ce",ic:"🔄"},
 };
+const getPD = p => PROC_DEF[p]||{cor:"#475569",ic:"📁"};
+const ALL_PROCS = Object.keys(PROC_DEF);
 
 const CAT_CFG = {
-  ENVIO_DOCUMENTO:         {label:"📤 Envio de documento",   cor:"#16a34a"},
-  RECEBIMENTO_DOCUMENTO:   {label:"📥 Recebimento",          cor:"#0369a1"},
-  DEVOLUTIVA:              {label:"🔄 Devolutiva",           cor:"#7c3aed"},
-  QUESTIONAMENTO_RECEBIDO: {label:"❓ Questionamento receb.",cor:"#f59e0b"},
-  QUESTIONAMENTO_ENVIADO:  {label:"❓ Questionamento env.",  cor:"#f97316"},
-  PENDENCIA_IDENTIFICADA:  {label:"⚠️ Pendência",            cor:"#ef4444"},
-  ALINHAMENTO:             {label:"🤝 Alinhamento",          cor:"#06b6d4"},
-  ENCAMINHAMENTO:          {label:"📋 Encaminhamento",       cor:"#8b5cf6"},
-  INFORMACAO:              {label:"ℹ️ Informação",            cor:"#64748b"},
+  ENVIO_DOCUMENTO:         {l:"📤 Enviou doc",    c:"#22c55e"},
+  RECEBIMENTO_DOCUMENTO:   {l:"📥 Recebeu doc",   c:"#38bdf8"},
+  DEVOLUTIVA:              {l:"🔄 Devolutiva",    c:"#a78bfa"},
+  QUESTIONAMENTO_RECEBIDO: {l:"❓ Questionou-nos",c:"#fbbf24"},
+  QUESTIONAMENTO_ENVIADO:  {l:"❓ Questionamos",  c:"#fb923c"},
+  PENDENCIA_IDENTIFICADA:  {l:"⚠️ Pendência",     c:"#f87171"},
+  ALINHAMENTO:             {l:"🤝 Alinhamento",   c:"#34d399"},
+  ENCAMINHAMENTO:          {l:"📋 Encaminhou",    c:"#c084fc"},
+  INFORMACAO:              {l:"ℹ️ Informação",     c:"#64748b"},
 };
 
-// ─── Parsing ────────────────────────────────────────────────────────────────
-function inferProc(txt, assunto, canal, procIdent) {
-  if (procIdent?.trim()) return procIdent;
-  const t = [txt,assunto,canal].join(" ").toLowerCase();
-  if (/broadcom|ca.technology/i.test(t))            return "Licenças Broadcom/CA";
-  if (/91065|poc.*firewall|modernização.*firewall/i.test(t)) return "Modernização e Expansão dos Firewalls de Rede";
-  if (/91085|nexus|switches nexus/i.test(t))        return "Suporte dos switches NEXUS";
-  if (/descriptografia/i.test(t))                   return "Solução de Descriptografia de Tráfego";
-  if (/balanceamento multisite/i.test(t))           return "Nova solução de balanceamento multisite";
-  if (/red hat|44104|rhel/i.test(t))                return "Licenças Red Hat Linux e Runtimes";
-  if (/antivírus|antivirus/i.test(t))               return "Expansão de Licenças Antivírus para Servidores dos Data Centers";
-  if (/orientação.*ibm|ibm.*orientação/i.test(t))   return "Orientação Técnica Especializada IBM";
-  if (/oracle css|suporte.*oracle/i.test(t))        return "Suporte Licenças Oracle (até set/2026)";
-  if (/elastic|logs centraliza/i.test(t))           return "Expansão da Solução Centralizada de Logs";
-  if (/microformas/i.test(t))                       return "Solução de digitalização e pesquisa de microformas";
-  if (/movimentação.*ecs/i.test(t))                 return "Serviço de movimentação do ECS";
+// ─── Limpeza de texto ────────────────────────────────────────────────────────
+function limparTexto(txt){
+  if(!txt) return "";
+  return txt
+    .replace(/\[cid:[^\]]+\]/gi,"")
+    .replace(/\[[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}\]/g,"")
+    .replace(/sombra\s+(superior|inferior)\s+(esquerda|direita)/gi,"")
+    .replace(/<[^>]+>/g," ")
+    .replace(/&nbsp;/g," ")
+    .replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&amp;/g,"&")
+    .replace(/\s{2,}/g," ")
+    .trim();
+}
+
+// ─── Data DD/MM/AAAA ────────────────────────────────────────────────────────
+function fmtData(iso){
+  if(!iso) return "";
+  const d=iso.slice(0,10);
+  const [y,m,dd]=d.split("-");
+  return `${dd}/${m}/${y}`;
+}
+function fmtDataCurta(iso){
+  if(!iso) return "";
+  const d=iso.slice(0,10);
+  const [,m,dd]=d.split("-");
+  return `${dd}/${m}`;
+}
+
+// ─── Parse ──────────────────────────────────────────────────────────────────
+function inferProc(txt,ass,canal,pi){
+  if(pi?.trim()) return pi;
+  const t=[txt,ass,canal].join(" ").toLowerCase();
+  if(/broadcom|ca.technology/i.test(t))   return "Licenças Broadcom/CA";
+  if(/91065|poc.*firewall/i.test(t))      return "Modernização e Expansão dos Firewalls de Rede";
+  if(/91085|nexus/i.test(t))              return "Suporte dos switches NEXUS";
+  if(/descriptografia/i.test(t))          return "Solução de Descriptografia de Tráfego";
+  if(/balanceamento multisite/i.test(t))  return "Nova solução de balanceamento multisite";
+  if(/red hat|44104|rhel/i.test(t))       return "Licenças Red Hat Linux e Runtimes";
+  if(/antivírus|antivirus/i.test(t))      return "Expansão de Licenças Antivírus para Servidores dos Data Centers";
+  if(/orientação.*ibm/i.test(t))          return "Orientação Técnica Especializada IBM";
+  if(/oracle css|suporte.*oracle/i.test(t)) return "Suporte Licenças Oracle (até set/2026)";
+  if(/elastic|logs centraliza/i.test(t))  return "Expansão da Solução Centralizada de Logs";
+  if(/microformas/i.test(t))              return "Solução de digitalização e pesquisa de microformas";
+  if(/movimentação.*ecs/i.test(t))        return "Serviço de movimentação do ECS";
   return null;
 }
 
-function parseItem(e) {
-  const rem     = e.autorOuRemetente || e.remetente || "";
-  const isCezar = (e.autorId===CEZAR_ID)||(rem===CEZAR_EMAIL);
-  const dt      = (e.dataHoraBrasil||e.dataHoraOriginal||e.dia_hora||"").slice(0,16).replace("T"," ");
-  const txt     = (e.conteudoTextoLimpo||e.conteudo||"").slice(0,300);
-  const assunto = (e.assuntoOuCanal||e.assunto||e.chatOuCanal||"");
-  const autor   = isCezar?"Cezar":((e.autorMensagem||rem||"").split(/[\s@]/)[0]||"?");
-  const procId  = e.processoIdentificado||e.processo||"";
-  const proc    = inferProc(txt,assunto,e.chatOuCanal||"",procId);
-  const fonte   = (e.origem||e.tipoFonte||"").toLowerCase().includes("email")?"email":"teams";
-  const cat     = e.categoriaEventoSISCONTIC||null;
-  const prefixo = e.prefixoAutorSISCONTIC||null;
-  return {
-    dt, data:dt.slice(0,10), hora:dt.slice(11,16),
-    txt, assunto:assunto.slice(0,100), autor, isCezar, proc, fonte,
+function parseItem(e){
+  const rem=e.autorOuRemetente||e.remetente||"";
+  const isCezar=(e.autorId===CI)||(rem===CE);
+  const dtRaw=e.dataHoraBrasil||e.dataHoraOriginal||"";
+  const dt=dtRaw.slice(0,16).replace("T"," ");
+  const txtBruto=e.conteudoTextoLimpo||e.conteudo||"";
+  const txt=limparTexto(txtBruto).slice(0,400);
+  const ass=e.assuntoOuCanal||e.assunto||e.chatOuCanal||"";
+  const autor=isCezar?"Cezar":((e.autorMensagem||rem||"").split(/[\s@]/)[0]||"?");
+  const proc=inferProc(txt,ass,e.chatOuCanal||"",e.processoIdentificado||e.processo||"");
+  const origem=(e.origem||e.tipoFonte||"").toLowerCase();
+  const fonte=origem.includes("email")?"EMAIL":"TEAMS";
+  return{
+    dt,data:dtRaw.slice(0,10),hora:dt.slice(11,16),
+    txt,ass:ass.slice(0,100),autor,isCezar,proc,fonte,
     hasAnexo:!!(e.possuiAnexosTeams||e.possuiImagemOuAnexo||e.quantidadeAnexosTeams),
     atestado:e.atestadoLaudoRecebido||"NAO",
     mapaRisco:e.mapaRiscoStatus||null,
-    cat, prefixo,
-    docTipo:e.docTipo||null, docVersao:e.docVersao||null, nomeArquivo:e.nomeArquivo||null,
+    cat:e.categoriaEventoSISCONTIC||null,
+    prefixo:e.prefixoAutorSISCONTIC||null,
+    docTipo:e.docTipo||null,docVersao:e.docVersao||null,
+    nomeArquivo:e.nomeArquivo||null,
   };
 }
 
-// ─── Componentes UI ─────────────────────────────────────────────────────────
-function Badge({txt,bg,cor,small}) {
-  return <span style={{
-    fontSize:small?9:10,fontWeight:600,padding:"1px 7px",borderRadius:20,
-    background:bg||"#f1f5f9",color:cor||"#475569",display:"inline-block"
-  }}>{txt}</span>;
+function processJSON(raw){
+  return(Array.isArray(raw)?raw:[])
+    .map(x=>typeof x==="string"?JSON.parse(x):x)
+    .map(parseItem).filter(e=>e.dt)
+    .sort((a,b)=>a.dt.localeCompare(b.dt));
 }
 
-function EvCard({e}) {
+// ─── GitHub ─────────────────────────────────────────────────────────────────
+async function ghFetch(path){
+  const r=await fetch(`${RAW}${path}?t=${Date.now()}`);
+  if(!r.ok) throw new Error(r.status);
+  return r.json();
+}
+async function ghList(){
+  const r=await fetch(`${API_DADOS}?t=${Date.now()}`);
+  if(!r.ok) throw new Error(r.status);
+  const files=await r.json();
+  return (Array.isArray(files)?files:[])
+    .filter(f=>f.name!==WATER_FILE&&f.name!==ENRICH_FILE&&f.name!==PRIO_FILE&&f.name.endsWith(".json"))
+    .map(f=>f.download_url);
+}
+async function ghPushPAT(pat,conteudo){
+  // Busca SHA atual
+  let sha=null;
+  try{
+    const r=await fetch(`https://api.github.com/repos/${REPO}/contents/dados/${PRIO_FILE}`,
+      {headers:{Authorization:`Bearer ${pat}`,Accept:"application/vnd.github+json"}});
+    if(r.ok){const d=await r.json();sha=d.sha;}
+  }catch(e){}
+  const body={message:"Atualiza prioridades via painel DPCI",
+    content:btoa(unescape(encodeURIComponent(JSON.stringify(conteudo,null,2))))};
+  if(sha) body.sha=sha;
+  const r=await fetch(`https://api.github.com/repos/${REPO}/contents/dados/${PRIO_FILE}`,
+    {method:"PUT",headers:{Authorization:`Bearer ${pat}`,
+      "Content-Type":"application/json",Accept:"application/vnd.github+json"},
+    body:JSON.stringify(body)});
+  return r.ok;
+}
+
+// ─── UI helpers ─────────────────────────────────────────────────────────────
+function Spin(){return <div style={{width:18,height:18,border:"2px solid #1e293b",
+  borderTopColor:"#6366f1",borderRadius:"50%",animation:"spin .7s linear infinite",
+  display:"inline-block",verticalAlign:"middle"}}/>;}
+
+function Tag({txt,bg,cor,sm}){return <span style={{
+  fontSize:sm?9:10,fontWeight:600,padding:sm?"0px 5px":"2px 8px",borderRadius:20,
+  background:bg||"#1e293b",color:cor||"#94a3b8",display:"inline-flex",
+  alignItems:"center",gap:3,border:`1px solid ${(cor||"#334155")}33`,whiteSpace:"nowrap"}}>
+  {txt}</span>;}
+
+function Btn({onClick,children,cor,sm,disabled}){return <button onClick={onClick}
+  disabled={disabled} style={{padding:sm?"3px 10px":"6px 14px",fontSize:sm?10:12,
+  fontWeight:600,cursor:disabled?"not-allowed":"pointer",border:"none",borderRadius:8,
+  background:disabled?"#1e293b":(cor||"#1e3a8a"),color:disabled?"#334155":"#fff",
+  transition:"background .2s",opacity:disabled?.5:1}}>{children}</button>;}
+
+// ─── EvCard ─────────────────────────────────────────────────────────────────
+function EvCard({e}){
   const [open,setOpen]=useState(false);
-  const pd  = PROC_DEF[e.proc]||{cor:"#94a3b8",ic:"📌"};
-  const cat = e.cat?CAT_CFG[e.cat]:null;
-  const semTxt = !e.txt||e.txt.trim().length<4;
-  return (
-    <div style={{display:"flex",gap:8,padding:"8px 12px",marginBottom:3,
-                 background:e.isCezar?"#eef2ff":"#fafafa",
-                 borderLeft:`3px solid ${e.isCezar?"#6366f1":pd.cor}`,
-                 borderRadius:"0 6px 6px 0"}}>
-      <div style={{minWidth:44,fontSize:10,color:"#64748b",fontWeight:600,paddingTop:2,flexShrink:0}}>
-        <div>{e.data.slice(5).replace("-","/")}</div>
-        <div>{e.hora}</div>
+  const pd=getPD(e.proc);
+  const cat=e.cat?CAT_CFG[e.cat]:null;
+  const semTxt=!e.txt||e.txt.length<4;
+  const linhas=open?8:3;
+  const ver=e.docVersao?` ${e.docVersao}`:"";
+  return(
+    <div className="fade" style={{display:"flex",gap:10,padding:"10px 14px",marginBottom:3,
+      background:e.isCezar?"#1e1b4b":"#111827",
+      borderLeft:`3px solid ${e.isCezar?"#6366f1":pd.cor}`,borderRadius:"0 8px 8px 0"}}>
+      <div style={{minWidth:50,flexShrink:0,paddingTop:2}}>
+        <div style={{fontSize:10,color:"#64748b",fontVariantNumeric:"tabular-nums"}}>
+          {fmtDataCurta(e.data)}
+        </div>
+        <div style={{fontSize:9,color:"#334155"}}>{e.hora}</div>
+        <div style={{marginTop:3}}>
+          <Tag txt={e.fonte} bg={e.fonte==="EMAIL"?"#052e16":"#0c1a2e"}
+            cor={e.fonte==="EMAIL"?"#4ade80":"#38bdf8"} sm/>
+        </div>
       </div>
       <div style={{flex:1,minWidth:0}}>
-        <div style={{display:"flex",gap:4,flexWrap:"wrap",marginBottom:3}}>
-          <Badge txt={e.isCezar?"📤 EU":"📥 DEL"}
-            bg={e.isCezar?"#6366f122":"#0ea5e922"}
-            cor={e.isCezar?"#4338ca":"#0369a1"}/>
+        <div style={{display:"flex",gap:4,flexWrap:"wrap",marginBottom:4,alignItems:"center"}}>
+          {/* EU / REC */}
+          <Tag txt={e.isCezar?"📤 EU":"📥 RECEBIDO"}
+            bg={e.isCezar?"#312e81":"#0c1a2e"}
+            cor={e.isCezar?"#818cf8":"#38bdf8"}/>
+          {/* Autor/prefixo */}
           {e.prefixo
-            ? <Badge txt={e.prefixo} bg={pd.cor+"15"} cor={pd.cor}/>
-            : <Badge txt={e.autor} bg="#f1f5f9" cor="#475569"/>}
-          {e.fonte==="email"&&<Badge txt="✉️" bg="#f0fdf4" cor="#16a34a" small/>}
-          {e.hasAnexo&&<Badge txt="📎" bg="#fdf4ff" cor="#7c3aed" small/>}
-          {e.mapaRisco&&<Badge txt={e.mapaRisco==="ENV"?"📤MR":"📥MR"}
-            bg={e.mapaRisco==="ENV"?"#f0fdf4":"#eff6ff"}
-            cor={e.mapaRisco==="ENV"?"#16a34a":"#1d4ed8"} small/>}
-          {e.atestado==="SIM"&&<Badge txt="📜Atestado" bg="#fdf4ff" cor="#7c3aed" small/>}
-          {cat&&<Badge txt={cat.label} bg={cat.cor+"18"} cor={cat.cor}/>}
+            ?<Tag txt={e.prefixo} bg={pd.cor+"15"} cor={pd.cor}/>
+            :<Tag txt={e.autor} bg="#1e293b" cor="#64748b"/>}
+          {/* Categoria */}
+          {cat&&<Tag txt={cat.l} bg={cat.c+"18"} cor={cat.c}/>}
+          {/* Documento + versão */}
           {e.docTipo&&e.docTipo!=="Outro"&&
-            <Badge txt={`📄${e.docTipo}${e.docVersao?" "+e.docVersao:""}`}
-              bg="#fdf4ff" cor="#7c3aed" small/>}
+            <Tag txt={`📄 ${e.docTipo}${ver}`} bg="#1e0a3c" cor="#c084fc"/>}
+          {/* Mapa de Risco + versão */}
+          {e.mapaRisco&&
+            <Tag txt={`${e.mapaRisco==="ENV"?"📤":"📥"} MR${ver||""}`}
+              bg="#0c2a1a" cor={e.mapaRisco==="ENV"?"#4ade80":"#38bdf8"}/>}
+          {/* Atestado + versão */}
+          {e.atestado==="SIM"&&
+            <Tag txt={`📜 Atestado${ver}`} bg="#1e0a3c" cor="#a78bfa"/>}
+          {/* Anexo */}
+          {e.hasAnexo&&e.nomeArquivo&&
+            <Tag txt={`📎 ${e.nomeArquivo.slice(0,20)}`} bg="#1e293b" cor="#64748b" sm/>}
+          {e.hasAnexo&&!e.nomeArquivo&&
+            <Tag txt="📎" bg="#1e293b" cor="#64748b" sm/>}
         </div>
-        {e.assunto&&<div style={{fontSize:10,color:"#94a3b8",marginBottom:2,
-          overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{e.assunto}</div>}
-        <div style={{fontSize:11,color:semTxt?"#94a3b8":"#1e293b",
-                     fontStyle:semTxt?"italic":"normal",lineHeight:1.4}}>
-          {semTxt?"[imagem ou anexo]":
-           open?<>{e.txt}<button onClick={()=>setOpen(false)}
-             style={{marginLeft:4,fontSize:9,color:"#6366f1",background:"none",border:"none",cursor:"pointer"}}>▲</button></>:
-           <>{e.txt.slice(0,110)}{e.txt.length>110&&<button onClick={()=>setOpen(true)}
-             style={{marginLeft:4,fontSize:9,color:"#6366f1",background:"none",border:"none",cursor:"pointer"}}>▼</button>}</>}
+        {e.ass&&<div style={{fontSize:10,color:"#475569",marginBottom:4,
+          overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{e.ass}</div>}
+        {/* Texto — 3 linhas, expandível */}
+        <div style={{fontSize:12,color:semTxt?"#334155":"#cbd5e1",lineHeight:1.6,
+          display:"-webkit-box",WebkitBoxOrient:"vertical",overflow:"hidden",
+          WebkitLineClamp:open?"unset":3}}>
+          {semTxt?"[sem conteúdo de texto]":e.txt}
         </div>
+        {!semTxt&&e.txt.length>120&&(
+          <button onClick={()=>setOpen(!open)} style={{fontSize:9,color:"#6366f1",
+            background:"none",border:"none",cursor:"pointer",marginTop:2,padding:0}}>
+            {open?"▲ recolher":"▼ ver mais"}
+          </button>
+        )}
       </div>
     </div>
   );
 }
 
-function ProcTab({proc,items}) {
-  const pd  = PROC_DEF[proc]||{cor:"#94a3b8",ic:"📌"};
-  const evs = items.filter(e=>e.proc===proc).sort((a,b)=>a.dt.localeCompare(b.dt));
+// ─── ProcTab ────────────────────────────────────────────────────────────────
+function ProcTab({proc,items}){
+  const pd=getPD(proc);
+  const evs=useMemo(()=>items.filter(e=>e.proc===proc)
+    .sort((a,b)=>a.dt.localeCompare(b.dt)),[items,proc]);
   const [filtro,setFiltro]=useState("todos");
   const [busca,setBusca]=useState("");
-  const byDate = useMemo(()=>{
+  const byDate=useMemo(()=>{
     let r=evs;
-    if(filtro==="eu")       r=r.filter(e=>e.isCezar);
-    if(filtro==="del")      r=r.filter(e=>!e.isCezar);
-    if(filtro==="mapa")     r=r.filter(e=>e.mapaRisco);
-    if(filtro==="atestado") r=r.filter(e=>e.atestado==="SIM");
-    if(filtro==="docs")     r=r.filter(e=>e.docTipo&&e.docTipo!=="Outro");
-    if(busca.trim()){const b=busca.toLowerCase();r=r.filter(e=>e.txt.toLowerCase().includes(b)||e.assunto.toLowerCase().includes(b));}
+    if(filtro==="eu")    r=r.filter(e=>e.isCezar);
+    if(filtro==="rec")   r=r.filter(e=>!e.isCezar);
+    if(filtro==="docs")  r=r.filter(e=>e.docTipo&&e.docTipo!=="Outro");
+    if(filtro==="mr")    r=r.filter(e=>e.mapaRisco);
+    if(filtro==="atst")  r=r.filter(e=>e.atestado==="SIM");
+    if(busca.trim()){const b=busca.toLowerCase();
+      r=r.filter(e=>e.txt.toLowerCase().includes(b)||e.ass.toLowerCase().includes(b));}
     const m={};
     r.forEach(e=>{(m[e.data]=m[e.data]||[]).push(e);});
     return Object.entries(m).sort(([a],[b])=>a.localeCompare(b));
   },[evs,filtro,busca]);
   const total=byDate.reduce((s,[,v])=>s+v.length,0);
+  if(evs.length===0) return(
+    <div style={{textAlign:"center",padding:"60px 20px",color:"#334155"}}>
+      <div style={{fontSize:32,marginBottom:8}}>{pd.ic}</div>
+      <div style={{fontSize:14,color:"#475569"}}>{proc}</div>
+      <div style={{fontSize:12,color:"#334155",marginTop:6}}>Nenhum evento capturado ainda.</div>
+    </div>
+  );
   const datas=[...new Set(evs.map(e=>e.data))].sort();
-  return (
+  return(
     <div>
-      <div style={{background:`linear-gradient(135deg,${pd.cor}22,${pd.cor}08)`,
-                   border:`1px solid ${pd.cor}44`,borderRadius:10,padding:"12px 16px",marginBottom:12}}>
-        <div style={{fontSize:14,fontWeight:700,color:pd.cor,marginBottom:8}}>{pd.ic} {proc}</div>
-        <div style={{display:"flex",gap:10,flexWrap:"wrap"}}>
-          {[["Total",evs.length],["Enviados",evs.filter(e=>e.isCezar).length],
-            ["Recebidos",evs.filter(e=>!e.isCezar).length],
-            ["Documentos",evs.filter(e=>e.docTipo&&e.docTipo!=="Outro").length],
-            ["Mapa de Risco",evs.filter(e=>e.mapaRisco).length],
-            ["Dias",datas.length]].map(([l,n])=>n>0&&(
-            <div key={l} style={{textAlign:"center",background:"#fff",borderRadius:8,
-                                  padding:"4px 12px",border:`1px solid ${pd.cor}33`}}>
-              <div style={{fontSize:16,fontWeight:700,color:pd.cor}}>{n}</div>
-              <div style={{fontSize:9,color:"#64748b"}}>{l}</div>
+      <div style={{background:`linear-gradient(135deg,${pd.cor}18,${pd.cor}05)`,
+        border:`1px solid ${pd.cor}33`,borderRadius:12,padding:"14px 18px",marginBottom:14}}>
+        <div style={{fontSize:14,fontWeight:700,color:pd.cor,marginBottom:10}}>
+          {pd.ic} {proc}
+        </div>
+        <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
+          {[["Total",evs.length,pd.cor],["📤 Enviados",evs.filter(e=>e.isCezar).length,"#818cf8"],
+            ["📥 Recebidos",evs.filter(e=>!e.isCezar).length,"#38bdf8"],
+            ["📄 Docs",evs.filter(e=>e.docTipo&&e.docTipo!=="Outro").length,"#c084fc"],
+            ["📋 MR",evs.filter(e=>e.mapaRisco).length,"#4ade80"],
+            ["Dias",datas.length,"#94a3b8"]].filter(([,n])=>n>0).map(([l,n,c])=>(
+            <div key={l} style={{background:"#0f172a",borderRadius:8,padding:"6px 12px",
+              textAlign:"center",border:`1px solid ${c}33`}}>
+              <div style={{fontSize:18,fontWeight:700,color:c}}>{n}</div>
+              <div style={{fontSize:9,color:"#475569"}}>{l}</div>
             </div>
           ))}
         </div>
-        {datas.length>0&&<div style={{fontSize:10,color:"#94a3b8",marginTop:6}}>
-          {datas[0].split("-").reverse().join("/")} → {datas[datas.length-1].split("-").reverse().join("/")}
+        {datas.length>0&&<div style={{fontSize:10,color:"#475569",marginTop:8}}>
+          {fmtData(datas[0])} → {fmtData(datas[datas.length-1])}
         </div>}
       </div>
-      <div style={{display:"flex",gap:6,flexWrap:"wrap",marginBottom:10}}>
-        {[["todos","Todos"],["eu","📤 Eu"],["del","📥 Del"],["docs","📄 Docs"],
-          ["mapa","📋 MR"],["atestado","📜 Atst"]].map(([v,l])=>(
-          <button key={v} onClick={()=>setFiltro(v)}
-            style={{padding:"4px 10px",fontSize:11,border:`1px solid ${filtro===v?pd.cor:"#e2e8f0"}`,
-                    borderRadius:20,background:filtro===v?pd.cor+"22":"#fff",
-                    color:filtro===v?pd.cor:"#64748b",cursor:"pointer"}}>{l}</button>
+      <div style={{display:"flex",gap:6,flexWrap:"wrap",marginBottom:12}}>
+        {[["todos","Todos"],["eu","📤 Eu"],["rec","📥 Rec"],
+          ["docs","📄 Docs"],["mr","📋 MR"],["atst","📜 Atst"]].map(([v,l])=>(
+          <button key={v} onClick={()=>setFiltro(v)} style={{
+            padding:"4px 12px",fontSize:11,cursor:"pointer",borderRadius:20,
+            background:filtro===v?pd.cor+"30":"#1e293b",
+            color:filtro===v?pd.cor:"#64748b",
+            border:`1px solid ${filtro===v?pd.cor:"#334155"}`}}>{l}</button>
         ))}
-        <input value={busca} onChange={e=>setBusca(e.target.value)} placeholder="Buscar..."
-          style={{padding:"4px 10px",borderRadius:20,border:"1px solid #e2e8f0",
-                  fontSize:11,flex:1,minWidth:100,background:"#fff"}}/>
-        <span style={{fontSize:10,color:"#94a3b8",alignSelf:"center"}}>{total} ev.</span>
+        <input value={busca} onChange={e=>setBusca(e.target.value)}
+          placeholder="Buscar..." style={{padding:"4px 12px",borderRadius:20,
+          border:"1px solid #334155",fontSize:11,flex:1,minWidth:120,
+          background:"#0f172a",color:"#e2e8f0"}}/>
+        <span style={{fontSize:10,color:"#334155",alignSelf:"center"}}>{total}</span>
       </div>
       {byDate.map(([data,evs])=>(
         <div key={data}>
-          <div style={{display:"flex",alignItems:"center",gap:8,margin:"10px 0 4px"}}>
-            <div style={{height:1,flex:1,background:"#e2e8f0"}}/>
+          <div style={{display:"flex",alignItems:"center",gap:10,margin:"12px 0 6px"}}>
+            <div style={{height:1,flex:1,background:"#1e293b"}}/>
             <span style={{fontSize:10,fontWeight:700,color:pd.cor,background:pd.cor+"18",
-                          border:`1px solid ${pd.cor}33`,borderRadius:20,padding:"2px 10px"}}>
-              {data.split("-").reverse().join("/")}
+              border:`1px solid ${pd.cor}44`,borderRadius:20,padding:"2px 12px"}}>
+              {fmtData(data)}
             </span>
-            <div style={{height:1,flex:1,background:"#e2e8f0"}}/>
+            <div style={{height:1,flex:1,background:"#1e293b"}}/>
           </div>
           {evs.map((e,i)=><EvCard key={i} e={e}/>)}
         </div>
       ))}
-      {total===0&&<div style={{textAlign:"center",padding:"20px",color:"#94a3b8",fontSize:12}}>Nenhum evento com este filtro</div>}
     </div>
   );
 }
 
-function SisconticTab({items}) {
+// ─── SisconticTab ────────────────────────────────────────────────────────────
+function SisconticTab({items}){
   const [copiado,setCopiado]=useState(null);
-  const [filtroProc,setFiltroProc]=useState("Todos");
-  const [loading,setLoading]=useState(false);
-  const [gerados,setGerados]=useState([]);
-
-  // Gerar SISCONTIC a partir dos eventos enriquecidos
-  const gerarDoJSON = useCallback(async()=>{
-    if(!items?.length) return;
-    setLoading(true);
-    try {
-      const resp = await fetch("https://api.anthropic.com/v1/messages",{
-        method:"POST",headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:4000,
-          messages:[{role:"user",content:
-            `Você é assistente de Cezar Matos (DPCI/Dataprev).
-Analise os eventos abaixo e gere registros para o SISCONTIC.
-Foco em: documentos enviados/recebidos, questionamentos, alinhamentos, pendências.
-Use o prefixoAutorSISCONTIC quando disponível.
-
-SOMENTE JSON sem markdown:
-{"registros":[{"data":"DD/MM/AAAA","proc":"processo","prefixo":"prefixoAutor","categoria":"CATEGORIA","texto":"Texto SISCONTIC impessoal linha única"}]}
-
-EVENTOS (últimos relevantes):
-${items.filter(e=>e.proc&&(e.cat||e.docTipo)).slice(0,50).map(e=>
-  `[${e.dt}] ${e.prefixo||e.autor} [${e.proc}] cat=${e.cat||"?"} doc=${e.docTipo||"-"} | ${e.txt.slice(0,100)}`
-).join("\n")}`
-          }]})});
-      const d=await resp.json();
-      const txt=d.content?.filter(b=>b.type==="text").map(b=>b.text).join("").replace(/```json|```/g,"").trim();
-      const parsed=JSON.parse(txt);
-      setGerados(parsed.registros||[]);
-    } catch(e){console.error(e);}
-    finally{setLoading(false);}
-  },[items]);
-
   const copiar=(txt,k)=>{
-    navigator.clipboard.writeText(txt).then(()=>{setCopiado(k);setTimeout(()=>setCopiado(null),2000);});
+    navigator.clipboard.writeText(txt).then(()=>{
+      setCopiado(k);setTimeout(()=>setCopiado(null),2000);});
   };
 
-  const lista = gerados.length?gerados:[];
-  const procs = ["Todos",...new Set(lista.map(e=>e.proc).filter(Boolean))];
-  const filtrados = lista.filter(e=>filtroProc==="Todos"||e.proc===filtroProc);
+  // Gerar textos SISCONTIC
+  const gerarTxt=(e)=>{
+    const dt=fmtData(e.data);
+    const pr=e.proc||"processo";
+    const pfx=e.prefixo||"DPCI";
+    const ver=e.docVersao||"";const tipo=e.docTipo||"";
+    const res=e.txt.slice(0,100);
+    if(e.cat==="ENVIO_DOCUMENTO")         return `${dt} – ${pfx} encaminhou ${tipo} ${ver} referente a ${pr}.`;
+    if(e.cat==="RECEBIMENTO_DOCUMENTO")   return `${dt} – DPCI recebeu de ${pfx} ${tipo} ${ver} referente a ${pr}.`;
+    if(e.cat==="DEVOLUTIVA")              return `${dt} – ${pfx} devolveu análise de ${tipo} ${ver} com comentários referente a ${pr}.`;
+    if(e.cat==="QUESTIONAMENTO_RECEBIDO") return `${dt} – ${pfx} questionou DPCI referente a ${pr}: ${res}.`;
+    if(e.cat==="QUESTIONAMENTO_ENVIADO")  return `${dt} – DPCI (Cezar) questionou ${pfx} referente a ${pr}: ${res}.`;
+    if(e.cat==="PENDENCIA_IDENTIFICADA")  return `${dt} – DPCI registrou pendência referente a ${pr}: ${res}.`;
+    if(e.cat==="ALINHAMENTO")             return `${dt} – DPCI (Cezar) realizou alinhamento com ${pfx} referente a ${pr}.`;
+    if(e.cat==="ENCAMINHAMENTO")          return `${dt} – DPCI (Cezar) encaminhou a ${pfx} referente a ${pr}.`;
+    return null;
+  };
 
-  return (
+  // Agrupar por processo
+  const porProc=useMemo(()=>{
+    const m={};
+    items.filter(e=>e.proc&&e.cat&&e.cat!=="INFORMACAO").forEach(e=>{
+      const txt=gerarTxt(e);
+      if(!txt) return;
+      if(!m[e.proc]) m[e.proc]=[];
+      m[e.proc].push({...e,sisconticTxt:txt});
+    });
+    return m;
+  },[items]);
+
+  const procs=Object.keys(porProc).sort();
+  if(procs.length===0) return(
+    <div style={{textAlign:"center",padding:"60px",color:"#334155",fontSize:13}}>
+      Nenhum registro SISCONTIC gerado. Execute o Enriquecedor v4 para detectar categorias.
+    </div>
+  );
+
+  return(
     <div>
-      <div style={{background:"linear-gradient(135deg,#1e3a8a,#1e40af)",borderRadius:12,
-                   padding:"14px 18px",marginBottom:14,color:"#fff"}}>
-        <div style={{fontSize:14,fontWeight:700,marginBottom:3}}>📝 Registros para o SISCONTIC</div>
-        <div style={{fontSize:12,opacity:.85}}>Clique em "Gerar do JSON" para criar registros a partir dos eventos carregados.</div>
+      <div style={{background:"linear-gradient(135deg,#1e3a8a,#312e81)",
+        borderRadius:12,padding:"14px 18px",marginBottom:16}}>
+        <div style={{fontSize:14,fontWeight:700,color:"#e0e7ff",marginBottom:3}}>
+          📝 Registros para o SISCONTIC
+        </div>
+        <div style={{fontSize:12,color:"#93c5fd",opacity:.9}}>
+          Gerados automaticamente · agrupados por processo
+        </div>
       </div>
-      <div style={{display:"flex",gap:8,flexWrap:"wrap",marginBottom:14,alignItems:"center"}}>
-        <select value={filtroProc} onChange={e=>setFiltroProc(e.target.value)}
-          style={{padding:"6px 10px",borderRadius:8,border:"1px solid #e2e8f0",fontSize:12,background:"#fff"}}>
-          {procs.map(p=><option key={p}>{p}</option>)}
-        </select>
-        <span style={{fontSize:11,color:"#94a3b8"}}>{filtrados.length} registros</span>
-        <div style={{flex:1}}/>
-        <button onClick={gerarDoJSON} disabled={loading||!items?.length}
-          style={{padding:"6px 14px",background:loading?"#e2e8f0":"linear-gradient(135deg,#7c3aed,#6366f1)",
-                  color:loading?"#94a3b8":"#fff",border:"none",borderRadius:8,fontSize:12,
-                  fontWeight:600,cursor:loading?"not-allowed":"pointer"}}>
-          {loading?"⚙️ Gerando...":"✨ Gerar do JSON"}
-        </button>
-        {filtrados.length>0&&<button onClick={()=>copiar(filtrados.map(e=>`${e.data} – ${e.texto}`).join("\n\n"),-1)}
-          style={{padding:"6px 14px",background:copiado===-1?"#22c55e":"linear-gradient(135deg,#1e40af,#6366f1)",
-                  color:"#fff",border:"none",borderRadius:8,fontSize:12,fontWeight:600,cursor:"pointer"}}>
+      <div style={{display:"flex",justifyContent:"flex-end",marginBottom:12}}>
+        <Btn onClick={()=>copiar(
+          procs.map(p=>
+            `=== ${p} ===\n`+
+            porProc[p].map(e=>e.sisconticTxt).join("\n")
+          ).join("\n\n"),-1)}
+          cor={copiado===-1?"#166534":"#1e3a8a"}>
           {copiado===-1?"✓ Copiado":"📋 Copiar tudo"}
-        </button>}
+        </Btn>
       </div>
-      {filtrados.length===0&&!loading&&(
-        <div style={{textAlign:"center",padding:"40px",color:"#94a3b8",fontSize:13}}>
-          {items?.length?'Clique em "✨ Gerar do JSON" para criar os registros':'Carregue o JSON primeiro'}
+      {procs.map(proc=>{
+        const pd=getPD(proc);
+        const evs=porProc[proc];
+        return(
+          <div key={proc} style={{marginBottom:24}}>
+            {/* Cabeçalho do processo */}
+            <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:10}}>
+              <div style={{height:1,flex:0,width:12,background:pd.cor}}/>
+              <span style={{fontSize:11,fontWeight:700,color:pd.cor,
+                background:pd.cor+"15",border:`1px solid ${pd.cor}33`,
+                borderRadius:20,padding:"3px 12px"}}>
+                {pd.ic} {proc} · {evs.length} registro{evs.length!==1?"s":""}
+              </span>
+              <div style={{height:1,flex:1,background:pd.cor+"33"}}/>
+              <Btn onClick={()=>copiar(evs.map(e=>e.sisconticTxt).join("\n"),proc)}
+                cor={copiado===proc?"#166534":"#1e293b"} sm>
+                {copiado===proc?"✓":"📋"}
+              </Btn>
+            </div>
+            {evs.map((e,i)=>{
+              const cat=CAT_CFG[e.cat];
+              const key=`${proc}_${i}`;
+              return(
+                <div key={i} className="fade" style={{
+                  background:"#0f172a",border:"1px solid #1e293b",
+                  borderLeft:`3px solid ${pd.cor}`,
+                  borderRadius:"0 8px 8px 0",padding:"12px 16px",marginBottom:6,
+                  display:"flex",gap:10,alignItems:"flex-start"}}>
+                  <div style={{minWidth:24,flexShrink:0}}>
+                    <span style={{fontSize:9,fontWeight:700,color:"#475569"}}>
+                      {String(i+1).padStart(2,"0")}
+                    </span>
+                  </div>
+                  <div style={{flex:1}}>
+                    <div style={{display:"flex",gap:6,flexWrap:"wrap",marginBottom:6}}>
+                      <Tag txt={`📅 ${fmtData(e.data)}`} bg="#1e293b" cor="#60a5fa"/>
+                      {e.prefixo&&<Tag txt={e.prefixo} bg={pd.cor+"18"} cor={pd.cor}/>}
+                      {cat&&<Tag txt={cat.l} bg={cat.c+"18"} cor={cat.c}/>}
+                    </div>
+                    <div style={{fontSize:13,color:"#e2e8f0",lineHeight:1.7,
+                      background:"#1e293b",borderRadius:6,padding:"8px 12px"}}>
+                      <strong style={{color:"#60a5fa"}}>{fmtData(e.data)}</strong>
+                      {" – "}{e.sisconticTxt.replace(/^\d{2}\/\d{2}\/\d{4}\s*–\s*/,"")}
+                    </div>
+                  </div>
+                  <button onClick={()=>copiar(e.sisconticTxt,key)}
+                    style={{flexShrink:0,padding:"5px 10px",fontSize:11,fontWeight:600,
+                      background:copiado===key?"#166534":"#1e3a8a",color:"#fff",
+                      border:"none",borderRadius:7,cursor:"pointer"}}>
+                    {copiado===key?"✓":"📋"}
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+// ─── PrioridadesTab ──────────────────────────────────────────────────────────
+const PRIO_STATUS = {
+  pendente:    {l:"⏳ Pendente",  c:"#fbbf24",bg:"#451a03"},
+  em_andamento:{l:"🔄 Andamento", c:"#38bdf8",bg:"#0c1a2e"},
+  concluida:   {l:"✅ Concluída", c:"#4ade80",bg:"#052e16"},
+};
+
+function PrioridadesTab({watermark}){
+  const [prios,setPrios]=useState(null);
+  const [loading,setLoading]=useState(false);
+  const [pat,setPat]=useState(()=>localStorage.getItem("dpci_gh_pat")||"");
+  const [showPat,setShowPat]=useState(false);
+  const [nova,setNova]=useState({proc:"",desc:"",resp:"DPCI",prazo:"",status:"pendente"});
+  const [evidencia,setEvidencia]=useState({});
+  const [salvando,setSalvando]=useState(false);
+  const [msg,setMsg]=useState(null);
+
+  const salvarPAT=()=>{localStorage.setItem("dpci_gh_pat",pat);setShowPat(false);
+    setMsg({ok:true,txt:"PAT salvo no navegador."});setTimeout(()=>setMsg(null),3000);};
+
+  const carregar=useCallback(async()=>{
+    setLoading(true);
+    try{
+      const d=await ghFetch(PRIO_FILE);
+      setPrios(d);
+    }catch(e){
+      // Arquivo não existe ainda
+      const semana=()=>{
+        const now=new Date();
+        const seg=new Date(now);seg.setDate(now.getDate()-(now.getDay()||7)+1);
+        const sex=new Date(seg);sex.setDate(seg.getDate()+5);
+        const fmt=d=>`${String(d.getDate()).padStart(2,"0")}/${String(d.getMonth()+1).padStart(2,"0")}`;
+        return `${fmt(seg)} a ${fmt(sex)}`;
+      };
+      setPrios({semana:semana(),atividades:[]});
+    }
+    setLoading(false);
+  },[]);
+
+  useEffect(()=>{carregar();},[]);
+
+  const salvar=async(novasPrios)=>{
+    if(!pat){setMsg({ok:false,txt:"Configure o PAT do GitHub para salvar."});return;}
+    setSalvando(true);
+    const ok=await ghPushPAT(pat,novasPrios);
+    setSalvando(false);
+    setMsg({ok,txt:ok?"✅ Prioridades salvas no GitHub!":"❌ Erro ao salvar. Verifique o PAT."});
+    setTimeout(()=>setMsg(null),4000);
+    if(ok) setPrios(novasPrios);
+  };
+
+  const adicionarAtividade=()=>{
+    if(!nova.proc||!nova.desc) return;
+    const item={id:`a${Date.now()}`,proc:nova.proc,desc:nova.desc,
+      resp:nova.resp,prazo:nova.prazo,status:"pendente",evidencia:""};
+    const atualizadas={...prios,atividades:[...(prios?.atividades||[]),item]};
+    salvar(atualizadas);
+    setNova({proc:"",desc:"",resp:"DPCI",prazo:"",status:"pendente"});
+  };
+
+  const alterarStatus=(id,status)=>{
+    const ev=evidencia[id]||"";
+    const atualizadas={...prios,atividades:prios.atividades.map(a=>
+      a.id===id?{...a,status,evidencia:ev||a.evidencia,dataConclusao:status==="concluida"?new Date().toISOString().slice(0,10):a.dataConclusao}:a)};
+    salvar(atualizadas);
+  };
+
+  const counts=useMemo(()=>{
+    if(!prios?.atividades) return {};
+    return Object.fromEntries(Object.keys(PRIO_STATUS).map(k=>
+      [k,prios.atividades.filter(a=>a.status===k).length]));
+  },[prios]);
+
+  if(loading) return <div style={{textAlign:"center",padding:"40px",color:"#475569"}}>
+    <Spin/> Carregando prioridades...</div>;
+
+  return(
+    <div>
+      {/* Header */}
+      <div style={{background:"linear-gradient(135deg,#1e3a8a,#0f172a)",
+        borderRadius:12,padding:"14px 18px",marginBottom:16}}>
+        <div style={{fontSize:14,fontWeight:700,color:"#e0e7ff",marginBottom:3}}>
+          📊 Prioridades da Semana
+          {prios?.semana&&<span style={{fontSize:12,color:"#93c5fd",fontWeight:400,
+            marginLeft:8}}>· {prios.semana}</span>}
+        </div>
+        <div style={{display:"flex",gap:8,marginTop:8,flexWrap:"wrap"}}>
+          {Object.entries(PRIO_STATUS).map(([k,s])=>(
+            <div key={k} style={{background:s.bg,border:`1px solid ${s.c}33`,
+              borderRadius:8,padding:"4px 12px",fontSize:11,color:s.c}}>
+              {s.l} <strong>{counts[k]||0}</strong>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Config PAT */}
+      <div style={{marginBottom:16}}>
+        <button onClick={()=>setShowPat(!showPat)}
+          style={{fontSize:11,color:"#475569",background:"none",border:"none",
+            cursor:"pointer",textDecoration:"underline"}}>
+          {pat?"🔑 PAT configurado":"🔑 Configurar PAT do GitHub (para salvar prioridades)"}
+        </button>
+        {showPat&&<div style={{marginTop:8,display:"flex",gap:8}}>
+          <input type="password" value={pat} onChange={e=>setPat(e.target.value)}
+            placeholder="ghp_..." style={{flex:1,padding:"6px 10px",background:"#1e293b",
+              border:"1px solid #334155",borderRadius:6,color:"#e2e8f0",fontSize:12}}/>
+          <Btn onClick={salvarPAT} cor="#166534">Salvar</Btn>
+        </div>}
+      </div>
+
+      {/* Semana + Formulário de nova atividade */}
+      <div style={{background:"#1e293b",border:"1px solid #334155",
+        borderRadius:12,padding:"16px",marginBottom:16}}>
+        <div style={{fontSize:12,fontWeight:700,color:"#94a3b8",marginBottom:12,
+          textTransform:"uppercase",letterSpacing:.5}}>+ Nova atividade</div>
+        <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
+          <select value={nova.proc} onChange={e=>setNova({...nova,proc:e.target.value})}
+            style={{flex:2,minWidth:180,padding:"6px 10px",background:"#0f172a",
+              border:"1px solid #334155",borderRadius:6,color:"#e2e8f0",fontSize:12}}>
+            <option value="">Processo...</option>
+            {ALL_PROCS.map(p=><option key={p} value={p}>{getPD(p).ic} {p}</option>)}
+          </select>
+          <input value={nova.desc} onChange={e=>setNova({...nova,desc:e.target.value})}
+            placeholder="Descrição da atividade"
+            style={{flex:3,minWidth:200,padding:"6px 10px",background:"#0f172a",
+              border:"1px solid #334155",borderRadius:6,color:"#e2e8f0",fontSize:12}}/>
+          <input value={nova.resp} onChange={e=>setNova({...nova,resp:e.target.value})}
+            placeholder="Responsável" style={{flex:1,minWidth:100,padding:"6px 10px",
+              background:"#0f172a",border:"1px solid #334155",borderRadius:6,
+              color:"#e2e8f0",fontSize:12}}/>
+          <input value={nova.prazo} onChange={e=>setNova({...nova,prazo:e.target.value})}
+            placeholder="Prazo ex: Sex 11/07"
+            style={{flex:1,minWidth:100,padding:"6px 10px",background:"#0f172a",
+              border:"1px solid #334155",borderRadius:6,color:"#e2e8f0",fontSize:12}}/>
+          <Btn onClick={adicionarAtividade} disabled={salvando||!nova.proc||!nova.desc}
+            cor="#1e3a8a">{salvando?<Spin/>:"+ Adicionar"}</Btn>
+        </div>
+      </div>
+
+      {msg&&<div style={{padding:"8px 14px",borderRadius:8,marginBottom:12,fontSize:12,
+        background:msg.ok?"#052e16":"#450a0a",
+        color:msg.ok?"#4ade80":"#fca5a5",
+        border:`1px solid ${msg.ok?"#166534":"#7f1d1d"}`}}>{msg.txt}</div>}
+
+      {/* Lista de atividades */}
+      {(prios?.atividades||[]).length===0&&(
+        <div style={{textAlign:"center",padding:"40px",color:"#334155",fontSize:13}}>
+          Nenhuma atividade lançada. Adicione a primeira acima.
         </div>
       )}
-      {filtrados.map((e,i)=>{
-        const pd=PROC_DEF[e.proc]||{cor:"#64748b",ic:"📌"};
-        const cat=e.categoria?CAT_CFG[e.categoria]:null;
-        const txt=`${e.data} – ${e.texto}`;
-        const fmt=txt.replace(/^(\d{2}\/\d{2}\/\d{4})/,"<strong>$1</strong>");
-        return (
-          <div key={i} style={{background:"#fff",border:"1px solid #e2e8f0",borderRadius:12,padding:"14px 18px",marginBottom:10}}>
+      {(prios?.atividades||[]).map((a,i)=>{
+        const pd=getPD(a.proc);
+        const st=PRIO_STATUS[a.status]||PRIO_STATUS.pendente;
+        return(
+          <div key={a.id||i} className="fade" style={{
+            background:"#0f172a",border:`1px solid ${st.c}33`,
+            borderLeft:`4px solid ${st.c}`,borderRadius:"0 10px 10px 0",
+            padding:"14px 16px",marginBottom:8}}>
             <div style={{display:"flex",gap:10,alignItems:"flex-start"}}>
-              <div style={{minWidth:24,height:24,borderRadius:"50%",background:"#1e40af",
-                           color:"#fff",display:"flex",alignItems:"center",justifyContent:"center",
-                           fontSize:11,fontWeight:700,flexShrink:0}}>{i+1}</div>
               <div style={{flex:1}}>
-                <div style={{display:"flex",gap:6,flexWrap:"wrap",marginBottom:8}}>
-                  <Badge txt={`📅 ${e.data}`} bg="#eff6ff" cor="#1e40af"/>
-                  {e.prefixo&&<Badge txt={e.prefixo} bg={pd.cor+"22"} cor={pd.cor}/>}
-                  {cat&&<Badge txt={cat.label} bg={cat.cor+"18"} cor={cat.cor}/>}
-                  {pd.cor&&<Badge txt={`${pd.ic} ${e.proc}`} bg={pd.cor+"15"} cor={pd.cor}/>}
+                <div style={{display:"flex",gap:6,flexWrap:"wrap",marginBottom:6}}>
+                  <Tag txt={`${pd.ic} ${a.proc?.slice(0,30)}`} bg={pd.cor+"15"} cor={pd.cor}/>
+                  <Tag txt={`👤 ${a.resp||"—"}`} bg="#1e293b" cor="#64748b" sm/>
+                  {a.prazo&&<Tag txt={`⏰ ${a.prazo}`} bg="#450a0a" cor="#f87171" sm/>}
+                  <Tag txt={st.l} bg={st.bg} cor={st.c}/>
+                  {a.dataConclusao&&<Tag txt={`✓ ${fmtData(a.dataConclusao)}`}
+                    bg="#052e16" cor="#4ade80" sm/>}
                 </div>
-                <div style={{fontSize:13,color:"#1e293b",lineHeight:1.7,background:"#f8fafc",
-                             border:"1px solid #e2e8f0",borderRadius:8,padding:"10px 14px"}}
-                  dangerouslySetInnerHTML={{__html:fmt}}/>
+                <div style={{fontSize:13,color:"#e2e8f0",marginBottom:8,lineHeight:1.5}}>
+                  {a.desc}
+                </div>
+                {/* Evidência */}
+                {a.status==="concluida"&&a.evidencia&&(
+                  <div style={{fontSize:11,color:"#64748b",marginBottom:6,
+                    background:"#1e293b",borderRadius:6,padding:"6px 10px"}}>
+                    📎 <em>{a.evidencia}</em>
+                  </div>
+                )}
+                {a.status!=="concluida"&&(
+                  <input value={evidencia[a.id]||""} onChange={e=>setEvidencia({...evidencia,[a.id]:e.target.value})}
+                    placeholder="Evidência de conclusão (opcional)"
+                    style={{width:"100%",padding:"5px 10px",background:"#1e293b",
+                      border:"1px solid #334155",borderRadius:6,color:"#94a3b8",
+                      fontSize:11,marginBottom:6}}/>
+                )}
               </div>
-              <button onClick={()=>copiar(txt,i)}
-                style={{flexShrink:0,padding:"5px 10px",fontSize:11,fontWeight:600,
-                        background:copiado===i?"#22c55e":"#1e40af",color:"#fff",
-                        border:"none",borderRadius:8,cursor:"pointer",transition:"background .3s"}}>
-                {copiado===i?"✓":"📋"}
-              </button>
+              {/* Botões de status */}
+              <div style={{display:"flex",flexDirection:"column",gap:4,flexShrink:0}}>
+                {a.status!=="concluida"&&(
+                  <Btn onClick={()=>alterarStatus(a.id,"concluida")}
+                    cor="#166534" sm>✅</Btn>)}
+                {a.status==="pendente"&&(
+                  <Btn onClick={()=>alterarStatus(a.id,"em_andamento")}
+                    cor="#1e3a8a" sm>🔄</Btn>)}
+                {a.status==="concluida"&&(
+                  <Btn onClick={()=>alterarStatus(a.id,"pendente")}
+                    cor="#334155" sm>↩</Btn>)}
+              </div>
             </div>
           </div>
         );
@@ -340,235 +681,289 @@ ${items.filter(e=>e.proc&&(e.cat||e.docTipo)).slice(0,50).map(e=>
   );
 }
 
-// ─── Upload + load do GitHub ──────────────────────────────────────────────
-function useData() {
-  const [items,setItems] = useState(null);
-  const [loading,setLoading] = useState(false);
-  const [err,setErr] = useState(null);
-  const [fonte,setFonte] = useState(null);
-
-  const loadFile = useCallback(async(file)=>{
-    try {
-      const txt = await file.text();
-      const raw = JSON.parse(txt);
-      const parsed = (Array.isArray(raw)?raw:[])
-        .map(r=>typeof r==="string"?JSON.parse(r):r)
-        .map(parseItem).filter(e=>e.dt)
-        .sort((a,b)=>a.dt.localeCompare(b.dt));
-      setItems(parsed);
-      setFonte(`📂 ${file.name} (${parsed.length} eventos)`);
-      setErr(null);
-    } catch(e){ setErr("Erro ao ler: "+e.message); }
-  },[]);
-
-  const loadUltimoCiclo = useCallback(async()=>{
-    try {
-      const r = await fetch(GITHUB_RAW+"_ultimo_ciclo.json?t="+Date.now());
-      if(r.ok){ const d = await r.json(); return d; }
-    } catch(e){ console.log("ciclo não disponível"); }
-    return null;
-  },[]);
-
-  const loadGitHub = useCallback(async()=>{
-    setLoading(true);
-    try {
-      const url = GITHUB_RAW+"2026-2027_EventosNormalizadosEnriquecidos.json?t="+Date.now();
-      const res = await fetch(url);
-      if(!res.ok) throw new Error(`HTTP ${res.status}`);
-      const raw = await res.json();
-      const parsed = (Array.isArray(raw)?raw:[])
-        .map(r=>typeof r==="string"?JSON.parse(r):r)
-        .map(parseItem).filter(e=>e.dt)
-        .sort((a,b)=>a.dt.localeCompare(b.dt));
-      setItems(parsed);
-      setFonte(`☁️ GitHub (${parsed.length} eventos)`);
-      setErr(null);
-    } catch(e){ setErr("Erro ao carregar do GitHub: "+e.message); }
-    finally { setLoading(false); }
-  },[]);
-
-  useEffect(()=>{ if(IS_GITHUB) loadGitHub(); },[]);
-
-  return {items,loading,err,fonte,loadFile,loadGitHub,setItems};
-}
-
-// ─── App ──────────────────────────────────────────────────────────────────
-function App() {
-  const {items,loading,err,fonte,loadFile,loadGitHub,setItems} = useData();
+// ─── App ─────────────────────────────────────────────────────────────────────
+function App(){
+  const [items,setItems]=useState(null);
   const [aba,setAba]=useState("processos");
-  const [procAtivo,setProcAtivo]=useState(null);
+  const [proc,setProc]=useState(ALL_PROCS[0]);
   const [drag,setDrag]=useState(false);
+  const [err,setErr]=useState(null);
+  const [loading,setLoading]=useState(false);
+  const [statusMsg,setStatusMsg]=useState(null);
+  const [watermark,setWatermark]=useState(null);
+  const [fonte,setFonte]=useState(null);
+  const [nextRefresh,setNextRefresh]=useState(null);
   const inputRef=useRef();
+  const timerRef=useRef();
 
-  const stats = useMemo(()=>{
+  const parseAndSet=useCallback((raw,src)=>{
+    setItems(processJSON(raw));setFonte(src);setErr(null);
+  },[]);
+
+  const loadFile=useCallback(async(file)=>{
+    try{const txt=await file.text();parseAndSet(JSON.parse(txt),`📂 ${file.name}`);}
+    catch(e){setErr("Erro: "+e.message);}
+  },[parseAndSet]);
+
+  const loadGitHub=useCallback(async(silent=false)=>{
+    if(!silent){setLoading(true);setErr(null);}
+    try{
+      setStatusMsg("Carregando do GitHub...");
+      // 1. Tentar arquivo enriquecido
+      try{
+        const raw=await ghFetch(ENRICH_FILE);
+        parseAndSet(raw,`☁️ GitHub · ${ENRICH_FILE}`);
+        if(!silent) setLoading(false);
+        setStatusMsg(null);
+        setNextRefresh(Date.now()+REFRESH_MS);
+        return;
+      }catch(e){}
+      // 2. Fallback: arquivos de processo individuais
+      setStatusMsg("Listando arquivos de processo...");
+      const urls=await ghList();
+      if(urls.length===0){
+        setErr("Nenhum dado disponível no GitHub ainda. Aguarde o próximo ciclo do Merger.");
+        if(!silent) setLoading(false);
+        setStatusMsg(null);
+        return;
+      }
+      const allEvs=[];
+      for(const url of urls){
+        try{
+          const r=await fetch(url+"?t="+Date.now());
+          if(!r.ok) continue;
+          const d=await r.json();
+          (d.timeline||[]).forEach(ev=>allEvs.push({
+            ...ev,processoIdentificado:d.processo||ev.processoIdentificado||"",
+            prefixoAutorSISCONTIC:ev.prefixo||ev.prefixoAutorSISCONTIC||null,
+            categoriaEventoSISCONTIC:ev.categoria||ev.categoriaEventoSISCONTIC||null,
+          }));
+        }catch(e){}
+      }
+      if(allEvs.length>0) parseAndSet(allEvs,`☁️ GitHub · ${urls.length} processos`);
+      else setErr("Arquivos encontrados mas sem eventos.");
+    }catch(e){setErr("Erro GitHub: "+e.message);}
+    if(!silent) setLoading(false);
+    setStatusMsg(null);
+    setNextRefresh(Date.now()+REFRESH_MS);
+  },[parseAndSet]);
+
+  // Watermark
+  useEffect(()=>{ghFetch(WATER_FILE).then(w=>{if(w)setWatermark(w);}).catch(()=>{});},[]);
+
+  // Auto-load + auto-refresh no GitHub Pages
+  useEffect(()=>{
+    if(IS_GH){
+      loadGitHub();
+      timerRef.current=setInterval(()=>loadGitHub(true),REFRESH_MS);
+      return()=>clearInterval(timerRef.current);
+    }
+  },[]);
+
+  const stats=useMemo(()=>{
     if(!items) return null;
     const datas=[...new Set(items.map(e=>e.data).filter(Boolean))].sort();
     const procs=[...new Set(items.map(e=>e.proc).filter(Boolean))];
-    return {total:items.length,comProc:items.filter(e=>e.proc).length,
-            procs,periodo:datas.length?`${datas[0].split("-").reverse().join("/")} a ${datas[datas.length-1].split("-").reverse().join("/")}`:null};
+    return{total:items.length,comProc:items.filter(e=>e.proc).length,procs,
+      periodo:datas.length?`${fmtData(datas[0])} – ${fmtData(datas[datas.length-1])}`:null};
   },[items]);
 
-  const procs = stats?.procs||[];
-  useEffect(()=>{ if(procs.length&&!procAtivo) setProcAtivo(procs[0]); },[procs]);
+  // Contador regressivo
+  const [countdown,setCountdown]=useState(null);
+  useEffect(()=>{
+    if(!nextRefresh) return;
+    const t=setInterval(()=>{
+      const diff=Math.max(0,Math.round((nextRefresh-Date.now())/1000));
+      setCountdown(diff);
+    },1000);
+    return()=>clearInterval(t);
+  },[nextRefresh]);
 
-  if(!items&&!loading) return (
-    <div style={{fontFamily:"'Segoe UI',system-ui,sans-serif",background:"#f1f5f9",
-                 minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center"}}>
-      <div style={{maxWidth:480,padding:24,width:"100%"}}>
-        <div style={{textAlign:"center",marginBottom:24}}>
-          <div style={{fontSize:52,marginBottom:8}}>🧠</div>
-          <div style={{fontSize:22,fontWeight:700,color:"#1e293b"}}>DPCI · Painel de Processos</div>
-          <div style={{fontSize:13,color:"#64748b",marginTop:4}}>Dataprev · Cezar de Souza Matos</div>
-        </div>
-        {IS_GITHUB?(
-          <div style={{textAlign:"center",color:"#64748b",padding:32}}>
-            <div style={{fontSize:24,marginBottom:8}}>⏳</div>
-            <div>Carregando dados do GitHub...</div>
+  // Loading screen
+  if(!items&&(loading||IS_GH)) return(
+    <div style={{background:"#0f172a",minHeight:"100vh",display:"flex",
+      flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16}}>
+      <div style={{fontSize:56}}>🧠</div>
+      <div style={{fontSize:20,fontWeight:700,color:"#f1f5f9"}}>
+        DPCI · Painel de Processos
+      </div>
+      <div style={{display:"flex",alignItems:"center",gap:10,color:"#475569",fontSize:13}}>
+        <Spin/> {statusMsg||"Conectando ao GitHub..."}
+      </div>
+      {err&&(
+        <div style={{maxWidth:400,padding:"12px 16px",background:"#450a0a",
+          border:"1px solid #7f1d1d",borderRadius:8,fontSize:12,color:"#fca5a5",
+          textAlign:"center"}}>
+          {err}
+          <div style={{marginTop:8}}>
+            <Btn onClick={()=>loadGitHub()} cor="#1e3a8a">🔄 Tentar novamente</Btn>
           </div>
-        ):(
-          <>
-            <div style={{background:"#fff",borderRadius:14,padding:20,
-                         boxShadow:"0 2px 12px #0000000a",marginBottom:12}}>
-              <div style={{fontSize:11,fontWeight:700,color:"#64748b",marginBottom:8,
-                           textTransform:"uppercase",letterSpacing:.5}}>
-                Carregar JSON enriquecido
-              </div>
-              <div onClick={()=>inputRef.current.click()}
-                onDragOver={e=>{e.preventDefault();setDrag(true)}}
-                onDragLeave={()=>setDrag(false)}
-                onDrop={e=>{e.preventDefault();setDrag(false);loadFile(e.dataTransfer.files[0])}}
-                style={{border:`2px dashed ${drag?"#6366f1":"#cbd5e1"}`,borderRadius:10,
-                        padding:"24px 16px",cursor:"pointer",textAlign:"center",
-                        background:drag?"#eef2ff":"#fafafa",transition:"all .2s"}}>
-                <div style={{fontSize:32,marginBottom:6}}>📋</div>
-                <div style={{fontSize:13,fontWeight:600,color:"#1e293b",marginBottom:2}}>
-                  Arraste o JSON aqui
-                </div>
-                <div style={{fontSize:11,color:"#94a3b8"}}>
-                  2026-2027_EventosNormalizadosEnriquecidos.json
-                </div>
-                <input ref={inputRef} type="file" accept=".json" style={{display:"none"}}
-                       onChange={e=>loadFile(e.target.files[0])}/>
-              </div>
+        </div>
+      )}
+    </div>
+  );
+
+  // Upload screen (local)
+  if(!items) return(
+    <div style={{background:"#0f172a",minHeight:"100vh",display:"flex",
+      alignItems:"center",justifyContent:"center"}}>
+      <div style={{maxWidth:460,padding:24,width:"100%"}}>
+        <div style={{textAlign:"center",marginBottom:32}}>
+          <div style={{fontSize:56,marginBottom:12}}>🧠</div>
+          <div style={{fontSize:22,fontWeight:700,color:"#f1f5f9"}}>
+            DPCI · Painel de Processos
+          </div>
+          <div style={{fontSize:12,color:"#475569",marginTop:6}}>
+            Dataprev · Cezar de Souza Matos
+          </div>
+        </div>
+        <div style={{background:"#1e293b",borderRadius:14,padding:20,
+          border:"1px solid #334155",marginBottom:12}}>
+          <div onClick={()=>inputRef.current?.click()}
+            onDragOver={e=>{e.preventDefault();setDrag(true)}}
+            onDragLeave={()=>setDrag(false)}
+            onDrop={e=>{e.preventDefault();setDrag(false);loadFile(e.dataTransfer.files[0])}}
+            style={{border:`2px dashed ${drag?"#6366f1":"#334155"}`,borderRadius:10,
+              padding:"32px 16px",cursor:"pointer",textAlign:"center",
+              background:drag?"#1e1b4b":"#0f172a",transition:"all .2s"}}>
+            <div style={{fontSize:40,marginBottom:8}}>📋</div>
+            <div style={{fontSize:13,fontWeight:600,color:"#94a3b8",marginBottom:4}}>
+              Arraste o JSON aqui
             </div>
-            {err&&<div style={{padding:"10px 14px",background:"#fef2f2",border:"1px solid #fca5a5",
-                               borderRadius:8,fontSize:12,color:"#991b1b",marginBottom:10}}>⚠️ {err}</div>}
-          </>
-        )}
+            <div style={{fontSize:10,color:"#475569"}}>
+              2026-2027_EventosNormalizadosEnriquecidos.json
+            </div>
+            <input ref={inputRef} type="file" accept=".json" style={{display:"none"}}
+              onChange={e=>loadFile(e.target.files[0])}/>
+          </div>
+        </div>
+        {err&&<div style={{padding:"10px 14px",background:"#450a0a",
+          border:"1px solid #7f1d1d",borderRadius:8,fontSize:12,color:"#fca5a5"}}>
+          ⚠️ {err}</div>}
       </div>
     </div>
   );
 
-  if(loading) return (
-    <div style={{minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",
-                 background:"#f1f5f9",flexDirection:"column",gap:12}}>
-      <div style={{fontSize:32}}>⏳</div>
-      <div style={{fontSize:14,color:"#64748b"}}>Carregando dados...</div>
-    </div>
-  );
+  const ABAS=[
+    ["processos","📁 Processos",null],
+    ["siscontic","📝 SISCONTIC",null],
+    ["prioridades","📊 Prioridades",null],
+    ["tudo","📅 Tudo",items.length],
+  ];
 
-  const ABAS=[["processos","📁 Processos"],["siscontic","📝 SISCONTIC"],["tudo","📅 Tudo"]];
+  return(
+    <div style={{fontFamily:"'Segoe UI',system-ui,sans-serif",
+      background:"#0f172a",minHeight:"100vh"}}>
 
-  return (
-    <div style={{fontFamily:"'Segoe UI',system-ui,sans-serif",background:"#f1f5f9",minHeight:"100vh"}}>
       {/* Header */}
-      <div style={{background:"linear-gradient(135deg,#1e293b,#312e81)",padding:"14px 20px",color:"#fff"}}>
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",
-                     flexWrap:"wrap",gap:10,maxWidth:1000,margin:"0 auto"}}>
-          <div>
-            <div style={{fontSize:17,fontWeight:700}}>🧠 DPCI · Painel de Processos</div>
-            <div style={{fontSize:11,opacity:.7,marginTop:1}}>
-              {fonte||"Dataprev"}{stats?.periodo?` · ${stats.periodo}`:""}
+      <div style={{background:"linear-gradient(180deg,#1e293b,#0f172a)",
+        borderBottom:"1px solid #1e293b",padding:"14px 20px"}}>
+        <div style={{maxWidth:1000,margin:"0 auto"}}>
+          <div style={{display:"flex",justifyContent:"space-between",
+            alignItems:"flex-start",flexWrap:"wrap",gap:10,marginBottom:12}}>
+            <div>
+              <div style={{fontSize:18,fontWeight:700,color:"#f1f5f9"}}>
+                🧠 DPCI · Painel de Processos
+              </div>
+              <div style={{fontSize:10,color:"#475569",marginTop:2}}>
+                {fonte}{stats?.periodo?` · ${stats.periodo}`:""}
+                {IS_GH&&countdown!=null&&countdown>0&&
+                  <span style={{color:"#334155",marginLeft:8}}>
+                    · atualiza em {Math.floor(countdown/60)}:{String(countdown%60).padStart(2,"0")}
+                  </span>}
+              </div>
+            </div>
+            <div style={{display:"flex",gap:6,flexWrap:"wrap"}}>
+              {[["eventos",stats?.total,"#818cf8"],
+                ["classificados",stats?.comProc,"#34d399"],
+                ["processos",stats?.procs?.length,"#60a5fa"]].map(([l,n,c])=>(
+                <div key={l} style={{background:"#1e293b",border:`1px solid ${c}22`,
+                  borderRadius:8,padding:"4px 12px",textAlign:"center"}}>
+                  <div style={{fontSize:17,fontWeight:700,color:c}}>{n}</div>
+                  <div style={{fontSize:9,color:"#475569"}}>{l}</div>
+                </div>
+              ))}
+              {IS_GH&&<Btn onClick={()=>loadGitHub()} cor="#1e3a8a">🔄</Btn>}
+              <Btn onClick={()=>{setItems(null);}} cor="#1e293b">↩</Btn>
             </div>
           </div>
-          <div style={{display:"flex",gap:6,flexWrap:"wrap",alignItems:"center"}}>
-            {[["eventos",stats?.total,"#a5f3fc"],
-              ["classificados",stats?.comProc,"#c4b5fd"],
-              ["processos",procs.length,"#6ee7b7"]].map(([l,n,c])=>(
-              <div key={l} style={{background:"#ffffff15",border:"1px solid #ffffff30",
-                                   borderRadius:8,padding:"4px 12px",textAlign:"center"}}>
-                <div style={{fontSize:16,fontWeight:700,color:c}}>{n}</div>
-                <div style={{fontSize:9,color:"#cbd5e1"}}>{l}</div>
-              </div>
+          {/* StatusBar watermark */}
+          {watermark&&<div style={{fontSize:10,color:"#334155",marginBottom:10,
+            display:"flex",gap:12,flexWrap:"wrap"}}>
+            {watermark.ultimoCiclo&&<span>🕐 {watermark.ultimoCiclo}</span>}
+            {watermark.totalEventosProcessados!=null&&
+              <span>📊 {watermark.totalEventosProcessados} eventos no último ciclo</span>}
+          </div>}
+          {/* Abas */}
+          <div style={{display:"flex",gap:0,borderBottom:"1px solid #1e293b"}}>
+            {ABAS.map(([id,lbl,n])=>(
+              <button key={id} onClick={()=>setAba(id)} style={{
+                padding:"8px 18px",fontSize:12,border:"none",cursor:"pointer",
+                background:aba===id?"#1e293b":"transparent",
+                color:aba===id?"#f1f5f9":"#475569",fontWeight:aba===id?700:400,
+                borderBottom:aba===id?"2px solid #6366f1":"2px solid transparent",
+                transition:"color .15s"}}>
+                {lbl}{n!=null?` (${n})`:""}
+              </button>
             ))}
-            {IS_GITHUB&&<button onClick={loadGitHub}
-              style={{padding:"4px 12px",fontSize:11,background:"#ffffff18",
-                      border:"1px solid #ffffff33",color:"#fff",borderRadius:8,cursor:"pointer"}}>
-              🔄 Atualizar
-            </button>}
-            {!IS_GITHUB&&<button onClick={()=>setItems(null)}
-              style={{padding:"4px 12px",fontSize:11,background:"#ffffff18",
-                      border:"1px solid #ffffff33",color:"#fff",borderRadius:8,cursor:"pointer"}}>
-              ↩ Novo
-            </button>}
           </div>
-        </div>
-        {/* Abas */}
-        <div style={{display:"flex",gap:0,marginTop:12,borderBottom:"1px solid #ffffff22",
-                     maxWidth:1000,margin:"12px auto 0"}}>
-          {ABAS.map(([id,lbl])=>(
-            <button key={id} onClick={()=>setAba(id)} style={{
-              padding:"7px 16px",fontSize:12,border:"none",cursor:"pointer",
-              background:aba===id?"#ffffff22":"transparent",
-              color:aba===id?"#fff":"#94a3b8",
-              fontWeight:aba===id?700:400,
-              borderBottom:aba===id?"2px solid #818cf8":"2px solid transparent"}}>
-              {lbl}
-            </button>
-          ))}
         </div>
       </div>
 
       <div style={{padding:"16px 20px",maxWidth:1000,margin:"0 auto"}}>
 
-        {/* PROCESSOS */}
+        {/* PROCESSOS — TODOS listados */}
         {aba==="processos"&&(
           <div>
-            <div style={{display:"flex",gap:0,marginBottom:14,overflowX:"auto",background:"#fff",
-                         border:"1px solid #e2e8f0",borderRadius:10,overflow:"hidden"}}>
-              {procs.map((p,i,arr)=>{
-                const pd=PROC_DEF[p]||{cor:"#94a3b8",ic:"📌"};
+            <div style={{display:"flex",gap:0,marginBottom:14,background:"#1e293b",
+              border:"1px solid #334155",borderRadius:10,overflow:"auto"}}>
+              {ALL_PROCS.map((p,i,arr)=>{
+                const pd=getPD(p);
                 const n=items.filter(e=>e.proc===p).length;
-                return (
-                  <button key={p} onClick={()=>setProcAtivo(p)} style={{
-                    flex:1,minWidth:60,padding:"10px 6px",border:"none",cursor:"pointer",
-                    borderBottom:procAtivo===p?`2px solid ${pd.cor}`:"2px solid transparent",
-                    background:procAtivo===p?pd.cor+"10":"transparent",
-                    color:procAtivo===p?pd.cor:"#64748b",
-                    fontWeight:procAtivo===p?700:400,fontSize:11,
-                    borderRight:i<arr.length-1?"1px solid #e2e8f0":"none"}}>
-                    <div style={{fontSize:16}}>{pd.ic}</div>
-                    <div style={{fontSize:9,marginTop:1}}>{n}</div>
+                const ativo=proc===p;
+                return(
+                  <button key={p} onClick={()=>setProc(p)} style={{
+                    flex:1,minWidth:55,padding:"10px 6px",border:"none",cursor:"pointer",
+                    borderBottom:ativo?`2px solid ${pd.cor}`:"2px solid transparent",
+                    background:ativo?pd.cor+"18":"transparent",
+                    color:ativo?pd.cor:n===0?"#334155":"#64748b",
+                    fontWeight:ativo?700:400,fontSize:10,
+                    borderRight:i<arr.length-1?"1px solid #1e293b":"none",
+                    transition:"all .15s",opacity:n===0?.5:1}}>
+                    <div style={{fontSize:18}}>{pd.ic}</div>
+                    <div style={{fontSize:8,marginTop:1}}>{n||"—"}</div>
                   </button>
                 );
               })}
             </div>
-            {procAtivo&&<ProcTab proc={procAtivo} items={items}/>}
+            <ProcTab proc={proc} items={items}/>
           </div>
         )}
 
-        {/* SISCONTIC */}
         {aba==="siscontic"&&<SisconticTab items={items}/>}
+
+        {aba==="prioridades"&&<PrioridadesTab watermark={watermark}/>}
 
         {/* TUDO */}
         {aba==="tudo"&&(()=>{
           const byDate={};
           [...items].sort((a,b)=>a.dt.localeCompare(b.dt))
             .forEach(e=>{(byDate[e.data]=byDate[e.data]||[]).push(e);});
-          return (
+          return(
             <div>
-              <div style={{fontSize:11,color:"#94a3b8",marginBottom:10}}>
+              <div style={{fontSize:10,color:"#334155",marginBottom:10}}>
                 {items.length} eventos · {Object.keys(byDate).length} dias
               </div>
-              {Object.entries(byDate).sort(([a],[b])=>a.localeCompare(b)).map(([data,evs])=>(
+              {Object.entries(byDate).sort().map(([data,evs])=>(
                 <div key={data}>
-                  <div style={{display:"flex",alignItems:"center",gap:8,margin:"12px 0 4px"}}>
-                    <div style={{height:1,flex:1,background:"#e2e8f0"}}/>
-                    <span style={{fontSize:10,fontWeight:700,color:"#6366f1",background:"#eef2ff",
-                                  border:"1px solid #c7d2fe",borderRadius:20,padding:"2px 10px"}}>
-                      {data.split("-").reverse().join("/")}
+                  <div style={{display:"flex",alignItems:"center",gap:10,margin:"12px 0 6px"}}>
+                    <div style={{height:1,flex:1,background:"#1e293b"}}/>
+                    <span style={{fontSize:10,fontWeight:700,color:"#6366f1",
+                      background:"#1e1b4b",border:"1px solid #3730a3",
+                      borderRadius:20,padding:"2px 12px"}}>
+                      {fmtData(data)}
                     </span>
-                    <div style={{height:1,flex:1,background:"#e2e8f0"}}/>
+                    <div style={{height:1,flex:1,background:"#1e293b"}}/>
                   </div>
                   {evs.map((e,i)=><EvCard key={i} e={e}/>)}
                 </div>
