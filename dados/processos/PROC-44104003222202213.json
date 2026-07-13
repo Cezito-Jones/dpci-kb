@@ -3,11 +3,11 @@
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
     "caminhoProcessoCanonico": "dados/processos/PROC-44104003222202213.json",
-    "geradoEmUTC": "2026-07-13T23:35:14.4540478Z",
+    "geradoEmUTC": "2026-07-13T23:35:34.8847783Z",
     "origem": "Power Automate - 4ª fase Merger DPCI v8.0.1",
     "schemaContratoGitHub": "dpci.github.processo.v2",
     "versaoMerger": "8.0.0",
-    "versionTicks": "639195825144194367",
+    "versionTicks": "639195825348420029",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -100,6 +100,14 @@
       "docVersao": "",
       "origem": "merger",
       "texto": "13/07/2026 – DPCI registrou evento relevante referente a Licenças Red Hat Linux e Runtimes: {0} Ícone [cid:23f61e3b-11ba-47bd-89cb-63c10b2c77c3]\n[https://dataprevrj.sharepoint.com/sites/COGR/Documentos%20Comparti."
+    },
+    {
+      "bloqueado": false,
+      "data": "13/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "13/07/2026 – DPCI registrou evento relevante referente a Licenças Red Hat Linux e Runtimes: {0} Ícone [cid:da9b1319-5281-422b-b2e3-ddc3d5945df4]\n[https://dataprevrj.sharepoint.com/sites/COGR/Documentos%20Comparti."
     }
   ],
   "timeline": [
@@ -233,10 +241,27 @@
       "necessitaValidacaoProcessual": false,
       "nomeArquivo": "",
       "tipoVinculacaoProcessual": "DIRETA"
+    },
+    {
+      "assunto": "Cezar de Souza Matos deixou um comentário em \"ETP_022_2025_Subscrição_Red_Hat_v0",
+      "autor": "",
+      "categoriaEventoSISCONTIC": "INFORMACAO",
+      "chaveEvento": "email|email|2026-07-13t17:39:12+00:00|cezar.matos@dataprev.gov.br||cezar de souza matos deixou um comentário em \"etp_022_2025_subscrição_red_hat_v0.1 - dpci\"",
+      "chaveEventoV2": "email_enviado|aamkadqyn2uxntqylwjkmzatndqzns1imji5ltbmntrjnjq3nmqxyqbgaaaaaaawn_j44d3arj07opwq5r8abwadfhci4homqr6igx6bvsboaaaaaaejaadb8fou-ylpriw9pbxyjoj7aakxiijcaaa=",
+      "confiancaVinculacaoProcessual": "Alta",
+      "data": "2026-07-13",
+      "dir": "ENVIADO",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-13T14:39:12",
+      "idProcessoInterno": "PROC-44104003222202213",
+      "necessitaValidacaoProcessual": false,
+      "nomeArquivo": "",
+      "tipoVinculacaoProcessual": "DIRETA"
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-13T23:35:15.4673998Z",
+  "ultimaAtualizacaoUTC": "2026-07-13T23:35:36.9858995Z",
   "idProcessoInterno": "PROC-44104003222202213",
   "numeroPregao": "",
   "numeroProcesso": "44104.003222/2022-13"
