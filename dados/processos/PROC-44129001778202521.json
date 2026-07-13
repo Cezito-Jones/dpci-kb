@@ -3,11 +3,11 @@
     "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
     "baseUtilizada": "OneDrive",
     "caminhoProcessoCanonico": "dados/processos/PROC-44129001778202521.json",
-    "geradoEmUTC": "2026-07-13T23:33:06.2386365Z",
+    "geradoEmUTC": "2026-07-13T23:33:27.0983922Z",
     "origem": "Power Automate - 4ª fase Merger DPCI v8.0.1",
     "schemaContratoGitHub": "dpci.github.processo.v2",
     "versaoMerger": "8.0.0",
-    "versionTicks": "639195823861667088",
+    "versionTicks": "639195824070569534",
     "publicadoPeloGitHubActions": true
   },
   "atestado": {},
@@ -76,6 +76,14 @@
       "docVersao": "",
       "origem": "merger",
       "texto": "13/07/2026 – DPCI registrou evento relevante referente a Orientação Técnica Especializada IBM: Prezados (as) \n\n\nInformamos que a reabertura será no dia 14/07/2026 , às 15h. \n\n\nAtt, \n\n\nEnviado do meu Samsung Mobile d."
+    },
+    {
+      "bloqueado": false,
+      "data": "13/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "13/07/2026 – DPCI registrou evento relevante referente a Orientação Técnica Especializada IBM: Prezado,\n\n \n\nSolicitamos a abertura do PE 91076-2026 - Orientação Técnica Especializada IBM\nELM para amanhã (14/07/2026)."
     }
   ],
   "timeline": [
@@ -165,10 +173,27 @@
       "necessitaValidacaoProcessual": false,
       "nomeArquivo": "",
       "tipoVinculacaoProcessual": "DIRETA"
+    },
+    {
+      "assunto": "PE 91076-2026 - Orientação Técnica Especializada IBM ELM ",
+      "autor": "",
+      "categoriaEventoSISCONTIC": "INFORMACAO",
+      "chaveEvento": "email|email|2026-07-13t16:38:19+00:00|paulo.quintanilha@dataprev.gov.br||pe 91076-2026 - orientação técnica especializada ibm elm ",
+      "chaveEventoV2": "email_recebido|aamkadqyn2uxntqylwjkmzatndqzns1imji5ltbmntrjnjq3nmqxyqbgaaaaaaawn_j44d3arj07opwq5r8abwadfhci4homqr6igx6bvsboaaaaaaemaadb8fou-ylpriw9pbxyjoj7aakxh_76aaa=",
+      "confiancaVinculacaoProcessual": "Alta",
+      "data": "2026-07-13",
+      "dir": "RECEBIDO",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-13T13:38:19",
+      "idProcessoInterno": "PROC-44129001778202521",
+      "necessitaValidacaoProcessual": false,
+      "nomeArquivo": "",
+      "tipoVinculacaoProcessual": "DIRETA"
     }
   ],
   "ultimaAtualizacao": "2026-07-11",
-  "ultimaAtualizacaoUTC": "2026-07-13T23:33:07.7171096Z",
+  "ultimaAtualizacaoUTC": "2026-07-13T23:33:28.6759766Z",
   "idProcessoInterno": "PROC-44129001778202521",
   "numeroPregao": "",
   "numeroProcesso": "44129.001778/2025-21"
