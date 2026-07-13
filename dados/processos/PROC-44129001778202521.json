@@ -1,0 +1,175 @@
+{
+  "_syncGitHub": {
+    "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
+    "baseUtilizada": "OneDrive",
+    "caminhoProcessoCanonico": "dados/processos/PROC-44129001778202521.json",
+    "geradoEmUTC": "2026-07-13T23:33:06.2386365Z",
+    "origem": "Power Automate - 4ª fase Merger DPCI v8.0.1",
+    "schemaContratoGitHub": "dpci.github.processo.v2",
+    "versaoMerger": "8.0.0",
+    "versionTicks": "639195823861667088",
+    "publicadoPeloGitHubActions": true
+  },
+  "atestado": {},
+  "processoIdentificado": "Orientação Técnica Especializada IBM",
+  "siscontic": [
+    {
+      "bloqueado": false,
+      "data": "06/07/2026",
+      "docTipo": "TR",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "06/07/2026 – DPCI registrou evento relevante referente a Orientação Técnica Especializada IBM: Caro Erivelton, bom dia.\n\n\n\n\n\n  Segue resposta ao questionamento:\n\n\n\n\n\"Para efeito de planejamento de carga de trabalho ."
+    },
+    {
+      "bloqueado": false,
+      "data": "03/07/2026",
+      "docTipo": "TR",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "03/07/2026 – DPCI registrou evento relevante referente a Orientação Técnica Especializada IBM: Fernanda, boa tarde!\n\n \n\nSegue resposta para o questionamento da VSData.\n\n \n\n\"Para efeito de planejamento de carga de tr."
+    },
+    {
+      "bloqueado": false,
+      "data": "03/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "03/07/2026 – DPCI registrou evento relevante referente a Orientação Técnica Especializada IBM: Caros Jailton e equipe, bom dia.\n\n \n\n              Segue um segundo questionamento da empresa VSData sobre o PE\n91076-20."
+    },
+    {
+      "bloqueado": false,
+      "data": "02/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "02/07/2026 – DPCI registrou evento relevante referente a Orientação Técnica Especializada IBM: Caro Erivelton, boa tarde.\n\n \n\n              Segue resposta ao questionamento da VSData:\n\n[cid:image003.png@01DD0A31.510."
+    },
+    {
+      "bloqueado": false,
+      "data": "02/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "02/07/2026 – DPCI registrou evento relevante referente a Orientação Técnica Especializada IBM: Fernanda, boa tarde!\n\n \n\nSegue nossa resposta para o questionamento abaixo da VSData.\n\n \n\nConsiderando que a prestação d."
+    },
+    {
+      "bloqueado": false,
+      "data": "01/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "01/07/2026 – DPCI registrou evento relevante referente a Orientação Técnica Especializada IBM: Caros Jailton e equipe, boa tarde.\n\n \n\n             Encaminhamos, para a sua análise, questionamento do fornecedor\nVSDat."
+    },
+    {
+      "bloqueado": false,
+      "data": "09/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "09/07/2026 – DPCI registrou evento relevante referente a Orientação Técnica Especializada IBM: Prezado(a) Ponto Focal,\n\nFoi incluída a etapa \"DEMANDANTE\" na demanda abaixo:\n\nPregão\nProcesso: 44129.001778/2025-21\nObj."
+    },
+    {
+      "bloqueado": false,
+      "data": "13/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "13/07/2026 – DPCI registrou evento relevante referente a Orientação Técnica Especializada IBM: Prezados (as) \n\n\nInformamos que a reabertura será no dia 14/07/2026 , às 15h. \n\n\nAtt, \n\n\nEnviado do meu Samsung Mobile d."
+    }
+  ],
+  "timeline": [
+    {
+      "assunto": "Re: PE 91076-2026 - Orientação Técnica Especializada IBM ELM - 2ª Solicitação de",
+      "autor": "",
+      "data": "2026-07-06",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "",
+      "dt": "2026-07-06T11:57:07",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RES: PE 91076-2026 - Orientação Técnica Especializada IBM ELM - 2ª Solicitação d",
+      "autor": "",
+      "data": "2026-07-03",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "",
+      "dt": "2026-07-03T19:28:32",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "ENC: PE 91076-2026 - Orientação Técnica Especializada IBM ELM - 2ª Solicitação d",
+      "autor": "",
+      "data": "2026-07-03",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-03T09:48:47",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RES: PE 91076-2026 - Orientação Técnica Especializada IBM ELM - Solicitação de e",
+      "autor": "",
+      "data": "2026-07-02",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-02T14:44:50",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RES: PE 91076-2026 - Orientação Técnica Especializada IBM ELM - Solicitação de e",
+      "autor": "",
+      "data": "2026-07-02",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-02T14:26:21",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "ENC: PE 91076-2026 - Orientação Técnica Especializada IBM ELM - Solicitação de e",
+      "autor": "",
+      "data": "2026-07-01",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-01T16:13:08",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "[PGI-Compras] 44129.001778/2025-21 - T25.A15 - ORIENTAÇÃO TÉCNICA ESPECIALIZADA ",
+      "autor": "",
+      "data": "2026-07-09",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-09T16:08:37",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "Re: PE 91076-2026 - Orientação Técnica Especializada IBM ELM ",
+      "autor": "",
+      "categoriaEventoSISCONTIC": "INFORMACAO",
+      "chaveEvento": "email|email|2026-07-13t16:53:37+00:00|erivelton.santos@dataprev.gov.br||re: pe 91076-2026 - orientação técnica especializada ibm elm ",
+      "chaveEventoV2": "email_recebido|aamkadqyn2uxntqylwjkmzatndqzns1imji5ltbmntrjnjq3nmqxyqbgaaaaaaawn_j44d3arj07opwq5r8abwadfhci4homqr6igx6bvsboaaaaaaemaadb8fou-ylpriw9pbxyjoj7aakxh_77aaa=",
+      "confiancaVinculacaoProcessual": "Alta",
+      "data": "2026-07-13",
+      "dir": "RECEBIDO",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-13T13:53:37",
+      "idProcessoInterno": "PROC-44129001778202521",
+      "necessitaValidacaoProcessual": false,
+      "nomeArquivo": "",
+      "tipoVinculacaoProcessual": "DIRETA"
+    }
+  ],
+  "ultimaAtualizacao": "2026-07-11",
+  "ultimaAtualizacaoUTC": "2026-07-13T23:33:07.7171096Z",
+  "idProcessoInterno": "PROC-44129001778202521",
+  "numeroPregao": "",
+  "numeroProcesso": "44129.001778/2025-21"
+}
