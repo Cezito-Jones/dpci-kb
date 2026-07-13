@@ -2,58 +2,56 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>DPCI · Painel de Processos</title>
 <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Segoe UI',system-ui,sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
-::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#1e293b}
-::-webkit-scrollbar-thumb{background:#334155;border-radius:2px}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#111827;color:#f9fafb;min-height:100vh}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:#1f2937}
+::-webkit-scrollbar-thumb{background:#4b5563;border-radius:3px}
 #root{min-height:100vh}
 @keyframes spin{to{transform:rotate(360deg)}}
-@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.fade{animation:fadeIn .25s ease forwards}
-input,select,textarea{font-family:inherit}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.fi{animation:fadeIn .2s ease}
+button:focus{outline:none}
 </style>
 </head>
 <body><div id="root"></div>
 <script type="text/babel">
 const {useState,useMemo,useRef,useCallback,useEffect} = React;
 
-// ─── Config ────────────────────────────────────────────────────────────────
-const REPO       = "Cezito-Jones/dpci-kb";
-const RAW        = `https://raw.githubusercontent.com/${REPO}/main/dados/`;
-const API_DADOS  = `https://api.github.com/repos/${REPO}/contents/dados`;
-const ENRICH_FILE= "2026-2027_EventosNormalizadosEnriquecidos.json";
-const WATER_FILE = "_watermark.json";
-const PRIO_FILE  = "prioridades.json";
-const CE         = "cezar.matos@dataprev.gov.br";
-const CI         = "a0b2ff1d-947c-497f-b71e-fe74dec641cf";
-const IS_GH      = window.location.hostname.includes('github.io');
-const REFRESH_MS = 5 * 60 * 1000; // auto-refresh 5 min
+const REPO     = "Cezito-Jones/dpci-kb";
+const RAW      = `https://raw.githubusercontent.com/${REPO}/main/dados/`;
+const API      = `https://api.github.com/repos/${REPO}/contents/dados`;
+const EF       = "2026-2027_EventosNormalizadosEnriquecidos.json";
+const WF       = "_watermark.json";
+const PF       = "prioridades.json";
+const CE       = "cezar.matos@dataprev.gov.br";
+const CI       = "a0b2ff1d-947c-497f-b71e-fe74dec641cf";
+const IS_GH    = window.location.hostname.includes('github.io');
+const R_MS     = 5*60*1000;
 
-const PROC_DEF = {
-  "Licenças Broadcom/CA":                                            {cor:"#f97316",ic:"🔧"},
-  "Modernização e Expansão dos Firewalls de Rede":                   {cor:"#ef4444",ic:"🔥"},
-  "Suporte dos switches NEXUS":                                      {cor:"#0ea5e9",ic:"🔌"},
-  "Solução de Descriptografia de Tráfego":                          {cor:"#8b5cf6",ic:"🔐"},
-  "Nova solução de balanceamento multisite":                         {cor:"#06b6d4",ic:"⚖️"},
-  "Licenças Red Hat Linux e Runtimes":                              {cor:"#dc2626",ic:"🎩"},
-  "Expansão de Licenças Antivírus para Servidores dos Data Centers":{cor:"#16a34a",ic:"🛡️"},
-  "Orientação Técnica Especializada IBM":                           {cor:"#2563eb",ic:"💼"},
-  "Suporte Licenças Oracle (até set/2026)":                         {cor:"#7c3aed",ic:"🔵"},
-  "Expansão da Solução Centralizada de Logs":                       {cor:"#ca8a04",ic:"📊"},
-  "Solução de digitalização e pesquisa de microformas":             {cor:"#0f766e",ic:"📑"},
-  "Serviço de movimentação do ECS":                                 {cor:"#7e22ce",ic:"🔄"},
+const PD = {
+  "Licenças Broadcom/CA":                                            {c:"#f97316",i:"🔧"},
+  "Modernização e Expansão dos Firewalls de Rede":                   {c:"#ef4444",i:"🔥"},
+  "Suporte dos switches NEXUS":                                      {c:"#0ea5e9",i:"🔌"},
+  "Solução de Descriptografia de Tráfego":                          {c:"#8b5cf6",i:"🔐"},
+  "Nova solução de balanceamento multisite":                         {c:"#06b6d4",i:"⚖️"},
+  "Licenças Red Hat Linux e Runtimes":                              {c:"#dc2626",i:"🎩"},
+  "Expansão de Licenças Antivírus para Servidores dos Data Centers":{c:"#16a34a",i:"🛡️"},
+  "Orientação Técnica Especializada IBM":                           {c:"#f59e0b",i:"💼"},
+  "Suporte Licenças Oracle (até set/2026)":                         {c:"#7c3aed",i:"🔵"},
+  "Expansão da Solução Centralizada de Logs":                       {c:"#ca8a04",i:"📊"},
+  "Solução de digitalização e pesquisa de microformas":             {c:"#0f766e",i:"📑"},
+  "Serviço de movimentação do ECS":                                 {c:"#a855f7",i:"🔄"},
 };
-const getPD = p => PROC_DEF[p]||{cor:"#475569",ic:"📁"};
-const ALL_PROCS = Object.keys(PROC_DEF);
+const pd = p => PD[p]||{c:"#6b7280",i:"📁"};
+const AP = Object.keys(PD);
 
-const CAT_CFG = {
+const CC = {
   ENVIO_DOCUMENTO:         {l:"📤 Enviou doc",    c:"#22c55e"},
   RECEBIMENTO_DOCUMENTO:   {l:"📥 Recebeu doc",   c:"#38bdf8"},
   DEVOLUTIVA:              {l:"🔄 Devolutiva",    c:"#a78bfa"},
@@ -62,81 +60,105 @@ const CAT_CFG = {
   PENDENCIA_IDENTIFICADA:  {l:"⚠️ Pendência",     c:"#f87171"},
   ALINHAMENTO:             {l:"🤝 Alinhamento",   c:"#34d399"},
   ENCAMINHAMENTO:          {l:"📋 Encaminhou",    c:"#c084fc"},
-  INFORMACAO:              {l:"ℹ️ Informação",     c:"#64748b"},
+  INFORMACAO:              {l:"ℹ️ Info",           c:"#9ca3af"},
 };
 
-// ─── Limpeza de texto ────────────────────────────────────────────────────────
-function limparTexto(txt){
+// ─── Limpeza de texto agressiva ──────────────────────────────────────────────
+function clean(txt){
   if(!txt) return "";
   return txt
+    // Graph API / SharePoint URLs
+    .replace(/\[?\(?https?:\/\/graph\.microsoft\.com[^\]\)\s]*/gi,"")
+    .replace(/\[?\(?https?:\/\/dataprevrj\.sharepoint\.com[^\]\)\s]*/gi,"")
+    .replace(/\[?\(?https?:\/\/teams\.microsoft\.com[^\]\)\s]*/gi,"")
+    // Markdown links [text](url)
+    .replace(/\[([^\]]+)\]\(https?:\/\/[^\)]+\)/g,"$1")
+    // Plain URLs
+    .replace(/https?:\/\/\S+/g,"")
+    .replace(/www\.\S+/g,"")
+    // CID images
+    .replace(/\{0\}\s*(Ícone|ícone)?/g,"")
     .replace(/\[cid:[^\]]+\]/gi,"")
+    // @Mentions com email
+    .replace(/@([^\[]+)\s*\[[^\]]+@[^\]]+\]/g,"@$1")
+    // Emails em colchetes
     .replace(/\[[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}\]/g,"")
+    // Sombras de assinatura de email
     .replace(/sombra\s+(superior|inferior)\s+(esquerda|direita)/gi,"")
+    // Separadores
+    .replace(/_{10,}/g,"").replace(/-{10,}/g,"")
+    // Telefones
+    .replace(/\(?\d{2}\)?\s*\d{4,5}[-.\s]\d{4}/g,"")
+    // Tags HTML residuais
     .replace(/<[^>]+>/g," ")
-    .replace(/&nbsp;/g," ")
-    .replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&amp;/g,"&")
-    .replace(/\s{2,}/g," ")
+    .replace(/&nbsp;|&lt;|&gt;|&amp;/g," ")
+    // Múltiplos espaços/newlines
+    .replace(/\r\n|\r/g,"\n")
+    .replace(/\n{3,}/g,"\n\n")
+    .replace(/[ \t]{2,}/g," ")
     .trim();
 }
 
-// ─── Data DD/MM/AAAA ────────────────────────────────────────────────────────
-function fmtData(iso){
-  if(!iso) return "";
-  const d=iso.slice(0,10);
-  const [y,m,dd]=d.split("-");
-  return `${dd}/${m}/${y}`;
-}
-function fmtDataCurta(iso){
-  if(!iso) return "";
-  const d=iso.slice(0,10);
-  const [,m,dd]=d.split("-");
-  return `${dd}/${m}`;
-}
+// ─── Validação de versão ─────────────────────────────────────────────────────
+const validVer = v => v && /^v\d/i.test(v.trim()) ? v.trim() : null;
 
-// ─── Parse ──────────────────────────────────────────────────────────────────
+// ─── Formatação de datas ─────────────────────────────────────────────────────
+const fmtFull = iso => {
+  if(!iso) return "";
+  const [y,m,d] = iso.slice(0,10).split("-");
+  return `${d}/${m}/${y}`;
+};
+const fmtShort = iso => {
+  if(!iso) return "";
+  const [,m,d] = iso.slice(0,10).split("-");
+  return `${d}/${m}`;
+};
+
+// ─── Inferência de processo ──────────────────────────────────────────────────
 function inferProc(txt,ass,canal,pi){
   if(pi?.trim()) return pi;
   const t=[txt,ass,canal].join(" ").toLowerCase();
-  if(/broadcom|ca.technology/i.test(t))   return "Licenças Broadcom/CA";
-  if(/91065|poc.*firewall/i.test(t))      return "Modernização e Expansão dos Firewalls de Rede";
-  if(/91085|nexus/i.test(t))              return "Suporte dos switches NEXUS";
-  if(/descriptografia/i.test(t))          return "Solução de Descriptografia de Tráfego";
-  if(/balanceamento multisite/i.test(t))  return "Nova solução de balanceamento multisite";
-  if(/red hat|44104|rhel/i.test(t))       return "Licenças Red Hat Linux e Runtimes";
-  if(/antivírus|antivirus/i.test(t))      return "Expansão de Licenças Antivírus para Servidores dos Data Centers";
-  if(/orientação.*ibm/i.test(t))          return "Orientação Técnica Especializada IBM";
-  if(/oracle css|suporte.*oracle/i.test(t)) return "Suporte Licenças Oracle (até set/2026)";
-  if(/elastic|logs centraliza/i.test(t))  return "Expansão da Solução Centralizada de Logs";
-  if(/microformas/i.test(t))              return "Solução de digitalização e pesquisa de microformas";
-  if(/movimentação.*ecs/i.test(t))        return "Serviço de movimentação do ECS";
+  if(/broadcom|ca.technology/i.test(t))    return "Licenças Broadcom/CA";
+  if(/91065|poc.*firewall/i.test(t))       return "Modernização e Expansão dos Firewalls de Rede";
+  if(/91085|nexus/i.test(t))               return "Suporte dos switches NEXUS";
+  if(/descriptografia/i.test(t))           return "Solução de Descriptografia de Tráfego";
+  if(/balanceamento multisite/i.test(t))   return "Nova solução de balanceamento multisite";
+  if(/red hat|44104|rhel/i.test(t))        return "Licenças Red Hat Linux e Runtimes";
+  if(/antivírus|antivirus/i.test(t))       return "Expansão de Licenças Antivírus para Servidores dos Data Centers";
+  if(/orientação.*ibm/i.test(t))           return "Orientação Técnica Especializada IBM";
+  if(/oracle css|suporte.*oracle/i.test(t))return "Suporte Licenças Oracle (até set/2026)";
+  if(/elastic|logs centraliza/i.test(t))   return "Expansão da Solução Centralizada de Logs";
+  if(/microformas/i.test(t))               return "Solução de digitalização e pesquisa de microformas";
+  if(/movimentação.*ecs/i.test(t))         return "Serviço de movimentação do ECS";
   return null;
 }
 
+// ─── Parse item ──────────────────────────────────────────────────────────────
 function parseItem(e){
   const rem=e.autorOuRemetente||e.remetente||"";
   const isCezar=(e.autorId===CI)||(rem===CE);
   const dtRaw=e.dataHoraBrasil||e.dataHoraOriginal||"";
   const dt=dtRaw.slice(0,16).replace("T"," ");
-  const txtBruto=e.conteudoTextoLimpo||e.conteudo||"";
-  const txt=limparTexto(txtBruto).slice(0,400);
+  const txtB=e.conteudoTextoLimpo||e.conteudo||"";
+  const txt=clean(txtB).slice(0,500);
   const ass=e.assuntoOuCanal||e.assunto||e.chatOuCanal||"";
   const autor=isCezar?"Cezar":((e.autorMensagem||rem||"").split(/[\s@]/)[0]||"?");
   const proc=inferProc(txt,ass,e.chatOuCanal||"",e.processoIdentificado||e.processo||"");
-  const origem=(e.origem||e.tipoFonte||"").toLowerCase();
-  const fonte=origem.includes("email")?"EMAIL":"TEAMS";
-  return{
-    dt,data:dtRaw.slice(0,10),hora:dt.slice(11,16),
-    txt,ass:ass.slice(0,100),autor,isCezar,proc,fonte,
+  const orig=(e.origem||e.tipoFonte||"").toLowerCase();
+  const fonte=orig.includes("email")?"EMAIL":"TEAMS";
+  const dv=validVer(e.docVersao);
+  return{dt,data:dtRaw.slice(0,10),hora:dt.slice(11,16),
+    txt,ass:ass.slice(0,120),autor,isCezar,proc,fonte,
     hasAnexo:!!(e.possuiAnexosTeams||e.possuiImagemOuAnexo||e.quantidadeAnexosTeams),
     atestado:e.atestadoLaudoRecebido||"NAO",
     mapaRisco:e.mapaRiscoStatus||null,
     cat:e.categoriaEventoSISCONTIC||null,
     prefixo:e.prefixoAutorSISCONTIC||null,
-    docTipo:e.docTipo||null,docVersao:e.docVersao||null,
-    nomeArquivo:e.nomeArquivo||null,
+    docTipo:e.docTipo&&e.docTipo!=="Outro"?e.docTipo:null,
+    docVersao:dv,
+    nomeArq:e.nomeArquivo||null,
   };
 }
-
 function processJSON(raw){
   return(Array.isArray(raw)?raw:[])
     .map(x=>typeof x==="string"?JSON.parse(x):x)
@@ -144,138 +166,142 @@ function processJSON(raw){
     .sort((a,b)=>a.dt.localeCompare(b.dt));
 }
 
-// ─── GitHub ─────────────────────────────────────────────────────────────────
-async function ghFetch(path){
-  const r=await fetch(`${RAW}${path}?t=${Date.now()}`);
+// ─── GitHub helpers ──────────────────────────────────────────────────────────
+const ghGet = async p => {
+  const r=await fetch(`${RAW}${p}?t=${Date.now()}`);
   if(!r.ok) throw new Error(r.status);
   return r.json();
-}
+};
 async function ghList(){
-  const r=await fetch(`${API_DADOS}?t=${Date.now()}`);
+  const r=await fetch(`${API}?t=${Date.now()}`);
   if(!r.ok) throw new Error(r.status);
   const files=await r.json();
   return (Array.isArray(files)?files:[])
-    .filter(f=>f.name!==WATER_FILE&&f.name!==ENRICH_FILE&&f.name!==PRIO_FILE&&f.name.endsWith(".json"))
+    .filter(f=>f.name!==WF&&f.name!==EF&&f.name!==PF&&f.name.endsWith(".json"))
     .map(f=>f.download_url);
 }
-async function ghPushPAT(pat,conteudo){
-  // Busca SHA atual
+async function ghSave(pat,data){
   let sha=null;
   try{
-    const r=await fetch(`https://api.github.com/repos/${REPO}/contents/dados/${PRIO_FILE}`,
+    const r=await fetch(`https://api.github.com/repos/${REPO}/contents/dados/${PF}`,
       {headers:{Authorization:`Bearer ${pat}`,Accept:"application/vnd.github+json"}});
-    if(r.ok){const d=await r.json();sha=d.sha;}
+    if(r.ok){sha=(await r.json()).sha;}
   }catch(e){}
-  const body={message:"Atualiza prioridades via painel DPCI",
-    content:btoa(unescape(encodeURIComponent(JSON.stringify(conteudo,null,2))))};
+  const body={message:"Atualiza prioridades",
+    content:btoa(unescape(encodeURIComponent(JSON.stringify(data,null,2))))};
   if(sha) body.sha=sha;
-  const r=await fetch(`https://api.github.com/repos/${REPO}/contents/dados/${PRIO_FILE}`,
-    {method:"PUT",headers:{Authorization:`Bearer ${pat}`,
-      "Content-Type":"application/json",Accept:"application/vnd.github+json"},
-    body:JSON.stringify(body)});
+  const r=await fetch(`https://api.github.com/repos/${REPO}/contents/dados/${PF}`,
+    {method:"PUT",headers:{Authorization:`Bearer ${pat}`,"Content-Type":"application/json",
+      Accept:"application/vnd.github+json"},body:JSON.stringify(body)});
   return r.ok;
 }
 
-// ─── UI helpers ─────────────────────────────────────────────────────────────
-function Spin(){return <div style={{width:18,height:18,border:"2px solid #1e293b",
-  borderTopColor:"#6366f1",borderRadius:"50%",animation:"spin .7s linear infinite",
-  display:"inline-block",verticalAlign:"middle"}}/>;}
+// ─── UI atoms ────────────────────────────────────────────────────────────────
+function Spin(){return <span style={{display:"inline-block",width:16,height:16,
+  border:"2px solid #374151",borderTopColor:"#6366f1",borderRadius:"50%",
+  animation:"spin .7s linear infinite",verticalAlign:"middle"}}/>;}
 
-function Tag({txt,bg,cor,sm}){return <span style={{
-  fontSize:sm?9:10,fontWeight:600,padding:sm?"0px 5px":"2px 8px",borderRadius:20,
-  background:bg||"#1e293b",color:cor||"#94a3b8",display:"inline-flex",
-  alignItems:"center",gap:3,border:`1px solid ${(cor||"#334155")}33`,whiteSpace:"nowrap"}}>
-  {txt}</span>;}
+function Chip({txt,bg,fg,sm,onClick}){
+  return <span onClick={onClick} style={{
+    display:"inline-flex",alignItems:"center",fontSize:sm?9:10,fontWeight:600,
+    padding:sm?"1px 6px":"2px 9px",borderRadius:20,
+    background:bg||"#374151",color:fg||"#d1d5db",whiteSpace:"nowrap",
+    border:`1px solid ${(fg||"#6b7280")}22`,
+    cursor:onClick?"pointer":"default",userSelect:"none"}}>{txt}</span>;
+}
 
-function Btn({onClick,children,cor,sm,disabled}){return <button onClick={onClick}
-  disabled={disabled} style={{padding:sm?"3px 10px":"6px 14px",fontSize:sm?10:12,
-  fontWeight:600,cursor:disabled?"not-allowed":"pointer",border:"none",borderRadius:8,
-  background:disabled?"#1e293b":(cor||"#1e3a8a"),color:disabled?"#334155":"#fff",
-  transition:"background .2s",opacity:disabled?.5:1}}>{children}</button>;}
+function Btn({onClick,children,color,sm,disabled,outline}){
+  return <button onClick={disabled?undefined:onClick} style={{
+    padding:sm?"3px 10px":"6px 16px",fontSize:sm?10:12,fontWeight:600,
+    cursor:disabled?"not-allowed":"pointer",border:outline?`1px solid ${color||"#4b5563"}`:"none",
+    borderRadius:8,background:disabled?"#374151":outline?"transparent":(color||"#1d4ed8"),
+    color:disabled?"#6b7280":outline?(color||"#9ca3af"):"#fff",
+    opacity:disabled?.6:1,transition:"all .15s"}}>{children}</button>;
+}
 
-// ─── EvCard ─────────────────────────────────────────────────────────────────
-function EvCard({e}){
+// ─── EvCard ──────────────────────────────────────────────────────────────────
+function EvCard({e,highlight}){
   const [open,setOpen]=useState(false);
-  const pd=getPD(e.proc);
-  const cat=e.cat?CAT_CFG[e.cat]:null;
+  const p=pd(e.proc);
+  const cat=e.cat?CC[e.cat]:null;
   const semTxt=!e.txt||e.txt.length<4;
-  const linhas=open?8:3;
   const ver=e.docVersao?` ${e.docVersao}`:"";
+  const bLeft=highlight?highlight:e.isCezar?"#818cf8":p.c;
   return(
-    <div className="fade" style={{display:"flex",gap:10,padding:"10px 14px",marginBottom:3,
-      background:e.isCezar?"#1e1b4b":"#111827",
-      borderLeft:`3px solid ${e.isCezar?"#6366f1":pd.cor}`,borderRadius:"0 8px 8px 0"}}>
-      <div style={{minWidth:50,flexShrink:0,paddingTop:2}}>
-        <div style={{fontSize:10,color:"#64748b",fontVariantNumeric:"tabular-nums"}}>
-          {fmtDataCurta(e.data)}
+    <div className="fi" style={{display:"flex",gap:10,padding:"10px 14px",marginBottom:3,
+      background:e.isCezar?"#1e1b4b":"#1f2937",
+      borderLeft:`3px solid ${bLeft}`,borderRadius:"0 8px 8px 0"}}>
+      {/* Coluna temporal */}
+      <div style={{width:52,flexShrink:0,paddingTop:2}}>
+        <div style={{fontSize:11,fontWeight:600,color:"#e5e7eb",fontVariantNumeric:"tabular-nums"}}>
+          {fmtShort(e.data)}
         </div>
-        <div style={{fontSize:9,color:"#334155"}}>{e.hora}</div>
-        <div style={{marginTop:3}}>
-          <Tag txt={e.fonte} bg={e.fonte==="EMAIL"?"#052e16":"#0c1a2e"}
-            cor={e.fonte==="EMAIL"?"#4ade80":"#38bdf8"} sm/>
-        </div>
+        <div style={{fontSize:10,color:"#6b7280"}}>{e.hora}</div>
+        <Chip txt={e.fonte} bg={e.fonte==="EMAIL"?"#14532d":"#1e3a5f"}
+          fg={e.fonte==="EMAIL"?"#86efac":"#93c5fd"} sm/>
       </div>
+      {/* Conteúdo */}
       <div style={{flex:1,minWidth:0}}>
-        <div style={{display:"flex",gap:4,flexWrap:"wrap",marginBottom:4,alignItems:"center"}}>
-          {/* EU / REC */}
-          <Tag txt={e.isCezar?"📤 EU":"📥 RECEBIDO"}
-            bg={e.isCezar?"#312e81":"#0c1a2e"}
-            cor={e.isCezar?"#818cf8":"#38bdf8"}/>
-          {/* Autor/prefixo */}
+        <div style={{display:"flex",gap:4,flexWrap:"wrap",marginBottom:5,alignItems:"center"}}>
+          {/* EU / Recebido */}
+          <Chip txt={e.isCezar?"📤 EU":"📥 RECEBIDO"}
+            bg={e.isCezar?"#312e81":"#1e3a5f"}
+            fg={e.isCezar?"#c7d2fe":"#93c5fd"}/>
+          {/* Quem */}
           {e.prefixo
-            ?<Tag txt={e.prefixo} bg={pd.cor+"15"} cor={pd.cor}/>
-            :<Tag txt={e.autor} bg="#1e293b" cor="#64748b"/>}
+            ?<Chip txt={e.prefixo} bg={p.c+"20"} fg={p.c}/>
+            :<Chip txt={e.autor} bg="#374151" fg="#9ca3af"/>}
           {/* Categoria */}
-          {cat&&<Tag txt={cat.l} bg={cat.c+"18"} cor={cat.c}/>}
+          {cat&&<Chip txt={cat.l} bg={cat.c+"20"} fg={cat.c}/>}
           {/* Documento + versão */}
-          {e.docTipo&&e.docTipo!=="Outro"&&
-            <Tag txt={`📄 ${e.docTipo}${ver}`} bg="#1e0a3c" cor="#c084fc"/>}
-          {/* Mapa de Risco + versão */}
-          {e.mapaRisco&&
-            <Tag txt={`${e.mapaRisco==="ENV"?"📤":"📥"} MR${ver||""}`}
-              bg="#0c2a1a" cor={e.mapaRisco==="ENV"?"#4ade80":"#38bdf8"}/>}
-          {/* Atestado + versão */}
-          {e.atestado==="SIM"&&
-            <Tag txt={`📜 Atestado${ver}`} bg="#1e0a3c" cor="#a78bfa"/>}
+          {e.docTipo&&<Chip txt={`📄 ${e.docTipo}${ver}`} bg="#312e81" fg="#c4b5fd"/>}
+          {/* Mapa de risco + versão */}
+          {e.mapaRisco&&<Chip txt={`${e.mapaRisco==="ENV"?"📤":"📥"} MR${ver}`}
+            bg={e.mapaRisco==="ENV"?"#14532d":"#1e3a5f"}
+            fg={e.mapaRisco==="ENV"?"#86efac":"#93c5fd"}/>}
+          {/* Atestado */}
+          {e.atestado==="SIM"&&<Chip txt={`📜 Atestado${ver}`} bg="#2e1065" fg="#c084fc"/>}
           {/* Anexo */}
-          {e.hasAnexo&&e.nomeArquivo&&
-            <Tag txt={`📎 ${e.nomeArquivo.slice(0,20)}`} bg="#1e293b" cor="#64748b" sm/>}
-          {e.hasAnexo&&!e.nomeArquivo&&
-            <Tag txt="📎" bg="#1e293b" cor="#64748b" sm/>}
+          {e.hasAnexo&&<Chip txt={e.nomeArq?`📎 ${e.nomeArq.slice(0,18)}`:"📎 Anexo"}
+            bg="#374151" fg="#9ca3af" sm/>}
         </div>
-        {e.ass&&<div style={{fontSize:10,color:"#475569",marginBottom:4,
+        {/* Assunto */}
+        {e.ass&&<div style={{fontSize:10,color:"#6b7280",marginBottom:4,
           overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{e.ass}</div>}
-        {/* Texto — 3 linhas, expandível */}
-        <div style={{fontSize:12,color:semTxt?"#334155":"#cbd5e1",lineHeight:1.6,
-          display:"-webkit-box",WebkitBoxOrient:"vertical",overflow:"hidden",
-          WebkitLineClamp:open?"unset":3}}>
-          {semTxt?"[sem conteúdo de texto]":e.txt}
-        </div>
-        {!semTxt&&e.txt.length>120&&(
-          <button onClick={()=>setOpen(!open)} style={{fontSize:9,color:"#6366f1",
-            background:"none",border:"none",cursor:"pointer",marginTop:2,padding:0}}>
-            {open?"▲ recolher":"▼ ver mais"}
-          </button>
-        )}
+        {/* Texto — 3 linhas, clique para expandir */}
+        {semTxt
+          ?<div style={{fontSize:12,color:"#4b5563",fontStyle:"italic"}}>
+            [sem conteúdo de texto]</div>
+          :<div>
+            <div style={{fontSize:12,color:"#d1d5db",lineHeight:1.6,
+              display:"-webkit-box",WebkitBoxOrient:"vertical",overflow:"hidden",
+              WebkitLineClamp:open?"unset":3}}>{e.txt}</div>
+            {e.txt.length>150&&<button onClick={()=>setOpen(!open)}
+              style={{fontSize:9,color:"#6366f1",background:"none",border:"none",
+                cursor:"pointer",marginTop:2,padding:0}}>
+              {open?"▲ recolher":"▼ expandir"}</button>}
+          </div>}
       </div>
     </div>
   );
 }
 
-// ─── ProcTab ────────────────────────────────────────────────────────────────
-function ProcTab({proc,items}){
-  const pd=getPD(proc);
+// ─── ProcTab ──────────────────────────────────────────────────────────────────
+function ProcTab({proc,items,onStatClick}){
+  const p=pd(proc);
   const evs=useMemo(()=>items.filter(e=>e.proc===proc)
     .sort((a,b)=>a.dt.localeCompare(b.dt)),[items,proc]);
   const [filtro,setFiltro]=useState("todos");
   const [busca,setBusca]=useState("");
   const byDate=useMemo(()=>{
     let r=evs;
-    if(filtro==="eu")    r=r.filter(e=>e.isCezar);
-    if(filtro==="rec")   r=r.filter(e=>!e.isCezar);
-    if(filtro==="docs")  r=r.filter(e=>e.docTipo&&e.docTipo!=="Outro");
-    if(filtro==="mr")    r=r.filter(e=>e.mapaRisco);
-    if(filtro==="atst")  r=r.filter(e=>e.atestado==="SIM");
+    if(filtro==="eu")   r=r.filter(e=>e.isCezar);
+    if(filtro==="rec")  r=r.filter(e=>!e.isCezar);
+    if(filtro==="docs") r=r.filter(e=>e.docTipo);
+    if(filtro==="mr")   r=r.filter(e=>e.mapaRisco);
+    if(filtro==="atst") r=r.filter(e=>e.atestado==="SIM");
+    if(filtro==="teams")r=r.filter(e=>e.fonte==="TEAMS");
+    if(filtro==="email")r=r.filter(e=>e.fonte==="EMAIL");
     if(busca.trim()){const b=busca.toLowerCase();
       r=r.filter(e=>e.txt.toLowerCase().includes(b)||e.ass.toLowerCase().includes(b));}
     const m={};
@@ -283,62 +309,87 @@ function ProcTab({proc,items}){
     return Object.entries(m).sort(([a],[b])=>a.localeCompare(b));
   },[evs,filtro,busca]);
   const total=byDate.reduce((s,[,v])=>s+v.length,0);
+  const datas=[...new Set(evs.map(e=>e.data))].sort();
+  const teamsN=evs.filter(e=>e.fonte==="TEAMS").length;
+  const emailN=evs.filter(e=>e.fonte==="EMAIL").length;
+
   if(evs.length===0) return(
-    <div style={{textAlign:"center",padding:"60px 20px",color:"#334155"}}>
-      <div style={{fontSize:32,marginBottom:8}}>{pd.ic}</div>
-      <div style={{fontSize:14,color:"#475569"}}>{proc}</div>
-      <div style={{fontSize:12,color:"#334155",marginTop:6}}>Nenhum evento capturado ainda.</div>
+    <div style={{textAlign:"center",padding:"60px 20px"}}>
+      <div style={{fontSize:40,marginBottom:8}}>{p.i}</div>
+      <div style={{fontSize:15,fontWeight:600,color:"#e5e7eb",marginBottom:6}}>{proc}</div>
+      <div style={{fontSize:12,color:"#4b5563"}}>Nenhum evento capturado ainda.</div>
+      <div style={{fontSize:11,color:"#374151",marginTop:4}}>
+        Verifique se o processo é mencionado nos e-mails e chats monitorados.
+      </div>
     </div>
   );
-  const datas=[...new Set(evs.map(e=>e.data))].sort();
+
   return(
     <div>
-      <div style={{background:`linear-gradient(135deg,${pd.cor}18,${pd.cor}05)`,
-        border:`1px solid ${pd.cor}33`,borderRadius:12,padding:"14px 18px",marginBottom:14}}>
-        <div style={{fontSize:14,fontWeight:700,color:pd.cor,marginBottom:10}}>
-          {pd.ic} {proc}
+      {/* Stats */}
+      <div style={{background:`linear-gradient(135deg,${p.c}20,${p.c}05)`,
+        border:`1px solid ${p.c}30`,borderRadius:12,padding:"14px 18px",marginBottom:14}}>
+        <div style={{fontSize:15,fontWeight:700,color:p.c,marginBottom:10}}>
+          {p.i} {proc}
         </div>
         <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
-          {[["Total",evs.length,pd.cor],["📤 Enviados",evs.filter(e=>e.isCezar).length,"#818cf8"],
-            ["📥 Recebidos",evs.filter(e=>!e.isCezar).length,"#38bdf8"],
-            ["📄 Docs",evs.filter(e=>e.docTipo&&e.docTipo!=="Outro").length,"#c084fc"],
-            ["📋 MR",evs.filter(e=>e.mapaRisco).length,"#4ade80"],
-            ["Dias",datas.length,"#94a3b8"]].filter(([,n])=>n>0).map(([l,n,c])=>(
-            <div key={l} style={{background:"#0f172a",borderRadius:8,padding:"6px 12px",
-              textAlign:"center",border:`1px solid ${c}33`}}>
-              <div style={{fontSize:18,fontWeight:700,color:c}}>{n}</div>
-              <div style={{fontSize:9,color:"#475569"}}>{l}</div>
+          {[["Total",evs.length,p.c,"todos"],
+            ["📤 Enviados",evs.filter(e=>e.isCezar).length,"#818cf8","eu"],
+            ["📥 Recebidos",evs.filter(e=>!e.isCezar).length,"#60a5fa","rec"],
+            ["📄 Docs",evs.filter(e=>e.docTipo).length,"#c084fc","docs"],
+            ["✉️ E-mail",emailN,"#4ade80","email"],
+            ["💬 Teams",teamsN,teamsN===0?"#ef4444":"#38bdf8","teams"],
+          ].filter(([,n])=>n>0).map(([l,n,c,f])=>(
+            <div key={l} onClick={()=>setFiltro(f)} style={{
+              background:"#111827",borderRadius:10,padding:"8px 14px",
+              textAlign:"center",border:`1px solid ${c}30`,cursor:"pointer",
+              minWidth:70,transition:"border-color .15s",
+              borderColor:filtro===f?c:c+"30"}}>
+              <div style={{fontSize:20,fontWeight:700,color:c}}>{n}</div>
+              <div style={{fontSize:9,color:"#9ca3af"}}>{l}</div>
             </div>
           ))}
+          {/* Alerta Teams 0 */}
+          {teamsN===0&&<div style={{display:"flex",alignItems:"center",
+            background:"#450a0a",border:"1px solid #7f1d1d",borderRadius:10,
+            padding:"6px 12px",fontSize:11,color:"#fca5a5",gap:6}}>
+            ⚠️ 0 eventos Teams — verifique o Enriquecedor
+          </div>}
+          <div style={{marginLeft:"auto",textAlign:"right"}}>
+            {datas.length>0&&<div style={{fontSize:10,color:"#6b7280"}}>
+              {fmtFull(datas[0])} → {fmtFull(datas[datas.length-1])}
+            </div>}
+            <div style={{fontSize:9,color:"#4b5563"}}>{datas.length} dias</div>
+          </div>
         </div>
-        {datas.length>0&&<div style={{fontSize:10,color:"#475569",marginTop:8}}>
-          {fmtData(datas[0])} → {fmtData(datas[datas.length-1])}
-        </div>}
       </div>
-      <div style={{display:"flex",gap:6,flexWrap:"wrap",marginBottom:12}}>
-        {[["todos","Todos"],["eu","📤 Eu"],["rec","📥 Rec"],
-          ["docs","📄 Docs"],["mr","📋 MR"],["atst","📜 Atst"]].map(([v,l])=>(
+      {/* Filtros */}
+      <div style={{display:"flex",gap:6,flexWrap:"wrap",marginBottom:12,alignItems:"center"}}>
+        {[["todos","Todos"],["eu","📤 Eu"],["rec","📥 Recebidos"],
+          ["docs","📄 Docs"],["mr","📋 MR"],["atst","📜 Atst"],
+          ["email","✉️ Email"],["teams","💬 Teams"]].map(([v,l])=>(
           <button key={v} onClick={()=>setFiltro(v)} style={{
             padding:"4px 12px",fontSize:11,cursor:"pointer",borderRadius:20,
-            background:filtro===v?pd.cor+"30":"#1e293b",
-            color:filtro===v?pd.cor:"#64748b",
-            border:`1px solid ${filtro===v?pd.cor:"#334155"}`}}>{l}</button>
+            background:filtro===v?p.c+"25":"#1f2937",
+            color:filtro===v?p.c:"#9ca3af",
+            border:`1px solid ${filtro===v?p.c:"#374151"}`,transition:"all .15s"}}>{l}</button>
         ))}
         <input value={busca} onChange={e=>setBusca(e.target.value)}
           placeholder="Buscar..." style={{padding:"4px 12px",borderRadius:20,
-          border:"1px solid #334155",fontSize:11,flex:1,minWidth:120,
-          background:"#0f172a",color:"#e2e8f0"}}/>
-        <span style={{fontSize:10,color:"#334155",alignSelf:"center"}}>{total}</span>
+          border:"1px solid #374151",fontSize:11,flex:1,minWidth:120,
+          background:"#111827",color:"#f3f4f6"}}/>
+        <span style={{fontSize:10,color:"#4b5563"}}>{total} ev.</span>
       </div>
+      {/* Eventos */}
       {byDate.map(([data,evs])=>(
         <div key={data}>
           <div style={{display:"flex",alignItems:"center",gap:10,margin:"12px 0 6px"}}>
-            <div style={{height:1,flex:1,background:"#1e293b"}}/>
-            <span style={{fontSize:10,fontWeight:700,color:pd.cor,background:pd.cor+"18",
-              border:`1px solid ${pd.cor}44`,borderRadius:20,padding:"2px 12px"}}>
-              {fmtData(data)}
+            <div style={{height:1,flex:1,background:"#1f2937"}}/>
+            <span style={{fontSize:10,fontWeight:700,color:p.c,background:p.c+"18",
+              border:`1px solid ${p.c}40`,borderRadius:20,padding:"2px 12px"}}>
+              {fmtFull(data)}
             </span>
-            <div style={{height:1,flex:1,background:"#1e293b"}}/>
+            <div style={{height:1,flex:1,background:"#1f2937"}}/>
           </div>
           {evs.map((e,i)=><EvCard key={i} e={e}/>)}
         </div>
@@ -347,24 +398,21 @@ function ProcTab({proc,items}){
   );
 }
 
-// ─── SisconticTab ────────────────────────────────────────────────────────────
+// ─── SisconticTab ─────────────────────────────────────────────────────────────
 function SisconticTab({items}){
   const [copiado,setCopiado]=useState(null);
-  const copiar=(txt,k)=>{
+  const cp=(txt,k)=>{
     navigator.clipboard.writeText(txt).then(()=>{
       setCopiado(k);setTimeout(()=>setCopiado(null),2000);});
   };
-
-  // Gerar textos SISCONTIC
-  const gerarTxt=(e)=>{
-    const dt=fmtData(e.data);
-    const pr=e.proc||"processo";
-    const pfx=e.prefixo||"DPCI";
-    const ver=e.docVersao||"";const tipo=e.docTipo||"";
+  const gerarTxt=e=>{
+    const dt=fmtFull(e.data);
+    const pr=e.proc||"processo";const pfx=e.prefixo||"DPCI";
+    const ver=e.docVersao?" "+e.docVersao:"";const tipo=e.docTipo||"";
     const res=e.txt.slice(0,100);
-    if(e.cat==="ENVIO_DOCUMENTO")         return `${dt} – ${pfx} encaminhou ${tipo} ${ver} referente a ${pr}.`;
-    if(e.cat==="RECEBIMENTO_DOCUMENTO")   return `${dt} – DPCI recebeu de ${pfx} ${tipo} ${ver} referente a ${pr}.`;
-    if(e.cat==="DEVOLUTIVA")              return `${dt} – ${pfx} devolveu análise de ${tipo} ${ver} com comentários referente a ${pr}.`;
+    if(e.cat==="ENVIO_DOCUMENTO")         return `${dt} – ${pfx} encaminhou ${tipo}${ver} referente a ${pr}.`;
+    if(e.cat==="RECEBIMENTO_DOCUMENTO")   return `${dt} – DPCI recebeu de ${pfx} ${tipo}${ver} referente a ${pr}.`;
+    if(e.cat==="DEVOLUTIVA")              return `${dt} – ${pfx} devolveu análise de ${tipo}${ver} com comentários referente a ${pr}.`;
     if(e.cat==="QUESTIONAMENTO_RECEBIDO") return `${dt} – ${pfx} questionou DPCI referente a ${pr}: ${res}.`;
     if(e.cat==="QUESTIONAMENTO_ENVIADO")  return `${dt} – DPCI (Cezar) questionou ${pfx} referente a ${pr}: ${res}.`;
     if(e.cat==="PENDENCIA_IDENTIFICADA")  return `${dt} – DPCI registrou pendência referente a ${pr}: ${res}.`;
@@ -372,95 +420,83 @@ function SisconticTab({items}){
     if(e.cat==="ENCAMINHAMENTO")          return `${dt} – DPCI (Cezar) encaminhou a ${pfx} referente a ${pr}.`;
     return null;
   };
-
-  // Agrupar por processo
   const porProc=useMemo(()=>{
     const m={};
     items.filter(e=>e.proc&&e.cat&&e.cat!=="INFORMACAO").forEach(e=>{
-      const txt=gerarTxt(e);
-      if(!txt) return;
+      const txt=gerarTxt(e);if(!txt) return;
       if(!m[e.proc]) m[e.proc]=[];
-      m[e.proc].push({...e,sisconticTxt:txt});
+      m[e.proc].push({...e,siscTxt:txt});
     });
     return m;
   },[items]);
-
   const procs=Object.keys(porProc).sort();
-  if(procs.length===0) return(
-    <div style={{textAlign:"center",padding:"60px",color:"#334155",fontSize:13}}>
-      Nenhum registro SISCONTIC gerado. Execute o Enriquecedor v4 para detectar categorias.
+  if(!procs.length) return(
+    <div style={{textAlign:"center",padding:"60px",color:"#4b5563",fontSize:13}}>
+      Nenhum registro. Execute o Enriquecedor v4 para detectar categorias.
     </div>
   );
-
   return(
     <div>
       <div style={{background:"linear-gradient(135deg,#1e3a8a,#312e81)",
         borderRadius:12,padding:"14px 18px",marginBottom:16}}>
         <div style={{fontSize:14,fontWeight:700,color:"#e0e7ff",marginBottom:3}}>
-          📝 Registros para o SISCONTIC
+          📝 SISCONTIC — por processo
         </div>
-        <div style={{fontSize:12,color:"#93c5fd",opacity:.9}}>
-          Gerados automaticamente · agrupados por processo
+        <div style={{fontSize:11,color:"#93c5fd"}}>
+          Gerado automaticamente · datas em DD/MM/AAAA · agrupado por processo
         </div>
       </div>
-      <div style={{display:"flex",justifyContent:"flex-end",marginBottom:12}}>
-        <Btn onClick={()=>copiar(
-          procs.map(p=>
-            `=== ${p} ===\n`+
-            porProc[p].map(e=>e.sisconticTxt).join("\n")
-          ).join("\n\n"),-1)}
-          cor={copiado===-1?"#166534":"#1e3a8a"}>
+      <div style={{display:"flex",justifyContent:"flex-end",marginBottom:14}}>
+        <Btn onClick={()=>cp(procs.map(p=>
+          `=== ${p} ===\n`+porProc[p].map(e=>e.siscTxt).join("\n")
+        ).join("\n\n"),-1)} color={copiado===-1?"#15803d":"#1d4ed8"}>
           {copiado===-1?"✓ Copiado":"📋 Copiar tudo"}
         </Btn>
       </div>
       {procs.map(proc=>{
-        const pd=getPD(proc);
-        const evs=porProc[proc];
+        const p=pd(proc);const evs=porProc[proc];
         return(
-          <div key={proc} style={{marginBottom:24}}>
-            {/* Cabeçalho do processo */}
+          <div key={proc} style={{marginBottom:28}}>
             <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:10}}>
-              <div style={{height:1,flex:0,width:12,background:pd.cor}}/>
-              <span style={{fontSize:11,fontWeight:700,color:pd.cor,
-                background:pd.cor+"15",border:`1px solid ${pd.cor}33`,
-                borderRadius:20,padding:"3px 12px"}}>
-                {pd.ic} {proc} · {evs.length} registro{evs.length!==1?"s":""}
+              <span style={{fontSize:12,fontWeight:700,color:p.c,
+                background:p.c+"18",border:`1px solid ${p.c}33`,
+                borderRadius:20,padding:"4px 14px"}}>
+                {p.i} {proc} · {evs.length} registro{evs.length!==1?"s":""}
               </span>
-              <div style={{height:1,flex:1,background:pd.cor+"33"}}/>
-              <Btn onClick={()=>copiar(evs.map(e=>e.sisconticTxt).join("\n"),proc)}
-                cor={copiado===proc?"#166534":"#1e293b"} sm>
+              <div style={{height:1,flex:1,background:p.c+"25"}}/>
+              <Btn onClick={()=>cp(evs.map(e=>e.siscTxt).join("\n"),proc)}
+                color={copiado===proc?"#15803d":"#374151"} sm outline>
                 {copiado===proc?"✓":"📋"}
               </Btn>
             </div>
             {evs.map((e,i)=>{
-              const cat=CAT_CFG[e.cat];
-              const key=`${proc}_${i}`;
+              const cat=CC[e.cat];const key=`${proc}${i}`;
               return(
-                <div key={i} className="fade" style={{
-                  background:"#0f172a",border:"1px solid #1e293b",
-                  borderLeft:`3px solid ${pd.cor}`,
-                  borderRadius:"0 8px 8px 0",padding:"12px 16px",marginBottom:6,
+                <div key={i} className="fi" style={{
+                  background:"#111827",border:`1px solid ${p.c}20`,
+                  borderLeft:`3px solid ${p.c}`,borderRadius:"0 8px 8px 0",
+                  padding:"12px 16px",marginBottom:6,
                   display:"flex",gap:10,alignItems:"flex-start"}}>
-                  <div style={{minWidth:24,flexShrink:0}}>
-                    <span style={{fontSize:9,fontWeight:700,color:"#475569"}}>
-                      {String(i+1).padStart(2,"0")}
-                    </span>
-                  </div>
+                  <span style={{fontSize:9,color:"#4b5563",fontWeight:700,
+                    minWidth:20,flexShrink:0,paddingTop:2}}>
+                    {String(i+1).padStart(2,"0")}
+                  </span>
                   <div style={{flex:1}}>
-                    <div style={{display:"flex",gap:6,flexWrap:"wrap",marginBottom:6}}>
-                      <Tag txt={`📅 ${fmtData(e.data)}`} bg="#1e293b" cor="#60a5fa"/>
-                      {e.prefixo&&<Tag txt={e.prefixo} bg={pd.cor+"18"} cor={pd.cor}/>}
-                      {cat&&<Tag txt={cat.l} bg={cat.c+"18"} cor={cat.c}/>}
+                    <div style={{display:"flex",gap:5,flexWrap:"wrap",marginBottom:7}}>
+                      <Chip txt={`📅 ${fmtFull(e.data)}`} bg="#1e3a8a" fg="#93c5fd"/>
+                      {e.prefixo&&<Chip txt={e.prefixo} bg={p.c+"18"} fg={p.c}/>}
+                      {cat&&<Chip txt={cat.l} bg={cat.c+"18"} fg={cat.c}/>}
                     </div>
-                    <div style={{fontSize:13,color:"#e2e8f0",lineHeight:1.7,
-                      background:"#1e293b",borderRadius:6,padding:"8px 12px"}}>
-                      <strong style={{color:"#60a5fa"}}>{fmtData(e.data)}</strong>
-                      {" – "}{e.sisconticTxt.replace(/^\d{2}\/\d{2}\/\d{4}\s*–\s*/,"")}
+                    <div style={{fontSize:13,color:"#f3f4f6",lineHeight:1.7,
+                      background:"#1f2937",borderRadius:6,padding:"8px 12px"}}>
+                      <strong style={{color:"#60a5fa"}}>{fmtFull(e.data)}</strong>
+                      {" – "}
+                      {e.siscTxt.replace(/^\d{2}\/\d{2}\/\d{4}\s*[–-]\s*/,"")}
                     </div>
                   </div>
-                  <button onClick={()=>copiar(e.sisconticTxt,key)}
+                  <button onClick={()=>cp(e.siscTxt,key)}
                     style={{flexShrink:0,padding:"5px 10px",fontSize:11,fontWeight:600,
-                      background:copiado===key?"#166534":"#1e3a8a",color:"#fff",
+                      background:copiado===key?"#15803d":"#1e3a8a",color:"#fff",
                       border:"none",borderRadius:7,cursor:"pointer"}}>
                     {copiado===key?"✓":"📋"}
                   </button>
@@ -474,204 +510,185 @@ function SisconticTab({items}){
   );
 }
 
-// ─── PrioridadesTab ──────────────────────────────────────────────────────────
-const PRIO_STATUS = {
-  pendente:    {l:"⏳ Pendente",  c:"#fbbf24",bg:"#451a03"},
-  em_andamento:{l:"🔄 Andamento", c:"#38bdf8",bg:"#0c1a2e"},
-  concluida:   {l:"✅ Concluída", c:"#4ade80",bg:"#052e16"},
+// ─── PrioridadesTab ───────────────────────────────────────────────────────────
+const PS = {
+  pendente:    {l:"⏳ Pendente",   c:"#fbbf24",bg:"#451a03"},
+  em_andamento:{l:"🔄 Em andamento",c:"#38bdf8",bg:"#1e3a5f"},
+  concluida:   {l:"✅ Concluída",  c:"#4ade80",bg:"#14532d"},
 };
-
-function PrioridadesTab({watermark}){
-  const [prios,setPrios]=useState(null);
+function PrioridadesTab(){
+  const [data,setData]=useState(null);
   const [loading,setLoading]=useState(false);
-  const [pat,setPat]=useState(()=>localStorage.getItem("dpci_gh_pat")||"");
-  const [showPat,setShowPat]=useState(false);
-  const [nova,setNova]=useState({proc:"",desc:"",resp:"DPCI",prazo:"",status:"pendente"});
-  const [evidencia,setEvidencia]=useState({});
-  const [salvando,setSalvando]=useState(false);
+  const [pat,setPat]=useState(()=>localStorage.getItem("dpci_pat")||"");
+  const [showPat,setShowPat]=useState(!pat);
+  const [form,setForm]=useState({proc:"",desc:"",resp:"DPCI",prazo:""});
+  const [evid,setEvid]=useState({});
+  const [saving,setSaving]=useState(false);
   const [msg,setMsg]=useState(null);
 
-  const salvarPAT=()=>{localStorage.setItem("dpci_gh_pat",pat);setShowPat(false);
-    setMsg({ok:true,txt:"PAT salvo no navegador."});setTimeout(()=>setMsg(null),3000);};
+  const savePAT=()=>{localStorage.setItem("dpci_pat",pat);setShowPat(false);};
 
-  const carregar=useCallback(async()=>{
+  useEffect(()=>{
     setLoading(true);
-    try{
-      const d=await ghFetch(PRIO_FILE);
-      setPrios(d);
-    }catch(e){
-      // Arquivo não existe ainda
-      const semana=()=>{
-        const now=new Date();
-        const seg=new Date(now);seg.setDate(now.getDate()-(now.getDay()||7)+1);
-        const sex=new Date(seg);sex.setDate(seg.getDate()+5);
-        const fmt=d=>`${String(d.getDate()).padStart(2,"0")}/${String(d.getMonth()+1).padStart(2,"0")}`;
-        return `${fmt(seg)} a ${fmt(sex)}`;
-      };
-      setPrios({semana:semana(),atividades:[]});
-    }
-    setLoading(false);
+    ghGet(PF).then(d=>setData(d)).catch(()=>{
+      const now=new Date();const seg=new Date(now);
+      seg.setDate(now.getDate()-(now.getDay()||7)+1);
+      const sex=new Date(seg);sex.setDate(seg.getDate()+5);
+      const f=d=>`${String(d.getDate()).padStart(2,"0")}/${String(d.getMonth()+1).padStart(2,"0")}`;
+      setData({semana:`${f(seg)} a ${f(sex)}`,atividades:[]});
+    }).finally(()=>setLoading(false));
   },[]);
 
-  useEffect(()=>{carregar();},[]);
-
-  const salvar=async(novasPrios)=>{
-    if(!pat){setMsg({ok:false,txt:"Configure o PAT do GitHub para salvar."});return;}
-    setSalvando(true);
-    const ok=await ghPushPAT(pat,novasPrios);
-    setSalvando(false);
-    setMsg({ok,txt:ok?"✅ Prioridades salvas no GitHub!":"❌ Erro ao salvar. Verifique o PAT."});
+  const save=async nd=>{
+    if(!pat){setMsg({ok:false,txt:"Configure o PAT do GitHub para salvar."});return false;}
+    setSaving(true);
+    const ok=await ghSave(pat,nd);setSaving(false);
+    setMsg({ok,txt:ok?"✅ Salvo no GitHub!":"❌ Erro. Verifique o PAT."});
     setTimeout(()=>setMsg(null),4000);
-    if(ok) setPrios(novasPrios);
+    if(ok) setData(nd);
+    return ok;
   };
 
-  const adicionarAtividade=()=>{
-    if(!nova.proc||!nova.desc) return;
-    const item={id:`a${Date.now()}`,proc:nova.proc,desc:nova.desc,
-      resp:nova.resp,prazo:nova.prazo,status:"pendente",evidencia:""};
-    const atualizadas={...prios,atividades:[...(prios?.atividades||[]),item]};
-    salvar(atualizadas);
-    setNova({proc:"",desc:"",resp:"DPCI",prazo:"",status:"pendente"});
+  const add=()=>{
+    if(!form.proc||!form.desc) return;
+    const nd={...data,atividades:[...(data?.atividades||[]),
+      {id:`a${Date.now()}`,proc:form.proc,desc:form.desc,
+       resp:form.resp,prazo:form.prazo,status:"pendente",evidencia:""}]};
+    save(nd);setForm({proc:"",desc:"",resp:"DPCI",prazo:""});
   };
 
-  const alterarStatus=(id,status)=>{
-    const ev=evidencia[id]||"";
-    const atualizadas={...prios,atividades:prios.atividades.map(a=>
-      a.id===id?{...a,status,evidencia:ev||a.evidencia,dataConclusao:status==="concluida"?new Date().toISOString().slice(0,10):a.dataConclusao}:a)};
-    salvar(atualizadas);
+  const setStatus=(id,status)=>{
+    const ev=evid[id]||"";
+    const nd={...data,atividades:data.atividades.map(a=>a.id===id
+      ?{...a,status,evidencia:ev||a.evidencia,
+        dataConclusao:status==="concluida"?new Date().toISOString().slice(0,10):a.dataConclusao}:a)};
+    save(nd);
   };
 
-  const counts=useMemo(()=>{
-    if(!prios?.atividades) return {};
-    return Object.fromEntries(Object.keys(PRIO_STATUS).map(k=>
-      [k,prios.atividades.filter(a=>a.status===k).length]));
-  },[prios]);
+  const counts=useMemo(()=>Object.fromEntries(
+    Object.keys(PS).map(k=>[k,(data?.atividades||[]).filter(a=>a.status===k).length]))
+  ,[data]);
 
-  if(loading) return <div style={{textAlign:"center",padding:"40px",color:"#475569"}}>
-    <Spin/> Carregando prioridades...</div>;
+  if(loading) return <div style={{padding:40,textAlign:"center",color:"#6b7280"}}><Spin/> Carregando...</div>;
 
   return(
     <div>
-      {/* Header */}
       <div style={{background:"linear-gradient(135deg,#1e3a8a,#0f172a)",
         borderRadius:12,padding:"14px 18px",marginBottom:16}}>
-        <div style={{fontSize:14,fontWeight:700,color:"#e0e7ff",marginBottom:3}}>
+        <div style={{fontSize:14,fontWeight:700,color:"#e0e7ff",marginBottom:4}}>
           📊 Prioridades da Semana
-          {prios?.semana&&<span style={{fontSize:12,color:"#93c5fd",fontWeight:400,
-            marginLeft:8}}>· {prios.semana}</span>}
+          {data?.semana&&<span style={{fontSize:12,color:"#93c5fd",fontWeight:400,
+            marginLeft:8}}>· {data.semana}</span>}
         </div>
-        <div style={{display:"flex",gap:8,marginTop:8,flexWrap:"wrap"}}>
-          {Object.entries(PRIO_STATUS).map(([k,s])=>(
-            <div key={k} style={{background:s.bg,border:`1px solid ${s.c}33`,
-              borderRadius:8,padding:"4px 12px",fontSize:11,color:s.c}}>
-              {s.l} <strong>{counts[k]||0}</strong>
+        <div style={{display:"flex",gap:8,flexWrap:"wrap",marginTop:6}}>
+          {Object.entries(PS).map(([k,s])=>(
+            <div key={k} style={{background:s.bg,border:`1px solid ${s.c}30`,
+              borderRadius:8,padding:"4px 12px",fontSize:11,color:s.c,fontWeight:600}}>
+              {s.l} {counts[k]||0}
             </div>
           ))}
         </div>
       </div>
 
-      {/* Config PAT */}
-      <div style={{marginBottom:16}}>
+      {/* PAT config */}
+      <div style={{marginBottom:16,background:"#1f2937",borderRadius:10,padding:"12px 14px",
+        border:"1px solid #374151"}}>
         <button onClick={()=>setShowPat(!showPat)}
-          style={{fontSize:11,color:"#475569",background:"none",border:"none",
-            cursor:"pointer",textDecoration:"underline"}}>
-          {pat?"🔑 PAT configurado":"🔑 Configurar PAT do GitHub (para salvar prioridades)"}
+          style={{fontSize:11,color:pat?"#4ade80":"#fbbf24",background:"none",
+            border:"none",cursor:"pointer",fontWeight:600}}>
+          {pat?"🔑 PAT configurado ▼":"🔑 Configurar PAT do GitHub para salvar ▼"}
         </button>
-        {showPat&&<div style={{marginTop:8,display:"flex",gap:8}}>
+        {showPat&&<div style={{marginTop:10,display:"flex",gap:8,alignItems:"center"}}>
           <input type="password" value={pat} onChange={e=>setPat(e.target.value)}
-            placeholder="ghp_..." style={{flex:1,padding:"6px 10px",background:"#1e293b",
-              border:"1px solid #334155",borderRadius:6,color:"#e2e8f0",fontSize:12}}/>
-          <Btn onClick={salvarPAT} cor="#166534">Salvar</Btn>
+            placeholder="ghp_..." style={{flex:1,padding:"6px 10px",background:"#111827",
+              border:"1px solid #4b5563",borderRadius:6,color:"#f3f4f6",fontSize:12}}/>
+          <Btn onClick={savePAT} color="#15803d" sm>Salvar</Btn>
         </div>}
       </div>
 
-      {/* Semana + Formulário de nova atividade */}
-      <div style={{background:"#1e293b",border:"1px solid #334155",
+      {/* Formulário nova atividade */}
+      <div style={{background:"#1f2937",border:"1px solid #374151",
         borderRadius:12,padding:"16px",marginBottom:16}}>
-        <div style={{fontSize:12,fontWeight:700,color:"#94a3b8",marginBottom:12,
-          textTransform:"uppercase",letterSpacing:.5}}>+ Nova atividade</div>
-        <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
-          <select value={nova.proc} onChange={e=>setNova({...nova,proc:e.target.value})}
-            style={{flex:2,minWidth:180,padding:"6px 10px",background:"#0f172a",
-              border:"1px solid #334155",borderRadius:6,color:"#e2e8f0",fontSize:12}}>
-            <option value="">Processo...</option>
-            {ALL_PROCS.map(p=><option key={p} value={p}>{getPD(p).ic} {p}</option>)}
+        <div style={{fontSize:11,fontWeight:700,color:"#6b7280",marginBottom:12,
+          textTransform:"uppercase",letterSpacing:.8}}>+ Lançar atividade</div>
+        <div style={{display:"flex",gap:8,flexWrap:"wrap",marginBottom:8}}>
+          <select value={form.proc} onChange={e=>setForm({...form,proc:e.target.value})}
+            style={{flex:2,minWidth:200,padding:"7px 10px",background:"#111827",
+              border:"1px solid #374151",borderRadius:6,color:"#f3f4f6",fontSize:12}}>
+            <option value="">Selecione o processo...</option>
+            {AP.map(p=><option key={p}>{pd(p).i} {p}</option>)}
           </select>
-          <input value={nova.desc} onChange={e=>setNova({...nova,desc:e.target.value})}
-            placeholder="Descrição da atividade"
-            style={{flex:3,minWidth:200,padding:"6px 10px",background:"#0f172a",
-              border:"1px solid #334155",borderRadius:6,color:"#e2e8f0",fontSize:12}}/>
-          <input value={nova.resp} onChange={e=>setNova({...nova,resp:e.target.value})}
-            placeholder="Responsável" style={{flex:1,minWidth:100,padding:"6px 10px",
-              background:"#0f172a",border:"1px solid #334155",borderRadius:6,
-              color:"#e2e8f0",fontSize:12}}/>
-          <input value={nova.prazo} onChange={e=>setNova({...nova,prazo:e.target.value})}
-            placeholder="Prazo ex: Sex 11/07"
-            style={{flex:1,minWidth:100,padding:"6px 10px",background:"#0f172a",
-              border:"1px solid #334155",borderRadius:6,color:"#e2e8f0",fontSize:12}}/>
-          <Btn onClick={adicionarAtividade} disabled={salvando||!nova.proc||!nova.desc}
-            cor="#1e3a8a">{salvando?<Spin/>:"+ Adicionar"}</Btn>
+          <input value={form.resp} onChange={e=>setForm({...form,resp:e.target.value})}
+            placeholder="Responsável" style={{width:110,padding:"7px 10px",background:"#111827",
+              border:"1px solid #374151",borderRadius:6,color:"#f3f4f6",fontSize:12}}/>
+          <input value={form.prazo} onChange={e=>setForm({...form,prazo:e.target.value})}
+            placeholder="Prazo: Sex 11/07" style={{width:130,padding:"7px 10px",background:"#111827",
+              border:"1px solid #374151",borderRadius:6,color:"#f3f4f6",fontSize:12}}/>
+        </div>
+        <div style={{display:"flex",gap:8}}>
+          <input value={form.desc} onChange={e=>setForm({...form,desc:e.target.value})}
+            placeholder="Descrição da atividade..."
+            onKeyDown={e=>e.key==="Enter"&&add()}
+            style={{flex:1,padding:"7px 10px",background:"#111827",
+              border:"1px solid #374151",borderRadius:6,color:"#f3f4f6",fontSize:12}}/>
+          <Btn onClick={add} disabled={saving||!form.proc||!form.desc} color="#1d4ed8">
+            {saving?<Spin/>:"Adicionar"}
+          </Btn>
         </div>
       </div>
 
       {msg&&<div style={{padding:"8px 14px",borderRadius:8,marginBottom:12,fontSize:12,
-        background:msg.ok?"#052e16":"#450a0a",
-        color:msg.ok?"#4ade80":"#fca5a5",
+        background:msg.ok?"#14532d":"#450a0a",color:msg.ok?"#86efac":"#fca5a5",
         border:`1px solid ${msg.ok?"#166534":"#7f1d1d"}`}}>{msg.txt}</div>}
 
-      {/* Lista de atividades */}
-      {(prios?.atividades||[]).length===0&&(
-        <div style={{textAlign:"center",padding:"40px",color:"#334155",fontSize:13}}>
-          Nenhuma atividade lançada. Adicione a primeira acima.
+      {/* Lista */}
+      {(data?.atividades||[]).length===0&&(
+        <div style={{textAlign:"center",padding:"40px",color:"#374151",fontSize:13}}>
+          Nenhuma atividade lançada ainda.
         </div>
       )}
-      {(prios?.atividades||[]).map((a,i)=>{
-        const pd=getPD(a.proc);
-        const st=PRIO_STATUS[a.status]||PRIO_STATUS.pendente;
+      {(data?.atividades||[]).map((a,i)=>{
+        const p=pd(a.proc);const s=PS[a.status]||PS.pendente;
         return(
-          <div key={a.id||i} className="fade" style={{
-            background:"#0f172a",border:`1px solid ${st.c}33`,
-            borderLeft:`4px solid ${st.c}`,borderRadius:"0 10px 10px 0",
+          <div key={a.id||i} className="fi" style={{
+            background:"#111827",border:`1px solid ${s.c}25`,
+            borderLeft:`4px solid ${s.c}`,borderRadius:"0 10px 10px 0",
             padding:"14px 16px",marginBottom:8}}>
             <div style={{display:"flex",gap:10,alignItems:"flex-start"}}>
               <div style={{flex:1}}>
-                <div style={{display:"flex",gap:6,flexWrap:"wrap",marginBottom:6}}>
-                  <Tag txt={`${pd.ic} ${a.proc?.slice(0,30)}`} bg={pd.cor+"15"} cor={pd.cor}/>
-                  <Tag txt={`👤 ${a.resp||"—"}`} bg="#1e293b" cor="#64748b" sm/>
-                  {a.prazo&&<Tag txt={`⏰ ${a.prazo}`} bg="#450a0a" cor="#f87171" sm/>}
-                  <Tag txt={st.l} bg={st.bg} cor={st.c}/>
-                  {a.dataConclusao&&<Tag txt={`✓ ${fmtData(a.dataConclusao)}`}
-                    bg="#052e16" cor="#4ade80" sm/>}
+                <div style={{display:"flex",gap:5,flexWrap:"wrap",marginBottom:7}}>
+                  <Chip txt={`${p.i} ${a.proc?.slice(0,32)}`} bg={p.c+"18"} fg={p.c}/>
+                  <Chip txt={`👤 ${a.resp||"—"}`} bg="#374151" fg="#9ca3af" sm/>
+                  {a.prazo&&<Chip txt={`⏰ ${a.prazo}`} bg="#450a0a" fg="#f87171" sm/>}
+                  <Chip txt={s.l} bg={s.bg} fg={s.c}/>
+                  {a.dataConclusao&&<Chip txt={`✓ ${fmtFull(a.dataConclusao)}`}
+                    bg="#14532d" fg="#4ade80" sm/>}
                 </div>
-                <div style={{fontSize:13,color:"#e2e8f0",marginBottom:8,lineHeight:1.5}}>
+                <div style={{fontSize:13,color:"#f3f4f6",marginBottom:8,lineHeight:1.5}}>
                   {a.desc}
                 </div>
-                {/* Evidência */}
                 {a.status==="concluida"&&a.evidencia&&(
-                  <div style={{fontSize:11,color:"#64748b",marginBottom:6,
-                    background:"#1e293b",borderRadius:6,padding:"6px 10px"}}>
+                  <div style={{fontSize:11,color:"#6b7280",background:"#1f2937",
+                    borderRadius:6,padding:"5px 10px",marginBottom:6}}>
                     📎 <em>{a.evidencia}</em>
                   </div>
                 )}
                 {a.status!=="concluida"&&(
-                  <input value={evidencia[a.id]||""} onChange={e=>setEvidencia({...evidencia,[a.id]:e.target.value})}
-                    placeholder="Evidência de conclusão (opcional)"
-                    style={{width:"100%",padding:"5px 10px",background:"#1e293b",
-                      border:"1px solid #334155",borderRadius:6,color:"#94a3b8",
-                      fontSize:11,marginBottom:6}}/>
+                  <input value={evid[a.id]||""}
+                    onChange={e=>setEvid({...evid,[a.id]:e.target.value})}
+                    placeholder="Evidência de conclusão (ex: e-mail enviado em 10/07 às 14h)"
+                    style={{width:"100%",padding:"5px 10px",background:"#1f2937",
+                      border:"1px solid #374151",borderRadius:6,color:"#9ca3af",
+                      fontSize:11,marginBottom:4}}/>
                 )}
               </div>
-              {/* Botões de status */}
               <div style={{display:"flex",flexDirection:"column",gap:4,flexShrink:0}}>
                 {a.status!=="concluida"&&(
-                  <Btn onClick={()=>alterarStatus(a.id,"concluida")}
-                    cor="#166534" sm>✅</Btn>)}
+                  <Btn onClick={()=>setStatus(a.id,"concluida")} color="#15803d" sm>✅</Btn>)}
                 {a.status==="pendente"&&(
-                  <Btn onClick={()=>alterarStatus(a.id,"em_andamento")}
-                    cor="#1e3a8a" sm>🔄</Btn>)}
+                  <Btn onClick={()=>setStatus(a.id,"em_andamento")} color="#1d4ed8" sm>🔄</Btn>)}
                 {a.status==="concluida"&&(
-                  <Btn onClick={()=>alterarStatus(a.id,"pendente")}
-                    cor="#334155" sm>↩</Btn>)}
+                  <Btn onClick={()=>setStatus(a.id,"pendente")} color="#374151" sm outline>↩</Btn>)}
               </div>
             </div>
           </div>
@@ -681,289 +698,255 @@ function PrioridadesTab({watermark}){
   );
 }
 
-// ─── App ─────────────────────────────────────────────────────────────────────
+// ─── Lista lateral de processos ───────────────────────────────────────────────
+function ProcList({items,active,onChange}){
+  const counts=useMemo(()=>{
+    const m={};
+    AP.forEach(p=>{ m[p]={total:0,email:0,teams:0}; });
+    items.forEach(e=>{
+      if(e.proc&&m[e.proc]){
+        m[e.proc].total++;
+        if(e.fonte==="EMAIL") m[e.proc].email++;
+        else m[e.proc].teams++;
+      }
+    });
+    return m;
+  },[items]);
+  return(
+    <div style={{width:260,flexShrink:0,background:"#1f2937",
+      borderRight:"1px solid #374151",overflowY:"auto",height:"calc(100vh - 105px)",
+      position:"sticky",top:105}}>
+      {AP.map(p=>{
+        const pp=pd(p);const c=counts[p];const active_=active===p;
+        const isEmpty=c.total===0;
+        return(
+          <div key={p} onClick={()=>onChange(p)} style={{
+            padding:"10px 14px",cursor:"pointer",
+            background:active_?pp.c+"20":"transparent",
+            borderLeft:`3px solid ${active_?pp.c:"transparent"}`,
+            borderBottom:"1px solid #374151",
+            opacity:isEmpty?.45:1,transition:"all .15s"}}>
+            <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:active_?4:0}}>
+              <span style={{fontSize:16}}>{pp.i}</span>
+              <div style={{flex:1,minWidth:0}}>
+                <div style={{fontSize:11,fontWeight:active_?700:500,
+                  color:active_?pp.c:"#d1d5db",
+                  overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>
+                  {p}
+                </div>
+              </div>
+              <span style={{fontSize:11,fontWeight:700,
+                color:isEmpty?"#4b5563":pp.c,minWidth:24,textAlign:"right"}}>
+                {c.total||"—"}
+              </span>
+            </div>
+            {active_&&c.total>0&&(
+              <div style={{display:"flex",gap:6,paddingLeft:24,marginTop:2}}>
+                <span style={{fontSize:9,color:"#4ade80"}}>✉️ {c.email}</span>
+                <span style={{fontSize:9,color:c.teams===0?"#ef4444":"#38bdf8"}}>
+                  💬 {c.teams}{c.teams===0?" ⚠️":""}
+                </span>
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+// ─── App ──────────────────────────────────────────────────────────────────────
 function App(){
   const [items,setItems]=useState(null);
   const [aba,setAba]=useState("processos");
-  const [proc,setProc]=useState(ALL_PROCS[0]);
+  const [proc,setProc]=useState(AP[0]);
   const [drag,setDrag]=useState(false);
   const [err,setErr]=useState(null);
   const [loading,setLoading]=useState(false);
   const [statusMsg,setStatusMsg]=useState(null);
   const [watermark,setWatermark]=useState(null);
   const [fonte,setFonte]=useState(null);
-  const [nextRefresh,setNextRefresh]=useState(null);
+  const [nextR,setNextR]=useState(null);
+  const [countdown,setCd]=useState(null);
   const inputRef=useRef();
-  const timerRef=useRef();
 
-  const parseAndSet=useCallback((raw,src)=>{
-    setItems(processJSON(raw));setFonte(src);setErr(null);
+  const set_=(raw,src)=>{setItems(processJSON(raw));setFonte(src);setErr(null);};
+
+  const loadFile=useCallback(async f=>{
+    try{const t=await f.text();set_(JSON.parse(t),`📂 ${f.name}`);}
+    catch(e){setErr("Erro: "+e.message);}
   },[]);
 
-  const loadFile=useCallback(async(file)=>{
-    try{const txt=await file.text();parseAndSet(JSON.parse(txt),`📂 ${file.name}`);}
-    catch(e){setErr("Erro: "+e.message);}
-  },[parseAndSet]);
-
-  const loadGitHub=useCallback(async(silent=false)=>{
+  const loadGH=useCallback(async(silent=false)=>{
     if(!silent){setLoading(true);setErr(null);}
     try{
       setStatusMsg("Carregando do GitHub...");
-      // 1. Tentar arquivo enriquecido
-      try{
-        const raw=await ghFetch(ENRICH_FILE);
-        parseAndSet(raw,`☁️ GitHub · ${ENRICH_FILE}`);
-        if(!silent) setLoading(false);
-        setStatusMsg(null);
-        setNextRefresh(Date.now()+REFRESH_MS);
-        return;
-      }catch(e){}
-      // 2. Fallback: arquivos de processo individuais
-      setStatusMsg("Listando arquivos de processo...");
+      try{const r=await ghGet(EF);set_(r,`☁️ GitHub`);return;}catch(e){}
+      setStatusMsg("Listando processos...");
       const urls=await ghList();
-      if(urls.length===0){
-        setErr("Nenhum dado disponível no GitHub ainda. Aguarde o próximo ciclo do Merger.");
-        if(!silent) setLoading(false);
-        setStatusMsg(null);
-        return;
-      }
-      const allEvs=[];
-      for(const url of urls){
+      const all=[];
+      for(const u of urls){
         try{
-          const r=await fetch(url+"?t="+Date.now());
-          if(!r.ok) continue;
+          const r=await fetch(u+"?t="+Date.now());if(!r.ok)continue;
           const d=await r.json();
-          (d.timeline||[]).forEach(ev=>allEvs.push({
-            ...ev,processoIdentificado:d.processo||ev.processoIdentificado||"",
-            prefixoAutorSISCONTIC:ev.prefixo||ev.prefixoAutorSISCONTIC||null,
-            categoriaEventoSISCONTIC:ev.categoria||ev.categoriaEventoSISCONTIC||null,
-          }));
+          (d.timeline||[]).forEach(ev=>all.push({...ev,
+            processoIdentificado:d.processo||ev.processoIdentificado||""}));
         }catch(e){}
       }
-      if(allEvs.length>0) parseAndSet(allEvs,`☁️ GitHub · ${urls.length} processos`);
-      else setErr("Arquivos encontrados mas sem eventos.");
-    }catch(e){setErr("Erro GitHub: "+e.message);}
+      if(all.length) set_(all,`☁️ GitHub · ${urls.length} processos`);
+      else setErr("Nenhum dado ainda. Aguarde o Merger.");
+    }catch(e){setErr("Erro: "+e.message);}
     if(!silent) setLoading(false);
     setStatusMsg(null);
-    setNextRefresh(Date.now()+REFRESH_MS);
-  },[parseAndSet]);
-
-  // Watermark
-  useEffect(()=>{ghFetch(WATER_FILE).then(w=>{if(w)setWatermark(w);}).catch(()=>{});},[]);
-
-  // Auto-load + auto-refresh no GitHub Pages
-  useEffect(()=>{
-    if(IS_GH){
-      loadGitHub();
-      timerRef.current=setInterval(()=>loadGitHub(true),REFRESH_MS);
-      return()=>clearInterval(timerRef.current);
-    }
+    setNextR(Date.now()+R_MS);
   },[]);
+
+  useEffect(()=>{ghGet(WF).then(w=>{if(w)setWatermark(w);}).catch(()=>{});},[]);
+  useEffect(()=>{if(IS_GH){loadGH();const t=setInterval(()=>loadGH(true),R_MS);return()=>clearInterval(t);}},[]);
+  useEffect(()=>{
+    if(!nextR) return;
+    const t=setInterval(()=>setCd(Math.max(0,Math.round((nextR-Date.now())/1000))),1000);
+    return()=>clearInterval(t);
+  },[nextR]);
 
   const stats=useMemo(()=>{
     if(!items) return null;
-    const datas=[...new Set(items.map(e=>e.data).filter(Boolean))].sort();
-    const procs=[...new Set(items.map(e=>e.proc).filter(Boolean))];
-    return{total:items.length,comProc:items.filter(e=>e.proc).length,procs,
-      periodo:datas.length?`${fmtData(datas[0])} – ${fmtData(datas[datas.length-1])}`:null};
+    const ds=[...new Set(items.map(e=>e.data).filter(Boolean))].sort();
+    return{total:items.length,cp:items.filter(e=>e.proc).length,
+      periodo:ds.length?`${fmtFull(ds[0])} – ${fmtFull(ds[ds.length-1])}`:"",
+      teamsTotal:items.filter(e=>e.fonte==="TEAMS").length};
   },[items]);
 
-  // Contador regressivo
-  const [countdown,setCountdown]=useState(null);
-  useEffect(()=>{
-    if(!nextRefresh) return;
-    const t=setInterval(()=>{
-      const diff=Math.max(0,Math.round((nextRefresh-Date.now())/1000));
-      setCountdown(diff);
-    },1000);
-    return()=>clearInterval(t);
-  },[nextRefresh]);
-
-  // Loading screen
   if(!items&&(loading||IS_GH)) return(
-    <div style={{background:"#0f172a",minHeight:"100vh",display:"flex",
+    <div style={{background:"#111827",minHeight:"100vh",display:"flex",
       flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16}}>
-      <div style={{fontSize:56}}>🧠</div>
-      <div style={{fontSize:20,fontWeight:700,color:"#f1f5f9"}}>
-        DPCI · Painel de Processos
-      </div>
-      <div style={{display:"flex",alignItems:"center",gap:10,color:"#475569",fontSize:13}}>
+      <div style={{fontSize:52}}>🧠</div>
+      <div style={{fontSize:20,fontWeight:700,color:"#f9fafb"}}>DPCI · Painel de Processos</div>
+      <div style={{color:"#6b7280",fontSize:13,display:"flex",gap:8,alignItems:"center"}}>
         <Spin/> {statusMsg||"Conectando ao GitHub..."}
       </div>
-      {err&&(
-        <div style={{maxWidth:400,padding:"12px 16px",background:"#450a0a",
-          border:"1px solid #7f1d1d",borderRadius:8,fontSize:12,color:"#fca5a5",
-          textAlign:"center"}}>
-          {err}
-          <div style={{marginTop:8}}>
-            <Btn onClick={()=>loadGitHub()} cor="#1e3a8a">🔄 Tentar novamente</Btn>
-          </div>
-        </div>
-      )}
+      {err&&<div style={{maxWidth:420,padding:"12px 16px",background:"#450a0a",
+        border:"1px solid #7f1d1d",borderRadius:8,fontSize:12,color:"#fca5a5",
+        textAlign:"center"}}>
+        {err}<div style={{marginTop:8}}><Btn onClick={()=>loadGH()} color="#1d4ed8">🔄 Tentar novamente</Btn></div>
+      </div>}
     </div>
   );
 
-  // Upload screen (local)
   if(!items) return(
-    <div style={{background:"#0f172a",minHeight:"100vh",display:"flex",
+    <div style={{background:"#111827",minHeight:"100vh",display:"flex",
       alignItems:"center",justifyContent:"center"}}>
       <div style={{maxWidth:460,padding:24,width:"100%"}}>
         <div style={{textAlign:"center",marginBottom:32}}>
-          <div style={{fontSize:56,marginBottom:12}}>🧠</div>
-          <div style={{fontSize:22,fontWeight:700,color:"#f1f5f9"}}>
-            DPCI · Painel de Processos
-          </div>
-          <div style={{fontSize:12,color:"#475569",marginTop:6}}>
-            Dataprev · Cezar de Souza Matos
-          </div>
+          <div style={{fontSize:52,marginBottom:10}}>🧠</div>
+          <div style={{fontSize:22,fontWeight:700,color:"#f9fafb"}}>DPCI · Painel de Processos</div>
+          <div style={{fontSize:12,color:"#6b7280",marginTop:4}}>Dataprev · Cezar de Souza Matos</div>
         </div>
-        <div style={{background:"#1e293b",borderRadius:14,padding:20,
-          border:"1px solid #334155",marginBottom:12}}>
+        <div style={{background:"#1f2937",borderRadius:14,padding:20,border:"1px solid #374151"}}>
           <div onClick={()=>inputRef.current?.click()}
             onDragOver={e=>{e.preventDefault();setDrag(true)}}
             onDragLeave={()=>setDrag(false)}
             onDrop={e=>{e.preventDefault();setDrag(false);loadFile(e.dataTransfer.files[0])}}
-            style={{border:`2px dashed ${drag?"#6366f1":"#334155"}`,borderRadius:10,
+            style={{border:`2px dashed ${drag?"#6366f1":"#374151"}`,borderRadius:10,
               padding:"32px 16px",cursor:"pointer",textAlign:"center",
-              background:drag?"#1e1b4b":"#0f172a",transition:"all .2s"}}>
+              background:drag?"#1e1b4b":"#111827",transition:"all .2s"}}>
             <div style={{fontSize:40,marginBottom:8}}>📋</div>
-            <div style={{fontSize:13,fontWeight:600,color:"#94a3b8",marginBottom:4}}>
-              Arraste o JSON aqui
+            <div style={{fontSize:13,fontWeight:600,color:"#9ca3af",marginBottom:4}}>
+              Arraste o JSON enriquecido aqui
             </div>
-            <div style={{fontSize:10,color:"#475569"}}>
+            <div style={{fontSize:10,color:"#4b5563"}}>
               2026-2027_EventosNormalizadosEnriquecidos.json
             </div>
             <input ref={inputRef} type="file" accept=".json" style={{display:"none"}}
               onChange={e=>loadFile(e.target.files[0])}/>
           </div>
         </div>
-        {err&&<div style={{padding:"10px 14px",background:"#450a0a",
-          border:"1px solid #7f1d1d",borderRadius:8,fontSize:12,color:"#fca5a5"}}>
-          ⚠️ {err}</div>}
+        {err&&<div style={{marginTop:10,padding:"10px 14px",background:"#450a0a",
+          border:"1px solid #7f1d1d",borderRadius:8,fontSize:12,color:"#fca5a5"}}>⚠️ {err}</div>}
       </div>
     </div>
   );
 
-  const ABAS=[
-    ["processos","📁 Processos",null],
-    ["siscontic","📝 SISCONTIC",null],
-    ["prioridades","📊 Prioridades",null],
-    ["tudo","📅 Tudo",items.length],
-  ];
+  const ABAS=[["processos","📁 Processos"],["siscontic","📝 SISCONTIC"],
+    ["prioridades","📊 Prioridades"],["tudo","📅 Tudo"]];
 
   return(
-    <div style={{fontFamily:"'Segoe UI',system-ui,sans-serif",
-      background:"#0f172a",minHeight:"100vh"}}>
-
+    <div style={{fontFamily:"'Segoe UI',system-ui,sans-serif",background:"#111827",minHeight:"100vh"}}>
       {/* Header */}
-      <div style={{background:"linear-gradient(180deg,#1e293b,#0f172a)",
-        borderBottom:"1px solid #1e293b",padding:"14px 20px"}}>
-        <div style={{maxWidth:1000,margin:"0 auto"}}>
+      <div style={{background:"#1f2937",borderBottom:"1px solid #374151",
+        padding:"12px 20px",position:"sticky",top:0,zIndex:50}}>
+        <div style={{maxWidth:1200,margin:"0 auto"}}>
           <div style={{display:"flex",justifyContent:"space-between",
-            alignItems:"flex-start",flexWrap:"wrap",gap:10,marginBottom:12}}>
+            alignItems:"center",flexWrap:"wrap",gap:10,marginBottom:10}}>
             <div>
-              <div style={{fontSize:18,fontWeight:700,color:"#f1f5f9"}}>
+              <div style={{fontSize:16,fontWeight:700,color:"#f9fafb"}}>
                 🧠 DPCI · Painel de Processos
               </div>
-              <div style={{fontSize:10,color:"#475569",marginTop:2}}>
-                {fonte}{stats?.periodo?` · ${stats.periodo}`:""}
-                {IS_GH&&countdown!=null&&countdown>0&&
-                  <span style={{color:"#334155",marginLeft:8}}>
-                    · atualiza em {Math.floor(countdown/60)}:{String(countdown%60).padStart(2,"0")}
-                  </span>}
+              <div style={{fontSize:10,color:"#6b7280",marginTop:1}}>
+                {fonte} {stats?.periodo&&`· ${stats.periodo}`}
+                {watermark?.ultimoCiclo&&` · ciclo ${watermark.ultimoCiclo}`}
+                {IS_GH&&countdown>0&&<span style={{color:"#374151",marginLeft:6}}>
+                  · 🔄 em {Math.floor(countdown/60)}:{String(countdown%60).padStart(2,"0")}
+                </span>}
               </div>
             </div>
-            <div style={{display:"flex",gap:6,flexWrap:"wrap"}}>
+            <div style={{display:"flex",gap:6,alignItems:"center"}}>
               {[["eventos",stats?.total,"#818cf8"],
-                ["classificados",stats?.comProc,"#34d399"],
-                ["processos",stats?.procs?.length,"#60a5fa"]].map(([l,n,c])=>(
-                <div key={l} style={{background:"#1e293b",border:`1px solid ${c}22`,
-                  borderRadius:8,padding:"4px 12px",textAlign:"center"}}>
-                  <div style={{fontSize:17,fontWeight:700,color:c}}>{n}</div>
-                  <div style={{fontSize:9,color:"#475569"}}>{l}</div>
+                ["classificados",stats?.cp,"#4ade80"],
+                ["💬 Teams",stats?.teamsTotal,
+                  stats?.teamsTotal===0?"#ef4444":"#38bdf8"]].map(([l,n,c])=>(
+                <div key={l} style={{background:"#111827",border:`1px solid ${c}25`,
+                  borderRadius:8,padding:"3px 10px",textAlign:"center"}}>
+                  <div style={{fontSize:16,fontWeight:700,color:c}}>{n}</div>
+                  <div style={{fontSize:8,color:"#6b7280"}}>{l}</div>
                 </div>
               ))}
-              {IS_GH&&<Btn onClick={()=>loadGitHub()} cor="#1e3a8a">🔄</Btn>}
-              <Btn onClick={()=>{setItems(null);}} cor="#1e293b">↩</Btn>
+              {IS_GH&&<Btn onClick={()=>loadGH()} color="#1d4ed8" sm>🔄</Btn>}
+              <Btn onClick={()=>setItems(null)} color="#374151" sm outline>↩</Btn>
             </div>
           </div>
-          {/* StatusBar watermark */}
-          {watermark&&<div style={{fontSize:10,color:"#334155",marginBottom:10,
-            display:"flex",gap:12,flexWrap:"wrap"}}>
-            {watermark.ultimoCiclo&&<span>🕐 {watermark.ultimoCiclo}</span>}
-            {watermark.totalEventosProcessados!=null&&
-              <span>📊 {watermark.totalEventosProcessados} eventos no último ciclo</span>}
-          </div>}
-          {/* Abas */}
-          <div style={{display:"flex",gap:0,borderBottom:"1px solid #1e293b"}}>
-            {ABAS.map(([id,lbl,n])=>(
+          <div style={{display:"flex",gap:0,borderBottom:"1px solid #374151"}}>
+            {ABAS.map(([id,lbl])=>(
               <button key={id} onClick={()=>setAba(id)} style={{
-                padding:"8px 18px",fontSize:12,border:"none",cursor:"pointer",
-                background:aba===id?"#1e293b":"transparent",
-                color:aba===id?"#f1f5f9":"#475569",fontWeight:aba===id?700:400,
+                padding:"7px 16px",fontSize:12,border:"none",cursor:"pointer",
+                background:aba===id?"#111827":"transparent",
+                color:aba===id?"#f9fafb":"#6b7280",fontWeight:aba===id?700:400,
                 borderBottom:aba===id?"2px solid #6366f1":"2px solid transparent",
-                transition:"color .15s"}}>
-                {lbl}{n!=null?` (${n})`:""}
-              </button>
+                transition:"color .15s"}}>{lbl}</button>
             ))}
           </div>
         </div>
       </div>
 
-      <div style={{padding:"16px 20px",maxWidth:1000,margin:"0 auto"}}>
-
-        {/* PROCESSOS — TODOS listados */}
+      {/* Body */}
+      <div style={{maxWidth:1200,margin:"0 auto"}}>
         {aba==="processos"&&(
-          <div>
-            <div style={{display:"flex",gap:0,marginBottom:14,background:"#1e293b",
-              border:"1px solid #334155",borderRadius:10,overflow:"auto"}}>
-              {ALL_PROCS.map((p,i,arr)=>{
-                const pd=getPD(p);
-                const n=items.filter(e=>e.proc===p).length;
-                const ativo=proc===p;
-                return(
-                  <button key={p} onClick={()=>setProc(p)} style={{
-                    flex:1,minWidth:55,padding:"10px 6px",border:"none",cursor:"pointer",
-                    borderBottom:ativo?`2px solid ${pd.cor}`:"2px solid transparent",
-                    background:ativo?pd.cor+"18":"transparent",
-                    color:ativo?pd.cor:n===0?"#334155":"#64748b",
-                    fontWeight:ativo?700:400,fontSize:10,
-                    borderRight:i<arr.length-1?"1px solid #1e293b":"none",
-                    transition:"all .15s",opacity:n===0?.5:1}}>
-                    <div style={{fontSize:18}}>{pd.ic}</div>
-                    <div style={{fontSize:8,marginTop:1}}>{n||"—"}</div>
-                  </button>
-                );
-              })}
+          <div style={{display:"flex"}}>
+            <ProcList items={items} active={proc} onChange={setProc}/>
+            <div style={{flex:1,padding:"16px 20px",overflowY:"auto"}}>
+              <ProcTab proc={proc} items={items}/>
             </div>
-            <ProcTab proc={proc} items={items}/>
           </div>
         )}
-
-        {aba==="siscontic"&&<SisconticTab items={items}/>}
-
-        {aba==="prioridades"&&<PrioridadesTab watermark={watermark}/>}
-
-        {/* TUDO */}
+        {aba==="siscontic"&&<div style={{padding:"16px 20px"}}><SisconticTab items={items}/></div>}
+        {aba==="prioridades"&&<div style={{padding:"16px 20px"}}><PrioridadesTab/></div>}
         {aba==="tudo"&&(()=>{
-          const byDate={};
-          [...items].sort((a,b)=>a.dt.localeCompare(b.dt))
-            .forEach(e=>{(byDate[e.data]=byDate[e.data]||[]).push(e);});
+          const bd={};
+          [...items].sort((a,b)=>a.dt.localeCompare(b.dt)).forEach(e=>{
+            (bd[e.data]=bd[e.data]||[]).push(e);});
           return(
-            <div>
-              <div style={{fontSize:10,color:"#334155",marginBottom:10}}>
-                {items.length} eventos · {Object.keys(byDate).length} dias
+            <div style={{padding:"16px 20px"}}>
+              <div style={{fontSize:10,color:"#374151",marginBottom:10}}>
+                {items.length} eventos · {Object.keys(bd).length} dias
               </div>
-              {Object.entries(byDate).sort().map(([data,evs])=>(
+              {Object.entries(bd).sort().map(([data,evs])=>(
                 <div key={data}>
                   <div style={{display:"flex",alignItems:"center",gap:10,margin:"12px 0 6px"}}>
-                    <div style={{height:1,flex:1,background:"#1e293b"}}/>
-                    <span style={{fontSize:10,fontWeight:700,color:"#6366f1",
+                    <div style={{height:1,flex:1,background:"#1f2937"}}/>
+                    <span style={{fontSize:10,fontWeight:700,color:"#818cf8",
                       background:"#1e1b4b",border:"1px solid #3730a3",
-                      borderRadius:20,padding:"2px 12px"}}>
-                      {fmtData(data)}
-                    </span>
-                    <div style={{height:1,flex:1,background:"#1e293b"}}/>
+                      borderRadius:20,padding:"2px 12px"}}>{fmtFull(data)}</span>
+                    <div style={{height:1,flex:1,background:"#1f2937"}}/>
                   </div>
                   {evs.map((e,i)=><EvCard key={i} e={e}/>)}
                 </div>
@@ -971,12 +954,10 @@ function App(){
             </div>
           );
         })()}
-
       </div>
     </div>
   );
 }
-
 ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
 </script>
 </body>
