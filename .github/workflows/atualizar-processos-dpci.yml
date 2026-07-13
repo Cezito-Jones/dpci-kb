@@ -4,6 +4,7 @@ on:
   repository_dispatch:
     types:
       - atualizar_processo_dpci
+      - atualizar_evento_enriquecido_dpci
 
 permissions:
   contents: write
@@ -23,7 +24,7 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: Validar evento e gravar JSON
+      - name: Validar evento e aplicar merge
         id: gravar
         shell: bash
         run: |
@@ -34,82 +35,584 @@ jobs:
           import os
           from pathlib import Path, PurePosixPath
 
-          event_path = Path(os.environ["GITHUB_EVENT_PATH"])
-          event = json.loads(event_path.read_text(encoding="utf-8"))
-          payload = event.get("client_payload") or {}
 
-          caminho = payload.get("caminho")
-          conteudo = payload.get("conteudo")
-          versao_recebida = str(payload.get("versionTicks") or "0")
+          def carregar_json(valor, campo):
+              if isinstance(valor, str):
+                  try:
+                      valor = json.loads(valor)
+                  except json.JSONDecodeError as exc:
+                      raise RuntimeError(
+                          f"{campo} contém texto que não é JSON válido."
+                      ) from exc
+              return valor
 
-          if not isinstance(caminho, str) or not caminho:
-              raise RuntimeError("client_payload.caminho não informado.")
 
-          caminho_posix = PurePosixPath(caminho)
+          def validar_caminho(valor, campo="client_payload.caminho"):
+              if not isinstance(valor, str) or not valor.strip():
+                  raise RuntimeError(f"{campo} não informado.")
 
-          if (
-              caminho_posix.is_absolute()
-              or ".." in caminho_posix.parts
-              or not caminho.startswith("dados/")
-              or caminho_posix.suffix.lower() != ".json"
-          ):
-              raise RuntimeError(f"Caminho não permitido: {caminho}")
+              caminho = valor.strip()
+              caminho_posix = PurePosixPath(caminho)
 
-          if isinstance(conteudo, str):
-              conteudo = json.loads(conteudo)
+              if (
+                  caminho_posix.is_absolute()
+                  or ".." in caminho_posix.parts
+                  or not caminho.startswith("dados/")
+                  or caminho_posix.suffix.lower() != ".json"
+              ):
+                  raise RuntimeError(f"Caminho não permitido: {caminho}")
 
-          if not isinstance(conteudo, (dict, list)):
-              raise RuntimeError("client_payload.conteudo deve ser objeto ou matriz JSON.")
+              return caminho
 
-          try:
-              versao_recebida_num = int(versao_recebida)
-          except ValueError as exc:
-              raise RuntimeError("versionTicks inválido.") from exc
 
-          destino = Path(caminho)
-          destino.parent.mkdir(parents=True, exist_ok=True)
-
-          versao_existente_num = 0
-
-          if destino.exists():
+          def inteiro_nao_negativo(valor, campo):
+              texto = str(valor or "0").strip()
               try:
-                  existente = json.loads(destino.read_text(encoding="utf-8"))
-                  if isinstance(existente, dict):
-                      sync = existente.get("_syncGitHub") or {}
-                      versao_existente_num = int(sync.get("versionTicks") or 0)
-              except (json.JSONDecodeError, TypeError, ValueError):
-                  versao_existente_num = 0
+                  numero = int(texto)
+              except ValueError as exc:
+                  raise RuntimeError(f"{campo} inválido: {texto}") from exc
 
-          if versao_existente_num > versao_recebida_num:
-              print(
-                  "Evento ignorado por ser anterior à versão já publicada: "
-                  f"{versao_recebida_num} < {versao_existente_num}"
+              if numero < 0:
+                  raise RuntimeError(f"{campo} não pode ser negativo.")
+
+              return numero
+
+
+          def ler_arquivo_json(caminho, padrao):
+              arquivo = Path(caminho)
+
+              if not arquivo.exists():
+                  return padrao
+
+              try:
+                  return json.loads(arquivo.read_text(encoding="utf-8"))
+              except json.JSONDecodeError as exc:
+                  raise RuntimeError(
+                      f"O arquivo existente não contém JSON válido: {caminho}"
+                  ) from exc
+
+
+          def gravar_se_alterado(caminho, conteudo):
+              destino = Path(caminho)
+              destino.parent.mkdir(parents=True, exist_ok=True)
+
+              novo_texto = (
+                  json.dumps(conteudo, ensure_ascii=False, indent=2) + "\n"
               )
-              with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
-                  output.write("alterado=false\n")
-              raise SystemExit(0)
 
-          if isinstance(conteudo, dict):
-              sync = conteudo.get("_syncGitHub")
+              if destino.exists():
+                  texto_atual = destino.read_text(encoding="utf-8")
+                  try:
+                      atual_normalizado = json.dumps(
+                          json.loads(texto_atual),
+                          ensure_ascii=False,
+                          sort_keys=True,
+                          separators=(",", ":"),
+                      )
+                      novo_normalizado = json.dumps(
+                          conteudo,
+                          ensure_ascii=False,
+                          sort_keys=True,
+                          separators=(",", ":"),
+                      )
+                      if atual_normalizado == novo_normalizado:
+                          return False
+                  except json.JSONDecodeError:
+                      pass
+
+              temporario = destino.with_suffix(destino.suffix + ".tmp")
+              temporario.write_text(
+                  novo_texto,
+                  encoding="utf-8",
+                  newline="\n",
+              )
+              temporario.replace(destino)
+              return True
+
+
+          def normalizar_registro(valor, campo):
+              valor = carregar_json(valor, campo)
+              if not isinstance(valor, dict):
+                  raise RuntimeError(f"{campo} deve ser objeto JSON.")
+              return valor
+
+
+          def aliases_evento(registro):
+              aliases = []
+
+              for campo, prefixo in (
+                  ("chaveEventoV2", "V2"),
+                  ("chaveEvento", "V1"),
+                  ("messageId", "MSG"),
+              ):
+                  valor = registro.get(campo)
+                  if valor is not None and str(valor).strip():
+                      aliases.append(f"{prefixo}|{str(valor).strip()}")
+
+              origem = str(
+                  registro.get("origemNormalizada")
+                  or registro.get("origem")
+                  or ""
+              ).strip()
+              data = str(
+                  registro.get("dataHoraUTC")
+                  or registro.get("dataHoraBrasil")
+                  or registro.get("dataHoraOriginal")
+                  or ""
+              ).strip()
+              autor = str(
+                  registro.get("autorId")
+                  or registro.get("autorOuRemetente")
+                  or registro.get("autorMensagem")
+                  or ""
+              ).strip()
+              assunto = str(
+                  registro.get("assuntoOuCanal")
+                  or registro.get("chatOuCanal")
+                  or ""
+              ).strip()
+
+              if origem and data and autor:
+                  aliases.append(
+                      "FB|"
+                      + "|".join((origem, data, autor, assunto))
+                  )
+
+              return list(dict.fromkeys(aliases))
+
+
+          def deduplicar_eventos(registros):
+              quantidade = len(registros)
+              pais = list(range(quantidade))
+
+              def localizar(indice):
+                  while pais[indice] != indice:
+                      pais[indice] = pais[pais[indice]]
+                      indice = pais[indice]
+                  return indice
+
+              def unir(a, b):
+                  raiz_a = localizar(a)
+                  raiz_b = localizar(b)
+                  if raiz_a != raiz_b:
+                      pais[raiz_b] = raiz_a
+
+              dono_alias = {}
+
+              for indice, registro in enumerate(registros):
+                  for alias in aliases_evento(registro):
+                      if alias in dono_alias:
+                          unir(indice, dono_alias[alias])
+                      else:
+                          dono_alias[alias] = indice
+
+              grupos = {}
+
+              for indice in range(quantidade):
+                  raiz = localizar(indice)
+                  grupos.setdefault(raiz, []).append(indice)
+
+              consolidados = []
+
+              for indices in sorted(grupos.values(), key=min):
+                  consolidado = {}
+                  for indice in sorted(indices):
+                      consolidado.update(registros[indice])
+                  consolidados.append(consolidado)
+
+              return consolidados
+
+
+          def versao_do_registro(registro):
+              if not isinstance(registro, dict):
+                  return 0
+              sync = registro.get("_syncGitHub")
+              if not isinstance(sync, dict):
+                  return 0
+              try:
+                  return int(sync.get("versionTicks") or 0)
+              except (TypeError, ValueError):
+                  return 0
+
+
+          def atualizar_sync(registro, versao, schema):
+              sync = registro.get("_syncGitHub")
               if not isinstance(sync, dict):
                   sync = {}
-              sync["versionTicks"] = versao_recebida
-              sync["publicadoPeloGitHubActions"] = True
-              conteudo["_syncGitHub"] = sync
 
-          temporario = destino.with_suffix(destino.suffix + ".tmp")
-          temporario.write_text(
-              json.dumps(conteudo, ensure_ascii=False, indent=2) + "\n",
-              encoding="utf-8",
-              newline="\n",
+              sync.update(
+                  {
+                      "versionTicks": str(versao),
+                      "schemaContratoGitHub": schema,
+                      "publicadoPeloGitHubActions": True,
+                  }
+              )
+              registro["_syncGitHub"] = sync
+
+
+          def processar_evento_enriquecido(payload, versao):
+              caminho = validar_caminho(
+                  payload.get("caminho")
+                  or "dados/2026-2027_EventosNormalizadosEnriquecidos.json"
+              )
+
+              evento = normalizar_registro(
+                  payload.get("evento"),
+                  "client_payload.evento",
+              )
+
+              for campo in (
+                  "chaveEventoV2",
+                  "chaveEvento",
+                  "idProcessoInterno",
+              ):
+                  if not evento.get(campo) and payload.get(campo):
+                      evento[campo] = payload.get(campo)
+
+              aliases_recebidos = set(aliases_evento(evento))
+
+              if not aliases_recebidos:
+                  raise RuntimeError(
+                      "O evento não possui chaveEventoV2, chaveEvento, "
+                      "messageId nem fallback determinístico suficiente."
+                  )
+
+              existente = ler_arquivo_json(caminho, [])
+
+              if not isinstance(existente, list):
+                  raise RuntimeError(
+                      "O arquivo consolidado de eventos deve ser uma matriz JSON."
+                  )
+
+              registros = []
+
+              for indice, registro in enumerate(existente):
+                  registros.append(
+                      normalizar_registro(
+                          registro,
+                          f"{caminho}[{indice}]",
+                      )
+                  )
+
+              versao_existente = max(
+                  (
+                      versao_do_registro(registro)
+                      for registro in registros
+                      if aliases_recebidos.intersection(
+                          aliases_evento(registro)
+                      )
+                  ),
+                  default=0,
+              )
+
+              if versao_existente > versao:
+                  return caminho, False, (
+                      "Evento ignorado por possuir versão anterior à já "
+                      f"publicada: {versao} < {versao_existente}"
+                  )
+
+              atualizar_sync(
+                  evento,
+                  versao,
+                  "dpci.github.evento.v2",
+              )
+
+              resultado = deduplicar_eventos(registros + [evento])
+              alterado = gravar_se_alterado(caminho, resultado)
+
+              return caminho, alterado, (
+                  f"Evento enriquecido consolidado em {caminho}. "
+                  f"Total após deduplicação: {len(resultado)}."
+              )
+
+
+          def chave_siscontic(registro):
+              if not isinstance(registro, dict):
+                  return ""
+
+              for campo in ("chaveEventoV2", "chaveEvento", "id"):
+                  valor = registro.get(campo)
+                  if valor is not None and str(valor).strip():
+                      return f"{campo}|{str(valor).strip()}"
+
+              data = str(
+                  registro.get("data")
+                  or registro.get("dataHora")
+                  or ""
+              ).strip()
+              texto = str(
+                  registro.get("texto")
+                  or registro.get("descricao")
+                  or ""
+              ).strip()
+
+              if data or texto:
+                  return f"CONTEUDO|{data}|{texto}"
+
+              return ""
+
+
+          def upsert_siscontic(registros, recebido):
+              if not recebido:
+                  return registros
+
+              recebido = normalizar_registro(
+                  recebido,
+                  "client_payload.registroSISCONTIC",
+              )
+              chave_recebida = chave_siscontic(recebido)
+
+              if not chave_recebida:
+                  return registros + [recebido]
+
+              resultado = []
+              substituido = False
+
+              for registro in registros:
+                  if (
+                      isinstance(registro, dict)
+                      and chave_siscontic(registro) == chave_recebida
+                  ):
+                      if not substituido:
+                          resultado.append(recebido)
+                          substituido = True
+                  else:
+                      resultado.append(registro)
+
+              if not substituido:
+                  resultado.append(recebido)
+
+              return resultado
+
+
+          def processar_processo_incremental(payload, versao):
+              caminho = validar_caminho(payload.get("caminho"))
+              caminho_legado = payload.get("caminhoLegado")
+
+              if caminho_legado:
+                  caminho_legado = validar_caminho(
+                      caminho_legado,
+                      "client_payload.caminhoLegado",
+                  )
+
+              if Path(caminho).exists():
+                  base = ler_arquivo_json(caminho, {})
+              elif caminho_legado and Path(caminho_legado).exists():
+                  base = ler_arquivo_json(caminho_legado, {})
+              else:
+                  base = {}
+
+              if not isinstance(base, dict):
+                  raise RuntimeError(
+                      "O arquivo de processo existente deve ser objeto JSON."
+                  )
+
+              versao_existente = versao_do_registro(base)
+
+              if versao_existente > versao:
+                  return caminho, False, (
+                      "Processo ignorado por possuir versão anterior à já "
+                      f"publicada: {versao} < {versao_existente}"
+                  )
+
+              conteudo = payload.get("conteudo") or {}
+              conteudo = normalizar_registro(
+                  conteudo,
+                  "client_payload.conteudo",
+              )
+
+              timeline_existente = base.get("timeline")
+              if timeline_existente is None:
+                  timeline_existente = []
+              if not isinstance(timeline_existente, list):
+                  raise RuntimeError(
+                      "O campo timeline do processo deve ser uma matriz JSON."
+                  )
+
+              timeline = [
+                  normalizar_registro(
+                      registro,
+                      f"{caminho}.timeline[{indice}]",
+                  )
+                  for indice, registro in enumerate(timeline_existente)
+              ]
+
+              evento_timeline = payload.get("eventoTimeline")
+              if evento_timeline:
+                  evento_timeline = normalizar_registro(
+                      evento_timeline,
+                      "client_payload.eventoTimeline",
+                  )
+
+                  for campo in ("chaveEventoV2", "chaveEvento"):
+                      if (
+                          not evento_timeline.get(campo)
+                          and payload.get(campo)
+                      ):
+                          evento_timeline[campo] = payload.get(campo)
+
+                  aliases = aliases_evento(evento_timeline)
+                  if not aliases:
+                      raise RuntimeError(
+                          "eventoTimeline não possui chave de deduplicação."
+                      )
+
+                  timeline = deduplicar_eventos(
+                      timeline + [evento_timeline]
+                  )
+
+              siscontic_existente = (
+                  base.get("siscontic")
+                  if base.get("siscontic") is not None
+                  else base.get("registrosSISCONTIC")
+              )
+              if siscontic_existente is None:
+                  siscontic_existente = []
+              if not isinstance(siscontic_existente, list):
+                  raise RuntimeError(
+                      "O campo siscontic do processo deve ser uma matriz JSON."
+                  )
+
+              siscontic = upsert_siscontic(
+                  siscontic_existente,
+                  payload.get("registroSISCONTIC"),
+              )
+
+              resultado = dict(base)
+              resultado.update(conteudo)
+              resultado["timeline"] = timeline
+              resultado["siscontic"] = siscontic
+
+              if payload.get("idProcessoInterno"):
+                  resultado["idProcessoInterno"] = payload[
+                      "idProcessoInterno"
+                  ]
+
+              atualizar_sync(
+                  resultado,
+                  versao,
+                  "dpci.github.processo.v2",
+              )
+
+              alterado = gravar_se_alterado(caminho, resultado)
+
+              return caminho, alterado, (
+                  f"Processo incremental consolidado em {caminho}. "
+                  f"Timeline: {len(timeline)} evento(s)."
+              )
+
+
+          def processar_substituicao(payload, versao, schema):
+              caminho = validar_caminho(payload.get("caminho"))
+              conteudo = carregar_json(
+                  payload.get("conteudo"),
+                  "client_payload.conteudo",
+              )
+
+              if not isinstance(conteudo, (dict, list)):
+                  raise RuntimeError(
+                      "client_payload.conteudo deve ser objeto ou matriz JSON."
+                  )
+
+              existente = ler_arquivo_json(
+                  caminho,
+                  {} if isinstance(conteudo, dict) else [],
+              )
+              versao_existente = versao_do_registro(existente)
+
+              if versao_existente > versao:
+                  return caminho, False, (
+                      "Arquivo ignorado por possuir versão anterior à já "
+                      f"publicada: {versao} < {versao_existente}"
+                  )
+
+              if isinstance(conteudo, dict):
+                  atualizar_sync(conteudo, versao, schema)
+
+              alterado = gravar_se_alterado(caminho, conteudo)
+
+              return caminho, alterado, (
+                  f"Arquivo substituído de forma controlada: {caminho}."
+              )
+
+
+          evento_github = json.loads(
+              Path(os.environ["GITHUB_EVENT_PATH"]).read_text(
+                  encoding="utf-8"
+              )
           )
-          temporario.replace(destino)
+          payload = evento_github.get("client_payload") or {}
 
-          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
-              output.write("alterado=true\n")
-              output.write(f"arquivo={caminho}\n")
+          if not isinstance(payload, dict):
+              raise RuntimeError("client_payload deve ser objeto JSON.")
 
-          print(f"Arquivo validado e preparado: {caminho}")
+          tipo_evento = str(
+              evento_github.get("action")
+              or payload.get("eventType")
+              or ""
+          ).strip()
+          schema = str(
+              payload.get("schemaContratoGitHub") or ""
+          ).strip()
+          operacao = str(payload.get("operacao") or "").strip()
+          versao = inteiro_nao_negativo(
+              payload.get("versionTicks"),
+              "client_payload.versionTicks",
+          )
+
+          if (
+              tipo_evento == "atualizar_evento_enriquecido_dpci"
+              or schema == "dpci.github.evento.v2"
+              or operacao == "UPSERT_EVENTO_ENRIQUECIDO"
+          ):
+              caminho, alterado, mensagem = (
+                  processar_evento_enriquecido(payload, versao)
+              )
+
+          elif (
+              schema == "dpci.github.processo.v2"
+              or operacao == "UPSERT_PROCESSO_EVENTO"
+          ):
+              caminho, alterado, mensagem = (
+                  processar_processo_incremental(payload, versao)
+              )
+
+          elif (
+              schema == "dpci.github.arquivo.v2"
+              or operacao == "SUBSTITUIR_ARQUIVO_JSON"
+          ):
+              caminho, alterado, mensagem = processar_substituicao(
+                  payload,
+                  versao,
+                  "dpci.github.arquivo.v2",
+              )
+
+          elif tipo_evento == "atualizar_processo_dpci":
+              caminho, alterado, mensagem = processar_substituicao(
+                  payload,
+                  versao,
+                  "dpci.github.legado.v1",
+              )
+
+          else:
+              raise RuntimeError(
+                  "Contrato não reconhecido. "
+                  f"event_type={tipo_evento!r}, "
+                  f"schema={schema!r}, operacao={operacao!r}."
+              )
+
+          with open(
+              os.environ["GITHUB_OUTPUT"],
+              "a",
+              encoding="utf-8",
+          ) as output:
+              output.write(
+                  f"alterado={'true' if alterado else 'false'}\n"
+              )
+              if alterado:
+                  output.write(f"arquivo={caminho}\n")
+
+          print(mensagem)
           PY
 
       - name: Registrar alteração
@@ -121,7 +624,8 @@ jobs:
           ARQUIVO="${{ steps.gravar.outputs.arquivo }}"
 
           git config user.name "power-automate-dpci"
-          git config user.email "power-automate-dpci@users.noreply.github.com"
+          git config user.email \
+            "power-automate-dpci@users.noreply.github.com"
 
           git add -- "$ARQUIVO"
 
@@ -133,7 +637,11 @@ jobs:
           git commit -m "Atualiza ${ARQUIVO} via Merger DPCI"
 
           for tentativa in 1 2 3 4 5; do
-            git pull --rebase origin main
+            if ! git pull --rebase origin main; then
+              git rebase --abort || true
+              echo "Conflito durante o rebase. Nova execução necessária."
+              exit 1
+            fi
 
             if git push origin HEAD:main; then
               echo "Publicação concluída."
