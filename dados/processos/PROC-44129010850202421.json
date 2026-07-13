@@ -1,0 +1,175 @@
+{
+  "_syncGitHub": {
+    "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
+    "baseUtilizada": "OneDrive",
+    "caminhoProcessoCanonico": "dados/processos/PROC-44129010850202421.json",
+    "geradoEmUTC": "2026-07-13T23:33:47.7565363Z",
+    "origem": "Power Automate - 4ª fase Merger DPCI v8.0.1",
+    "schemaContratoGitHub": "dpci.github.processo.v2",
+    "versaoMerger": "8.0.0",
+    "versionTicks": "639195824277167588",
+    "publicadoPeloGitHubActions": true
+  },
+  "atestado": {},
+  "processoIdentificado": "Suporte Licenças Oracle (até set/2026)",
+  "siscontic": [
+    {
+      "bloqueado": false,
+      "data": "06/07/2026",
+      "docTipo": "ETP",
+      "docVersao": "v0.1",
+      "origem": "merger",
+      "texto": "06/07/2026 – DPCI registrou evento relevante referente a Suporte Licenças Oracle (até set/2026): Boa tarde DIGR.\n\n \n\nEncaminhamos para conhecimento e análise, Estudo Técnico referente ao processo\nde Prorrogação dos Se."
+    },
+    {
+      "bloqueado": false,
+      "data": "03/07/2026",
+      "docTipo": "ETP",
+      "docVersao": "v01",
+      "origem": "merger",
+      "texto": "03/07/2026 – DPCI registrou evento relevante referente a Suporte Licenças Oracle (até set/2026): Obrigada, Rafael.\n\nVamos analisar e damos retorno para vocês na semana que vem.\n\nEncaminho para o @Cezar de Souza Matos ."
+    },
+    {
+      "bloqueado": false,
+      "data": "06/07/2026",
+      "docTipo": "ETP",
+      "docVersao": "v0.1",
+      "origem": "merger",
+      "texto": "06/07/2026 – DPCI registrou evento relevante referente a Suporte Licenças Oracle (até set/2026): Boa tarde DGCI,\n\nAgora sim....rs.\n\nMeus amigos, segue em anexo o Estudo Técnico da prorrogação do contrato Oracle\nCSS pa."
+    },
+    {
+      "bloqueado": false,
+      "data": "09/07/2026",
+      "docTipo": "ET",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "09/07/2026 – DPCI registrou evento relevante referente a Suporte Licenças Oracle (até set/2026): @Edmilson Ary Mendes Piraciaba [edmilson.piraciaba@dataprev.gov.br],\n\n \n\nSegue formalização quanto a atual não continuid."
+    },
+    {
+      "bloqueado": false,
+      "data": "09/07/2026",
+      "docTipo": "ET",
+      "docVersao": "v2 - T",
+      "origem": "merger",
+      "texto": "09/07/2026 – DPCI registrou evento relevante referente a Suporte Licenças Oracle (até set/2026): Prezado Cezar, boa tarde.\n\n\nInformamos que o demandante comunicou a decisão de não prosseguir com o processo\nde prorroga."
+    },
+    {
+      "bloqueado": false,
+      "data": "08/07/2026",
+      "docTipo": "ETP",
+      "docVersao": "v0.1",
+      "origem": "merger",
+      "texto": "08/07/2026 – DPCI registrou evento relevante referente a Suporte Licenças Oracle (até set/2026): Boa tarde @Cezar de Souza Matos [cezar.matos@dataprev.gov.br]!\n\n\nFeito análise, temos apenas uma observação quanto a últ."
+    },
+    {
+      "bloqueado": false,
+      "data": "09/07/2026",
+      "docTipo": "ET",
+      "docVersao": "v2 - T",
+      "origem": "merger",
+      "texto": "09/07/2026 – DPCI registrou evento relevante referente a Suporte Licenças Oracle (até set/2026): Muito obrigado pelo retorno, Rafael.\n\n \n\n \n\nsombra superior esquerda [cid:image001.png@01DD0FC7.87DED860]\n\nsombra superi."
+    },
+    {
+      "bloqueado": false,
+      "data": "13/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "13/07/2026 – DPCI registrou evento relevante referente a Suporte Licenças Oracle (até set/2026): +@Leandro de Souza dos Santos [leandro.dessantos@dataprev.gov.br]\n\n\n\nsombra superior esquerda\n[https://portal3.dataprev.."
+    }
+  ],
+  "timeline": [
+    {
+      "assunto": "ETP Prorrogação Oracle CSS v0.1",
+      "autor": "",
+      "data": "2026-07-06",
+      "dir": "REC",
+      "docTipo": "ETP",
+      "docVersao": "v0.1",
+      "dt": "2026-07-06T17:12:12",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "ENC: ETP Prorrogação Oracle CSS v01",
+      "autor": "",
+      "data": "2026-07-03",
+      "dir": "REC",
+      "docTipo": "ETP",
+      "docVersao": "v01",
+      "dt": "2026-07-03T16:56:37",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "ENC: ETP Prorrogação Oracle CSS v0.1",
+      "autor": "",
+      "data": "2026-07-06",
+      "dir": "ENV",
+      "docTipo": "ETP",
+      "docVersao": "v0.1",
+      "dt": "2026-07-06T17:38:58",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "Prorrogação CSS",
+      "autor": "",
+      "data": "2026-07-09",
+      "dir": "REC",
+      "docTipo": "ET",
+      "docVersao": "",
+      "dt": "2026-07-09T16:50:59",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RE: ETA v2 - TR revisado - Digitalização de Microformas",
+      "autor": "",
+      "data": "2026-07-09",
+      "dir": "REC",
+      "docTipo": "ET",
+      "docVersao": "v2 - T",
+      "dt": "2026-07-09T15:24:27",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RE: ETP Prorrogação Oracle CSS v0.1",
+      "autor": "",
+      "data": "2026-07-08",
+      "dir": "REC",
+      "docTipo": "ETP",
+      "docVersao": "v0.1",
+      "dt": "2026-07-08T17:47:59",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RES: ETA v2 - TR revisado - Digitalização de Microformas",
+      "autor": "",
+      "data": "2026-07-09",
+      "dir": "ENV",
+      "docTipo": "ET",
+      "docVersao": "v2 - T",
+      "dt": "2026-07-09T17:22:34",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RE: ETP Prorrogação Oracle CSS v0.1",
+      "autor": "",
+      "categoriaEventoSISCONTIC": "INFORMACAO",
+      "chaveEvento": "email|email|2026-07-13t20:57:21+00:00|cristiane.rsantos@dataprev.gov.br||re: etp prorrogação oracle css v0.1",
+      "chaveEventoV2": "email_recebido|aamkadqyn2uxntqylwjkmzatndqzns1imji5ltbmntrjnjq3nmqxyqbgaaaaaaawn_j44d3arj07opwq5r8abwadfhci4homqr6igx6bvsboaaaaaaemaadb8fou-ylpriw9pbxyjoj7aakxh_8baaa=",
+      "confiancaVinculacaoProcessual": "Media",
+      "data": "2026-07-13",
+      "dir": "RECEBIDO",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-13T17:57:21",
+      "idProcessoInterno": "PROC-44129010850202421",
+      "necessitaValidacaoProcessual": true,
+      "nomeArquivo": "",
+      "tipoVinculacaoProcessual": "CONFLITANTE"
+    }
+  ],
+  "ultimaAtualizacao": "2026-07-11",
+  "ultimaAtualizacaoUTC": "2026-07-13T23:33:48.6499584Z",
+  "idProcessoInterno": "PROC-44129010850202421",
+  "numeroPregao": "",
+  "numeroProcesso": "44129.010850/2024-21"
+}
