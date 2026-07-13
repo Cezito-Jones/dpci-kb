@@ -1,0 +1,193 @@
+{
+  "_syncGitHub": {
+    "arquivoEnriquecido": "dados/2026-2027_EventosNormalizadosEnriquecidos.json",
+    "baseUtilizada": "OneDrive",
+    "caminhoProcessoCanonico": "dados/processos/PROC-44104003222202213.json",
+    "geradoEmUTC": "2026-07-13T23:32:46.5005399Z",
+    "origem": "Power Automate - 4ª fase Merger DPCI v8.0.1",
+    "schemaContratoGitHub": "dpci.github.processo.v2",
+    "versaoMerger": "8.0.0",
+    "versionTicks": "639195823664621560",
+    "publicadoPeloGitHubActions": true
+  },
+  "atestado": {},
+  "processoIdentificado": "Licenças Red Hat Linux e Runtimes",
+  "siscontic": [
+    {
+      "bloqueado": false,
+      "data": "06/07/2026",
+      "docTipo": "ETP",
+      "docVersao": "v0.1 p",
+      "origem": "merger",
+      "texto": "06/07/2026 – DPCI registrou evento relevante referente a Licenças Red Hat Linux e Runtimes: Bom dia, equipe DPCI.\n\n \n\n     Segue para análise da DPCI a v0.1 do Estudo Técnico de prorogação das\nsubscrições Red Hat."
+    },
+    {
+      "bloqueado": false,
+      "data": "01/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "01/07/2026 – DPCI registrou evento relevante referente a Licenças Red Hat Linux e Runtimes: Prezado(a) Ponto Focal,\n\nFoi incluída a etapa \"JURÍDICO\" na demanda abaixo:\n\nReajuste\nProcesso: 44104.003222/2022-13\nObj."
+    },
+    {
+      "bloqueado": false,
+      "data": "06/07/2026",
+      "docTipo": "ETP",
+      "docVersao": "vel] E",
+      "origem": "merger",
+      "texto": "06/07/2026 – DPCI registrou evento relevante referente a Licenças Red Hat Linux e Runtimes: Boa tarde Alexander,\n\nMeu amigo, conforme conversamos, estou te encaminhando esse para você tratar e\nacompanhar.\n\nÉ poss."
+    },
+    {
+      "bloqueado": false,
+      "data": "07/07/2026",
+      "docTipo": "ETP",
+      "docVersao": "v0.1 p",
+      "origem": "merger",
+      "texto": "07/07/2026 – DPCI registrou evento relevante referente a Licenças Red Hat Linux e Runtimes: Adicionando @David dos Santos Venancio [david.venancio@dataprev.gov.br] e\n@Alexander Barros da Silva [alexander.silva@da."
+    },
+    {
+      "bloqueado": false,
+      "data": "07/07/2026",
+      "docTipo": "ET",
+      "docVersao": "v0.1 (",
+      "origem": "merger",
+      "texto": "07/07/2026 – DPCI registrou evento relevante referente a Licenças Red Hat Linux e Runtimes: Prezado Emerson Moreira,\nRetificando a mensagem anterior, solicitamos desconsiderar o envio precedente\ndevido à ausência."
+    },
+    {
+      "bloqueado": false,
+      "data": "07/07/2026",
+      "docTipo": "ET",
+      "docVersao": "v0.1",
+      "origem": "merger",
+      "texto": "07/07/2026 – DPCI registrou evento relevante referente a Licenças Red Hat Linux e Runtimes: Prezado Emerson Moreira,\nCumprimentando-o cordialmente, o presente tem a finalidade de encaminhar a\nanálise do Estudo Té."
+    },
+    {
+      "bloqueado": false,
+      "data": "07/07/2026",
+      "docTipo": "ETP",
+      "docVersao": "v0.1 (",
+      "origem": "merger",
+      "texto": "07/07/2026 – DPCI registrou evento relevante referente a Licenças Red Hat Linux e Runtimes: Prezado! Alexander,\nBom dia!\nEm análise ao Estudo Técnico Preliminar referente à prorrogação das subscrições\nRed Hat, ve."
+    },
+    {
+      "bloqueado": false,
+      "data": "09/07/2026",
+      "docTipo": "TR",
+      "docVersao": "vidual",
+      "origem": "merger",
+      "texto": "09/07/2026 – DPCI registrou evento relevante referente a Licenças Red Hat Linux e Runtimes: Boa tarde, Cézar. Atualização dos assuntos atuais devidamente atualizados: TR -\nSolução Gerenciada de Transmissão de Arq."
+    },
+    {
+      "bloqueado": false,
+      "data": "13/07/2026",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "origem": "merger",
+      "texto": "13/07/2026 – DPCI registrou evento relevante referente a Licenças Red Hat Linux e Runtimes: {0} Ícone [cid:3ecd755b-89b7-47e0-8006-affb47d70c3f]\n[https://dataprevrj.sharepoint.com/sites/COGR/Documentos%20Comparti."
+    }
+  ],
+  "timeline": [
+    {
+      "assunto": "[SUBSCRIÇÕES RED HAT] ETP v0.1 para análise DPCI",
+      "autor": "",
+      "data": "2026-07-06",
+      "dir": "REC",
+      "docTipo": "ETP",
+      "docVersao": "v0.1 p",
+      "dt": "2026-07-06T11:20:13",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "[PGI-Compras] 44104.003222/2022-13 - SUBSCRIÇÃO SISTEMA OPERACIONAL LINUX - RED ",
+      "autor": "",
+      "data": "2026-07-01",
+      "dir": "REC",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-01T14:59:37",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "[Designação de responsável] ETP SUBSCRIÇÕES RED HAT v0.1 para análise DPCI ",
+      "autor": "",
+      "data": "2026-07-06",
+      "dir": "ENV",
+      "docTipo": "ETP",
+      "docVersao": "vel] E",
+      "dt": "2026-07-06T16:52:18",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RE: [SUBSCRIÇÕES RED HAT] ETP v0.1 para análise DPCI",
+      "autor": "",
+      "data": "2026-07-07",
+      "dir": "REC",
+      "docTipo": "ETP",
+      "docVersao": "v0.1 p",
+      "dt": "2026-07-07T10:08:04",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "ERRATA: [Análise Estudo Técnico - DIPL] Subscrições Red Hat - ETv0.1 (Com anexo)",
+      "autor": "",
+      "data": "2026-07-07",
+      "dir": "REC",
+      "docTipo": "ET",
+      "docVersao": "v0.1 (",
+      "dt": "2026-07-07T12:28:21",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "[Análise Estudo Técnico - DIPL] Subscrições Red Hat - ETv0.1",
+      "autor": "",
+      "data": "2026-07-07",
+      "dir": "REC",
+      "docTipo": "ET",
+      "docVersao": "v0.1",
+      "dt": "2026-07-07T12:11:15",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "RE: ERRATA: [Análise Estudo Técnico - DIPL] Subscrições Red Hat - ETv0.1 (Com an",
+      "autor": "",
+      "data": "2026-07-07",
+      "dir": "REC",
+      "docTipo": "ETP",
+      "docVersao": "v0.1 (",
+      "dt": "2026-07-07T12:50:25",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "Chat individual",
+      "autor": "Alexander Barros da Silva",
+      "data": "2026-07-09",
+      "dir": "REC",
+      "docTipo": "TR",
+      "docVersao": "vidual",
+      "dt": "2026-07-09T15:17:15",
+      "nomeArquivo": ""
+    },
+    {
+      "assunto": "Alexander Barros da Silva concluiu uma tarefa que você criou em \"ETP_022_2025_Su",
+      "autor": "",
+      "categoriaEventoSISCONTIC": "INFORMACAO",
+      "chaveEvento": "email|email|2026-07-13t16:53:57+00:00|no-reply@sharepointonline.com||alexander barros da silva concluiu uma tarefa que você criou em \"etp_022_2025_subscrição_red_hat_v0.1 - dpci\"",
+      "chaveEventoV2": "email_recebido|aamkadqyn2uxntqylwjkmzatndqzns1imji5ltbmntrjnjq3nmqxyqbgaaaaaaawn_j44d3arj07opwq5r8abwadfhci4homqr6igx6bvsboaaaaaaemaadb8fou-ylpriw9pbxyjoj7aakxh_78aaa=",
+      "confiancaVinculacaoProcessual": "Alta",
+      "data": "2026-07-13",
+      "dir": "RECEBIDO",
+      "docTipo": "Outro",
+      "docVersao": "",
+      "dt": "2026-07-13T13:53:57",
+      "idProcessoInterno": "PROC-44104003222202213",
+      "necessitaValidacaoProcessual": false,
+      "nomeArquivo": "",
+      "tipoVinculacaoProcessual": "DIRETA"
+    }
+  ],
+  "ultimaAtualizacao": "2026-07-11",
+  "ultimaAtualizacaoUTC": "2026-07-13T23:32:47.6968967Z",
+  "idProcessoInterno": "PROC-44104003222202213",
+  "numeroPregao": "",
+  "numeroProcesso": "44104.003222/2022-13"
+}
